@@ -53,7 +53,7 @@ int			get_room(int fd, t_farm *farm)
 
     line = NULL;
     split = NULL;
-    while (get_next_line(fdm &line) > 0)
+    while (get_next_line(fd, &line) > 0)
     {
         if (line[0] == '#')
         {
@@ -70,11 +70,19 @@ int			get_room(int fd, t_farm *farm)
         }
         else if (split[0] && split[1] && split[2])
         {
-            while ((farm->rooms)->next)
+            while (farm->rooms)
                 (farm->rooms) = (farm->rooms)->next;
-            farm->...
-            ...
+			(farm->rooms)->next = (t_room *)ft_memalloc(sizeof(t_room));
+			(farm->rooms) = (farm->rooms)->next;
+            farm->rooms->name = ft_strdup(split[0]);
+			farm->rooms->x = ft_atoi(split[1]);
+			farm->rooms->y = ft_atoi(split[2]);
         }
+		else
+		{
+			perror("lem_in: Not enough fields in the description of the room.\n");
+			return (0);
+		}
     }
 }
 
