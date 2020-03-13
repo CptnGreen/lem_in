@@ -88,14 +88,22 @@ int			get_room(int fd, t_farm *farm)
 	return (1);
 }
 
+int			get_start_room(int fd, t_farm *farm)
+{
+	if (get_room(fd, farm))
+	{
+		farm->rooms->is_start = 1;
+		return (1);
+	}
+	perror("lem_in: Start room declared but not present.\n");
+	return (0);
+}
+
 int			process_farm_description(int fd, t_farm *farm)
 {
     if (!(find_n_ants(fd, farm) && \
           find_start_header(fd) && \
-          get_room(fd, farm)))
-	{
-		perror("lem_in: Description is wrong - aborting.\n");
+          get_start_room(fd, farm)))
 		return (0);
-	}
 	return (1);
 }
