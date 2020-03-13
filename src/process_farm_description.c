@@ -1,6 +1,6 @@
-#include "lem_in.h"
+#include "lem-in.h"
 
-int			find_n_ants(int fd)
+int			find_n_ants(int fd, t_farm *farm)
 {
     char		*line;
 
@@ -15,6 +15,7 @@ int			find_n_ants(int fd)
         if ((farm->n_ants = ft_atoi(line)) > 0)
         {
             ft_strdel(&line);
+			printf("n_ants = %d\n", farm->n_ants); // remove later!
             return (1);
         }
         ft_strdel(&line);
@@ -25,7 +26,7 @@ int			find_n_ants(int fd)
     return (0);
 }
 
-int			find_start(int fd)
+int			find_start_header(int fd)
 {
     char		*line;
 
@@ -37,6 +38,7 @@ int			find_start(int fd)
             if (ft_strnstr(line, "##start", ft_strlen("##start")) != 0)
             {
                 ft_strdel(&line);
+				printf("Successfully found start header!\n"); // remove later!
                 return (1);
             }
         }
@@ -50,9 +52,11 @@ int			get_room(int fd, t_farm *farm)
 {
     char		*line;
     char		**split;
+	int			i;
 
     line = NULL;
     split = NULL;
+	i = 0;
     while (get_next_line(fd, &line) > 0)
     {
         if (line[0] == '#')
@@ -62,29 +66,36 @@ int			get_room(int fd, t_farm *farm)
         }
         split = ft_strsplit(line, ' ');
         ft_strdel(&line);
-        if (split[3])
+		while (split[i])
+			i += 1;
+        if (i != 3)
         {
+            perror("lem_in: Number of fields in the description of the room is not 3.\n");
             wipe_mstr(split);
-            perror("lem_in: Too many fields in the description of the room.\n");
             return (0);
         }
-        else if (split[0] && split[1] && split[2])
+        else
         {
             while (farm->rooms)
                 (farm->rooms) = (farm->rooms)->next;
-			(farm->rooms)->next = get_new_room(split[0], ft_atoi(split[1]), ft_atoi(split[2]));
+			(farm->rooms) = get_new_room(split[0], ft_atoi(split[1]), ft_atoi(split[2]));
+            wipe_mstr(split);
+			printf("New room: name = \"%s\", x = %d, y = %d\n", \
+				   (farm->rooms)->name, (farm->rooms)->x, (farm->rooms)->y);
+			break ;
         }
-		else
-		{
-			perror("lem_in: Not enough fields in the description of the room.\n");
-			return (0);
-		}
     }
+	return (1);
 }
 
-void		process_farm_description(t_farm *farm)
+int			process_farm_description(int fd, t_farm *farm)
 {
-    if (!(find_n_ants(fd) && \
-          find_start(fd) && \
-            ))
+    if (!(find_n_ants(fd, farm) && \
+          find_start_header(fd) && \
+          get_room(fd, farm)))
+	{
+		perror("lem_in: Description is wrong - aborting.\n");
+		return (0);
+	}
+	return (1);
 }

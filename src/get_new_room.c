@@ -1,11 +1,11 @@
-#include "lem_in.h"
+#include "lem-in.h"
 
 t_room		*get_new_room(char const *str, int x, int y)
 {
 	t_room	*room;
 
 	room = NULL;
-	if (room = (t_room *)ft_memalloc(sizeof(t_room)))
+	if ((room = (t_room *)ft_memalloc(sizeof(t_room))))
 	{
 		room->name = ((str) ? (ft_strdup(str)) : (NULL));
 		room->x = x;
