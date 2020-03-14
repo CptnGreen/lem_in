@@ -48,49 +48,9 @@ int			find_start_header(int fd)
     return (0);
 }
 
-int			get_room(int fd, t_farm *farm)
-{
-    char		*line;
-    char		**split;
-	int			i;
-
-    line = NULL;
-    split = NULL;
-	i = 0;
-    while (get_next_line(fd, &line) > 0)
-    {
-        if (line[0] == '#')
-        {
-            ft_strdel(&line);
-            continue ;
-        }
-        split = ft_strsplit(line, ' ');
-        ft_strdel(&line);
-		while (split[i])
-			i += 1;
-        if (i != 3)
-        {
-            perror("lem_in: Number of fields in the description of the room is not 3.\n");
-            wipe_mstr(split);
-            return (0);
-        }
-        else
-        {
-            while (farm->rooms)
-                (farm->rooms) = (farm->rooms)->next;
-			(farm->rooms) = get_new_room(split[0], ft_atoi(split[1]), ft_atoi(split[2]));
-            wipe_mstr(split);
-			printf("New room: name = \"%s\", x = %d, y = %d\n", \
-				   (farm->rooms)->name, (farm->rooms)->x, (farm->rooms)->y);
-			break ;
-        }
-    }
-	return (1);
-}
-
 int			get_start_room(int fd, t_farm *farm)
 {
-	if (get_room(fd, farm))
+	if (get_room_description(fd, farm))
 	{
 		farm->rooms->is_start = 1;
 		return (1);
@@ -99,11 +59,16 @@ int			get_start_room(int fd, t_farm *farm)
 	return (0);
 }
 
+int			get_another_rooms(int fd, t_farm *farm)
+{
+}
+
 int			process_farm_description(int fd, t_farm *farm)
 {
     if (!(find_n_ants(fd, farm) && \
           find_start_header(fd) && \
-          get_start_room(fd, farm)))
+          get_start_room(fd, farm) && \
+		  get_another_rooms(fd, farm)))
 		return (0);
 	return (1);
 }

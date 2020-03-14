@@ -9,7 +9,8 @@ NAME = lem-in
 SRC_DIR = src
 SRC_RAW = \
 	process_farm_description.c \
-	get_new_room.c \
+	init_room.c \
+	get_room_description.c \
 	init_farm.c
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
 

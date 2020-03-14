@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-t_room		*get_new_room(char const *str, int x, int y)
+t_room		*init_room(char const *str, int x, int y)
 {
 	t_room	*room;
 

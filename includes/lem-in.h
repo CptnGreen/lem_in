@@ -44,7 +44,8 @@ typedef struct			s_farm{
 }						t_farm;
 
 int						process_farm_description(int fd, t_farm *farm);
-t_room					*get_new_room(char const *str, int x, int y);
+t_room					*init_room(char const *str, int x, int y);
 void					init_farm(t_farm *farm);
+int						get_room_description(int fd, t_farm *farm);
 
 #endif
