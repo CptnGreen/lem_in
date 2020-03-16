@@ -10,8 +10,6 @@ t_room		*init_room(char const *str, int x, int y)
 		room->name = ((str) ? (ft_strdup(str)) : (NULL));
 		room->x = x;
 		room->y = y;
-		room->is_start = 0;
-		room->is_end = 0;
 		room->ant_num = 0;
 		room->next = NULL;
 	}

@@ -10,7 +10,11 @@ SRC_DIR = src
 SRC_RAW = \
 	process_farm_description.c \
 	init_room.c \
-	get_room_description.c \
+	init_link.c \
+	get_n_ants.c \
+	get_rooms.c \
+	get_links.c \
+	handle_start_and_end_headers.c \
 	init_farm.c
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
 
