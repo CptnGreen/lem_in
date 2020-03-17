@@ -25,15 +25,14 @@ typedef struct			s_ant{
 }						t_ant;
 
 typedef struct			s_room{
+	int					num;
 	char				*name;
 	int					ant_num;
 	int					x;
 	int					y;
 	struct s_room		*next;
-
 	int					depth;
 	struct s_room		*parent;
-	struct s_room		*neighbours;
 	int					is_chosen;
 }						t_room;
 
@@ -57,13 +56,15 @@ typedef struct			s_farm{
 	int					n_rooms;
 	char				start_counter;
 	char				end_counter;
+	char				**adj_matrix;
 }						t_farm;
 
 int						process_farm_description(int fd, t_farm *farm);
-t_room					*init_room(char const *str, int x, int y);
+t_room					*init_room(int num, char const *str, int x, int y);
 t_link					*init_link(char const *src, char const *dst);
 int						init_farm(t_farm *farm);
 int						get_n_ants(int fd, t_farm *farm, char **line);
+int						append_room(t_farm *farm, char const *name, int x, int y);
 int						get_rooms(int fd, t_farm *farm, char **line);
 int						get_links(int fd, t_farm *farm, char **line);
 int						handle_start_and_end_headers(int fd, t_farm *farm, char **line);

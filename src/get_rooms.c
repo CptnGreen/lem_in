@@ -1,25 +1,5 @@
 #include "lem-in.h"
 
-int			append_room(t_farm *farm, char const *name, int x, int y)
-{
-	t_room		*room;
-	t_room		*prev;
-
-	prev = farm->rooms;
-	room = farm->rooms;
-	while (room)
-	{
-		prev = room;
-		room = room->next;
-	}
-	room = init_room(name, x, y);
-	if (farm->rooms)
-		prev->next = room;
-	else
-		farm->rooms = room;
-	return (OK);
-}
-
 int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 {
 	wipe_mstr(split);
@@ -31,6 +11,9 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 		ft_strdel(line);
 		return (KO);
 	}
+	if (!(farm->adj_matrix = get_matrix_of_char(farm->n_rooms, farm->n_rooms, '0')))
+		return (KO);
+	printf("Adjacency matrix initialized.\n");
 	print_rooms(farm->rooms);
 	return (OK);
 }

@@ -58,5 +58,4 @@ void	print_mtab(int **matrix, size_t rows, size_t cols)
 			j++;
 		}
 	}
-	ft_putendl("print_mtab: finished\n");
 }

@@ -5,7 +5,6 @@ int		print_rooms(t_room *rooms)
 	t_room		*room;
 	int			i;
 
-	printf("Printing sequence of rooms:\n");
 	printf("==========================\n");
 	if (rooms)
 	{

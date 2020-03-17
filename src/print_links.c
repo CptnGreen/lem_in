@@ -5,7 +5,6 @@ int		print_links(t_link *links)
 	t_link		*link;
 	int			i;
 
-	printf("Printing sequence of links:\n");
 	printf("==========================\n");
 	if (links)
 	{

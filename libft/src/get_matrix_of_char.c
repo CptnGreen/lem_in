@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	**get_matrix_of_dots(unsigned int rows, unsigned int cols)
+char	**get_matrix_of_char(unsigned int rows, unsigned int cols, char c)
 {
 	char				**matrix;
 	unsigned int		i;
@@ -27,7 +27,7 @@ char	**get_matrix_of_dots(unsigned int rows, unsigned int cols)
 		j = 0;
 		while (j < cols)
 		{
-			matrix[i][j] = '.';
+			matrix[i][j] = c;
 			j++;
 		}
 		i++;

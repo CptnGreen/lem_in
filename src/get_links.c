@@ -3,6 +3,8 @@
 int		check_link(t_farm *farm, char const *src, char const *dst)
 {
 	t_room	*room;
+	t_room	*room_src;
+	t_room	*room_dst;
 	int		is_checked_src;
 	int		is_checked_dst;
 
@@ -17,11 +19,21 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 	while (room)
 	{
 		if (!is_checked_src && ft_strequ(src, room->name))
+		{
+			room_src = room;
 			is_checked_src = 1;
+		}
 		if (!is_checked_dst && ft_strequ(dst, room->name))
+		{
+			room_dst = room;
 			is_checked_dst = 1;
+		}
 		if (is_checked_src && is_checked_dst)
+		{
+			farm->adj_matrix[room_src->num][room_dst->num] = '1';
+			farm->adj_matrix[room_dst->num][room_src->num] = '1';
 			return (OK);
+		}
 		room = room->next;
 	}
 	perror("lem-in: Corrupt link found - src or dst was never declared; Aborting.\n");
@@ -89,7 +101,9 @@ int		get_links(int fd, t_farm *farm, char **line)
 		if (get_new_link(fd, farm, line) == KO)
 			return (KO);
 	}
-	printf("Successfully reached end of the input.\n");
+	printf("Successfully reached end of the input; Printing links:\n");
 	print_links(farm->links);
+	printf("Now printing adjacency matrix:\n");
+	print_mstr(farm->adj_matrix);
 	return (OK);
 }

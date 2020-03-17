@@ -12,6 +12,7 @@ SRC_RAW = \
 	init_room.c \
 	init_link.c \
 	get_n_ants.c \
+	append_room.c \
 	get_rooms.c \
 	get_links.c \
 	handle_start_and_end_headers.c \

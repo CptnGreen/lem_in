@@ -86,7 +86,7 @@ SRC_RAW = \
 			ft_lstadd.c \
 			ft_lstiter.c \
 			ft_lstmap.c \
-			get_matrix_of_dots.c \
+			get_matrix_of_char.c \
 			get_mtab_of_dots.c \
 			get_mstr_h.c \
 			get_mstr_w.c \
