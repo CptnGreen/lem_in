@@ -11,6 +11,7 @@ t_link		*init_link(char const *src, char const *dst)
 		link->dst = ((dst) ? (ft_strdup(dst)) : (NULL));
 		link->c = 1;
 		link->f = 0;
+		link->next = NULL;
 	}
 	else
 		perror("lem_in: Failed to allocate memory for a new link.\n");

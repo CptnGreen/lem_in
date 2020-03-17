@@ -1,13 +1,46 @@
 #include "lem-in.h"
 
+int			append_room(t_farm *farm, char const *name, int x, int y)
+{
+	t_room		*room;
+	t_room		*prev;
+
+	prev = farm->rooms;
+	room = farm->rooms;
+	while (room)
+	{
+		prev = room;
+		room = room->next;
+	}
+	room = init_room(name, x, y);
+	if (farm->rooms)
+		prev->next = room;
+	else
+		farm->rooms = room;
+	return (OK);
+}
+
+int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
+{
+	wipe_mstr(split);
+	printf("Reached end of rooms' declarations. Starts: %d, ends: %d\n", \
+		   farm->start_counter, farm->end_counter);
+	if (farm->start_counter != 1 || farm->end_counter != 1)
+	{
+		perror("lem-in: Wrong number of start or end headers; Aborting.\n");
+		ft_strdel(line);
+		return (KO);
+	}
+	print_rooms(farm->rooms);
+	return (OK);
+}
+
 int			get_rooms(int fd, t_farm *farm, char **line)
 {
     char		**split;
 	int			res;
-	int			i;
 
     split = NULL;
-	i = 0;
 	res = 0;
     while (get_next_line(fd, line) > 0)
     {
@@ -19,30 +52,13 @@ int			get_rooms(int fd, t_farm *farm, char **line)
             continue ;
         }
         split = ft_strsplit(*line, ' ');
-		while (split[i])
-			i += 1;
-        if (i != 3)
-        {
-            wipe_mstr(split);
-			printf("Reached end of rooms' declarations. Starts: %d, ends: %d\n", \
-				   farm->start_counter, farm->end_counter);
-			if (farm->start_counter != 1 || farm->end_counter != 1)
-			{
-				perror("lem-in: Wrong number of start or end headers; Aborting.\n");
-				ft_strdel(line);
-				return (KO);
-			}
-			return (OK);
-        }
+        if (!split[0] || !split[1] || !split[2] || split[3])
+			return ((handle_no_more_rooms(farm, split, line) == OK) ? (OK) : (KO));
         else
         {
 			ft_strdel(line);
-            while (farm->rooms)
-                (farm->rooms) = (farm->rooms)->next;
-			(farm->rooms) = init_room(split[0], ft_atoi(split[1]), ft_atoi(split[2]));
+			append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]));
             wipe_mstr(split);
-			printf("New room: name = \"%s\", x = %d, y = %d\n", \
-				   (farm->rooms)->name, (farm->rooms)->x, (farm->rooms)->y);
 			continue ;
         }
     }

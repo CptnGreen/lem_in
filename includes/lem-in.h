@@ -30,6 +30,11 @@ typedef struct			s_room{
 	int					x;
 	int					y;
 	struct s_room		*next;
+
+	int					depth;
+	struct s_room		*parent;
+	struct s_room		*neighbours;
+	int					is_chosen;
 }						t_room;
 
 /*
@@ -62,5 +67,8 @@ int						get_n_ants(int fd, t_farm *farm, char **line);
 int						get_rooms(int fd, t_farm *farm, char **line);
 int						get_links(int fd, t_farm *farm, char **line);
 int						handle_start_and_end_headers(int fd, t_farm *farm, char **line);
+
+int						print_rooms(t_room *rooms);
+int						print_links(t_link *links);
 
 #endif

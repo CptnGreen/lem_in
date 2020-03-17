@@ -9,5 +9,6 @@ int			process_farm_description(int fd, t_farm *farm)
 		get_rooms(fd, farm, &line) != OK || \
 		get_links(fd, farm, &line) != OK)
 		return (KO);
+	printf("Farm description successfully processed.\n\n");
 	return (OK);
 }

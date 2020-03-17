@@ -1,9 +1,58 @@
 #include "lem-in.h"
 
+int		check_link(t_farm *farm, char const *src, char const *dst)
+{
+	t_room	*room;
+	int		is_checked_src;
+	int		is_checked_dst;
+
+	if (ft_strequ(src, dst))
+	{
+		perror("lem-in: Loop-link found; Aborting.\n");
+		return (KO);
+	}
+	is_checked_src = 0;
+	is_checked_dst = 0;
+	room = farm->rooms;
+	while (room)
+	{
+		if (!is_checked_src && ft_strequ(src, room->name))
+			is_checked_src = 1;
+		if (!is_checked_dst && ft_strequ(dst, room->name))
+			is_checked_dst = 1;
+		if (is_checked_src && is_checked_dst)
+			return (OK);
+		room = room->next;
+	}
+	perror("lem-in: Corrupt link found - src or dst was never declared; Aborting.\n");
+	return (KO);
+}
+
+int		append_link(t_farm *farm, char const *src, char const *dst)
+{
+	t_link		*link;
+	t_link		*prev;
+
+	if (check_link(farm, src, dst) != OK)
+		return (KO);
+	prev = farm->links;
+	link = farm->links;
+	while (link)
+	{
+		prev = link;
+		link = link->next;
+	}
+	link = init_link(src, dst);
+	if (farm->links)
+		prev->next = link;
+	else
+		farm->links = link;
+	return (OK);
+}
+
 int		get_new_link(int fd, t_farm *farm, char **line)
 {
 	char		**split;
-	int			i;
 
 	while ((*line)[0] == '#')
 	{
@@ -16,21 +65,18 @@ int		get_new_link(int fd, t_farm *farm, char **line)
 	}
 	split = ft_strsplit(*line, '-');
 	ft_strdel(line);
-	i = 0;
-	while (split[i])
-		i += 1;
-	if (i != 2)
+	if (!split[0] || !split[1] || split[2])
 	{
 		wipe_mstr(split);
 		perror("lem-in: Wrong link declaration found; Aborting.\n");
 		return (KO);
 	}
-	while (farm->links)
-		(farm->links) = (farm->links)->next;
-	(farm->links) = init_link(split[0], split[1]);
+	if (!(append_link(farm, split[0], split[1])))
+	{
+		wipe_mstr(split);
+		return (KO);
+	}
 	wipe_mstr(split);
-	printf("New link: source = \"%s\", destination = \"%s\"\n", \
-		   (farm->links)->src, (farm->links)->dst);
 	return (OK);
 }
 
@@ -44,5 +90,6 @@ int		get_links(int fd, t_farm *farm, char **line)
 			return (KO);
 	}
 	printf("Successfully reached end of the input.\n");
+	print_links(farm->links);
 	return (OK);
 }

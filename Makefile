@@ -15,7 +15,9 @@ SRC_RAW = \
 	get_rooms.c \
 	get_links.c \
 	handle_start_and_end_headers.c \
-	init_farm.c
+	init_farm.c \
+	print_links.c \
+	print_rooms.c
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
 
 MAIN_RAW = main.c
