@@ -4,7 +4,7 @@ int		print_rooms(t_room *rooms)
 {
 	t_room		*room;
 
-	printf("==#==name==============x====y====d==\n");
+	printf("==#==name==============x====y=====d=\n");
 	if (rooms)
 	{
 		room = rooms;

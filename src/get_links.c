@@ -94,7 +94,6 @@ int		get_new_link(int fd, t_farm *farm, char **line)
 
 int		get_links(int fd, t_farm *farm, char **line)
 {
-	print_rooms(farm->rooms);
 	if (get_new_link(fd, farm, line) == KO)
 		return (KO);
 	while (get_next_line(fd, line) > 0)

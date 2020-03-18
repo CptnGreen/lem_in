@@ -38,6 +38,11 @@ typedef struct			s_room{
 	char				is_chosen;
 }						t_room;
 
+typedef struct			s_room_queue{
+	t_room				*room;
+	struct s_room_queue	*next;
+}						t_room_queue;
+
 /*
 ** c - capacity, f - flow
 */
@@ -53,6 +58,7 @@ typedef struct			s_link{
 typedef struct			s_farm{
 	t_ant				*ants;
 	t_room				*rooms;
+	t_room				*start_room;
 	t_room				**room_ar;
 	t_link				*links;
 	int					n_ants;
@@ -75,13 +81,15 @@ int						get_rooms(int fd, t_farm *farm, char **line);
 int						handle_start_and_end_headers(t_farm *farm, char **line);
 int						get_links(int fd, t_farm *farm, char **line);
 
-int						assign_depth(t_farm *farm, int d);
+int						assign_depth(t_farm *farm);
 
 /*
-** Common utils:
+** Utils:
 */
 
 t_room					*append_room(t_farm *farm, char const *name, int x, int y);
+int						enqueue_room(t_room_queue *queue, t_room *room);
+int						dequeue_room(t_room_queue *queue);
 
 /*
 ** Debugging:

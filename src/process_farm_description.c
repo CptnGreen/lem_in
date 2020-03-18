@@ -8,7 +8,7 @@ int			process_farm_description(int fd, t_farm *farm)
     if (get_n_ants(fd, farm, &line) != OK || \
 		get_rooms(fd, farm, &line) != OK || \
 		get_links(fd, farm, &line) != OK || \
-		assign_depth(farm, 0) != OK)
+		assign_depth(farm) != OK)
 		return (KO);
 	printf("Farm description successfully processed.\n\n");
 	return (OK);

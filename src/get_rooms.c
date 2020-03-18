@@ -66,6 +66,8 @@ int			get_rooms(int fd, t_farm *farm, char **line)
 			ft_strdel(line);
 			room = append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]));
 			room->is_start = ((is_start) ? (1) : (0));
+			if (is_start)
+				farm->start_room = room;
 			room->is_end = ((is_end) ? (1) : (0));
 			is_start = 0;
 			is_end = 0;
