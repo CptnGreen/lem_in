@@ -7,10 +7,10 @@
 #define KO 0
 
 #define ROOM_MISSING -2
-
-#define HEADER_IS_FOUND 1
-#define HEADER_NOT_FOUND 0
-#define HEADER_TOO_MANY -1
+#define HEADERS_TOO_MANY -1
+#define COMMENT_FOUND 0
+#define START_HEADER_IS_FOUND 1
+#define END_HEADER_IS_FOUND 2
 
 # include "libft.h"
 
@@ -72,7 +72,7 @@ t_link					*init_link(char const *src, char const *dst);
 int						process_farm_description(int fd, t_farm *farm);
 int						get_n_ants(int fd, t_farm *farm, char **line);
 int						get_rooms(int fd, t_farm *farm, char **line);
-int						handle_start_and_end_headers(int fd, t_farm *farm, char **line);
+int						handle_start_and_end_headers(t_farm *farm, char **line);
 int						get_links(int fd, t_farm *farm, char **line);
 
 int						assign_depth(t_farm *farm, int d);
@@ -81,12 +81,13 @@ int						assign_depth(t_farm *farm, int d);
 ** Common utils:
 */
 
-int						append_room(t_farm *farm, char const *name, int x, int y);
+t_room					*append_room(t_farm *farm, char const *name, int x, int y);
 
 /*
 ** Debugging:
 */
 
+void					print_room(t_room *room);
 int						print_rooms(t_room *rooms);
 int						print_links(t_link *links);
 

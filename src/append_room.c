@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-int			append_room(t_farm *farm, char const *name, int x, int y)
+t_room		*append_room(t_farm *farm, char const *name, int x, int y)
 {
 	t_room		*room;
 	t_room		*prev;
@@ -17,5 +17,5 @@ int			append_room(t_farm *farm, char const *name, int x, int y)
 		prev->next = room;
 	else
 		farm->rooms = room;
-	return (OK);
+	return (room);
 }

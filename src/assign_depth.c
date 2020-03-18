@@ -23,7 +23,7 @@ int		assign_depth(t_farm *farm, int d)
 			farm->room_ar[i]->depth = d;
 		i += 1;
 	}
-	print_rooms(farm->rooms);
+	/* print_rooms(farm->rooms); */
 	if (room->is_end == 1)
 		assign_depth(farm, d + 1);
 

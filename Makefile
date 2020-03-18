@@ -18,6 +18,7 @@ SRC_RAW = \
 	get_rooms.c \
 	get_links.c \
 	print_links.c \
+	print_room.c \
 	print_rooms.c \
 	assign_depth.c
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
