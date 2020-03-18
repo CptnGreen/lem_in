@@ -9,16 +9,17 @@ NAME = lem-in
 SRC_DIR = src
 SRC_RAW = \
 	process_farm_description.c \
+	init_farm.c \
 	init_room.c \
 	init_link.c \
+	handle_start_and_end_headers.c \
 	get_n_ants.c \
 	append_room.c \
 	get_rooms.c \
 	get_links.c \
-	handle_start_and_end_headers.c \
-	init_farm.c \
 	print_links.c \
-	print_rooms.c
+	print_rooms.c \
+	assign_depth.c
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
 
 MAIN_RAW = main.c

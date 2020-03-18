@@ -12,6 +12,7 @@ int		init_farm(t_farm *farm)
 		farm->start_counter = 0;
 		farm->end_counter = 0;
 		farm->adj_matrix = NULL;
+		farm->room_ar = NULL;
 		printf("Ant farm successfully initialized!\n");
 		return (OK);
 	}

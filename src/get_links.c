@@ -103,7 +103,7 @@ int		get_links(int fd, t_farm *farm, char **line)
 	}
 	printf("Successfully reached end of the input; Printing links:\n");
 	print_links(farm->links);
-	printf("Now printing adjacency matrix:\n");
+	printf("Adjacency matrix:\n");
 	print_mstr(farm->adj_matrix);
 	return (OK);
 }

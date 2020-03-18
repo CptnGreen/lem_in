@@ -30,10 +30,12 @@ typedef struct			s_room{
 	int					ant_num;
 	int					x;
 	int					y;
+	char				is_start;
+	char				is_end;
 	struct s_room		*next;
 	int					depth;
 	struct s_room		*parent;
-	int					is_chosen;
+	char				is_chosen;
 }						t_room;
 
 /*
@@ -51,6 +53,7 @@ typedef struct			s_link{
 typedef struct			s_farm{
 	t_ant				*ants;
 	t_room				*rooms;
+	t_room				**room_ar;
 	t_link				*links;
 	int					n_ants;
 	int					n_rooms;
@@ -59,15 +62,30 @@ typedef struct			s_farm{
 	char				**adj_matrix;
 }						t_farm;
 
-int						process_farm_description(int fd, t_farm *farm);
+/*
+** Input processing:
+*/
+
+int						init_farm(t_farm *farm);
 t_room					*init_room(int num, char const *str, int x, int y);
 t_link					*init_link(char const *src, char const *dst);
-int						init_farm(t_farm *farm);
+int						process_farm_description(int fd, t_farm *farm);
 int						get_n_ants(int fd, t_farm *farm, char **line);
-int						append_room(t_farm *farm, char const *name, int x, int y);
 int						get_rooms(int fd, t_farm *farm, char **line);
-int						get_links(int fd, t_farm *farm, char **line);
 int						handle_start_and_end_headers(int fd, t_farm *farm, char **line);
+int						get_links(int fd, t_farm *farm, char **line);
+
+int						assign_depth(t_farm *farm, int d);
+
+/*
+** Common utils:
+*/
+
+int						append_room(t_farm *farm, char const *name, int x, int y);
+
+/*
+** Debugging:
+*/
 
 int						print_rooms(t_room *rooms);
 int						print_links(t_link *links);

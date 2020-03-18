@@ -1,5 +1,21 @@
 #include "lem-in.h"
 
+int			build_room_ar(t_farm *farm)
+{
+	t_room		*room;
+
+	room = farm->rooms;
+	if (!(farm->room_ar = (t_room **)ft_memalloc(sizeof(t_room *) * (farm->n_rooms + 1))))
+		return (KO);
+	while (room)
+	{
+		farm->room_ar[room->num] = room;
+		room = room->next;
+	}
+	farm->room_ar[farm->n_rooms] = NULL;
+	return (OK);
+}
+
 int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 {
 	wipe_mstr(split);
@@ -11,9 +27,10 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 		ft_strdel(line);
 		return (KO);
 	}
-	if (!(farm->adj_matrix = get_matrix_of_char(farm->n_rooms, farm->n_rooms, '0')))
+	if (!(farm->adj_matrix = get_matrix_of_char(farm->n_rooms, farm->n_rooms, '0')) || \
+		build_room_ar(farm) == KO)
 		return (KO);
-	printf("Adjacency matrix initialized.\n");
+	printf("Adjacency matrix initialized, array of rooms is built.\n");
 	print_rooms(farm->rooms);
 	return (OK);
 }

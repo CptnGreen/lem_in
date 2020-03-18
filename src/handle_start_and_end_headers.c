@@ -5,7 +5,10 @@ int			get_start_room(int fd, t_farm *farm, char **line)
 	printf("Successfully found start header!\n"); // remove later!
 	farm->start_counter += 1;
 	if (get_rooms(fd, farm, line))
+	{
+		farm->rooms->is_start = 1;
 		return (HEADER_IS_FOUND);
+	}
 	perror("lem_in: Start room declared but not present.\n");
 	return (ROOM_MISSING);
 }
@@ -15,7 +18,10 @@ int			get_end_room(int fd, t_farm *farm, char **line)
 	printf("Successfully found end header!\n"); // remove later!
 	farm->end_counter += 1;
 	if (get_rooms(fd, farm, line))
+	{
+		farm->rooms->is_end = 1;
 		return (HEADER_IS_FOUND);
+	}
 	perror("lem_in: end room declared but not present.\n");
 	return (ROOM_MISSING);
 }
