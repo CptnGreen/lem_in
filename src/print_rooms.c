@@ -4,7 +4,7 @@ int		print_rooms(t_room *rooms)
 {
 	t_room		*room;
 
-	printf("==#==name==============x====y=====d=\n");
+	printf("==#|=name==============|============parent=|=x==|=y==|==d=\n");
 	if (rooms)
 	{
 		room = rooms;
@@ -13,10 +13,10 @@ int		print_rooms(t_room *rooms)
 			print_room(room);
 			room = room->next;
 		}
-		printf("====================================\n");
+		printf("==========================================================\n");
 		return (OK);
 	}
 	perror("lem-in: Couldn't print rooms 'cause passed argument is NULL.\n");
-	printf("====================================\n");
+	printf("==========================================================\n");
 	return (KO);
 }

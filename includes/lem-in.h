@@ -89,7 +89,7 @@ int						assign_depth(t_farm *farm);
 
 t_room					*append_room(t_farm *farm, char const *name, int x, int y);
 int						enqueue_room(t_room_queue **queue, t_room *room);
-int						dequeue_room(t_room_queue *queue);
+int						dequeue_room(t_room_queue **queue);
 
 /*
 ** Debugging:
