@@ -23,6 +23,8 @@ SRC_RAW = \
 	print_rooms_queue.c \
 	enqueue_room.c \
 	dequeue_room.c \
+	choose_path.c \
+	reset_depth.c \
 	assign_depth.c
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
 

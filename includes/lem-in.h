@@ -12,6 +12,10 @@
 #define START_HEADER_IS_FOUND 1
 #define END_HEADER_IS_FOUND 2
 
+#define FOUND_PATH 1
+#define NO_MORE_PATHS_FOUND 2
+
+
 # include "libft.h"
 
 /*
@@ -59,6 +63,7 @@ typedef struct			s_farm{
 	t_ant				*ants;
 	t_room				*rooms;
 	t_room				*start_room;
+	t_room				*end_room;
 	t_room				**room_ar;
 	t_link				*links;
 	int					n_ants;
@@ -82,6 +87,8 @@ int						handle_start_and_end_headers(t_farm *farm, char **line);
 int						get_links(int fd, t_farm *farm, char **line);
 
 int						assign_depth(t_farm *farm);
+int						choose_path(t_farm *farm);
+int						reset_depth(t_room_queue **q);
 
 /*
 ** Utils:

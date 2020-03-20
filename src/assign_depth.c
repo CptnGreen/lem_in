@@ -11,7 +11,9 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	{
 		if (!(farm->adj_matrix[r->num][i]))
 			break ;
-		if (farm->adj_matrix[r->num][i] == '1' && farm->room_ar[i]->depth == -1)
+		if (farm->adj_matrix[r->num][i] == '1' && \
+			farm->room_ar[i]->depth == -1 && \
+			!(farm->room_ar[i]->is_chosen))
 		{
 			if (!(enqueue_room(&q, farm->room_ar[i])))
 				return (KO);
@@ -23,13 +25,6 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	return (OK);
 }
 
-int		dequeue_rooms_with_depth(t_room_queue **queue, int d)
-{
-	while((*queue)->room->depth == d)
-		dequeue_room(queue);
-	return (OK);
-}
-
 int		assign_depth(t_farm *farm)
 {
 	t_room_queue	*q;
@@ -37,7 +32,6 @@ int		assign_depth(t_farm *farm)
 	t_room			*r;
 	int				d;
 
-	print_rooms(farm->rooms);
 	d = 0;
 	r = farm->start_room;
 	r->depth = d;
@@ -51,7 +45,13 @@ int		assign_depth(t_farm *farm)
 		enqueue_neighbours(farm, q_tmp, r);
 		q_tmp = q_tmp->next;
 	}
-	/* dequeue_rooms_with_depth(&q, d); */
-	print_rooms_queue(q);
-	return (OK);
+	/* print_rooms_queue(q); */
+	if (choose_path(farm) == FOUND_PATH && !(farm->end_room->parent->is_start))
+	{
+		reset_depth(&q);
+		return (FOUND_PATH);
+	}
+	/* print_rooms(farm->rooms); */
+	reset_depth(&q);
+	return (NO_MORE_PATHS_FOUND);
 }

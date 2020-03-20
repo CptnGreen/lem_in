@@ -7,6 +7,7 @@ int		init_farm(t_farm *farm)
 		farm->ants = NULL;
 		farm->rooms = NULL;
 		farm->start_room = NULL;
+		farm->end_room = NULL;
 		farm->links = NULL;
 		farm->n_ants = 0;
 		farm->n_rooms = 0;

@@ -68,6 +68,8 @@ int			get_rooms(int fd, t_farm *farm, char **line)
 			room->is_start = ((is_start) ? (1) : (0));
 			if (is_start)
 				farm->start_room = room;
+			if (is_end)
+				farm->end_room = room;
 			room->is_end = ((is_end) ? (1) : (0));
 			is_start = 0;
 			is_end = 0;

@@ -7,14 +7,14 @@ int		print_rooms_queue(t_room_queue *queue)
 	if (queue)
 	{
 		printf("Current queue:\n");
-		printf("==#|=name==============|============parent=|=x==|=y==|==d=\n");
+		printf("==#|=name==============|============parent=|=x==|=y==|==d=|=flags=|\n");
 		q = queue;
 		while (q)
 		{
 			print_room(q->room);
 			q = q->next;
 		}
-		printf("==========================================================\n");
+		printf("===|===================|===================|====|====|====|=======|\n");
 		return (OK);
 	}
 	perror("lem-in: Couldn't print rooms' queue 'cause passed argument is NULL.\n");

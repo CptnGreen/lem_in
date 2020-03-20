@@ -7,9 +7,13 @@ int			process_farm_description(int fd, t_farm *farm)
 	line = NULL;
     if (get_n_ants(fd, farm, &line) != OK || \
 		get_rooms(fd, farm, &line) != OK || \
-		get_links(fd, farm, &line) != OK || \
-		assign_depth(farm) != OK)
+		get_links(fd, farm, &line) != OK)
 		return (KO);
+	while (1)
+	{
+		if (assign_depth(farm) == NO_MORE_PATHS_FOUND)
+			break ;
+	}
 	printf("Farm description successfully processed.\n\n");
 	return (OK);
 }
