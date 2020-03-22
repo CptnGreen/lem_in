@@ -4,10 +4,11 @@ int		init_farm(t_farm *farm)
 {
 	if (farm)
 	{
-		farm->ants = NULL;
 		farm->rooms = NULL;
+		farm->ants = NULL;
 		farm->start_room = NULL;
 		farm->end_room = NULL;
+		farm->gateways = NULL;
 		farm->links = NULL;
 		farm->n_ants = 0;
 		farm->n_rooms = 0;

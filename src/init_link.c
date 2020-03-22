@@ -9,8 +9,6 @@ t_link		*init_link(char const *src, char const *dst)
 	{
 		link->src = ((src) ? (ft_strdup(src)) : (NULL));
 		link->dst = ((dst) ? (ft_strdup(dst)) : (NULL));
-		link->c = 1;
-		link->f = 0;
 		link->next = NULL;
 	}
 	else

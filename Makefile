@@ -8,13 +8,13 @@ NAME = lem-in
 
 SRC_DIR = src
 SRC_RAW = \
-	process_farm_description.c \
 	init_farm.c \
-	init_room.c \
 	init_link.c \
 	handle_start_and_end_headers.c \
 	get_n_ants.c \
 	append_room.c \
+	init_and_append_room.c \
+	init_and_append_ant.c \
 	get_rooms.c \
 	get_links.c \
 	print_links.c \
@@ -22,10 +22,12 @@ SRC_RAW = \
 	print_rooms.c \
 	print_rooms_queue.c \
 	enqueue_room.c \
-	dequeue_room.c \
+	enqueue_ant.c \
+	dequeue_ant.c \
 	choose_path.c \
 	reset_depth.c \
-	assign_depth.c
+	assign_depth.c \
+	lem_in.c
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
 
 MAIN_RAW = main.c

@@ -1,21 +1,22 @@
 #include "lem-in.h"
 
-t_room		*append_room(t_farm *farm, char const *name, int x, int y)
+t_room		*append_room(t_room **where, t_room *what)
 {
 	t_room		*room;
 	t_room		*prev;
 
-	prev = farm->rooms;
-	room = farm->rooms;
+	prev = *where;
+	room = *where;
 	while (room)
 	{
 		prev = room;
 		room = room->next;
 	}
-	room = init_room((farm->n_rooms)++, name, x, y);
-	if (farm->rooms)
+	room = what;
+	room->next = NULL;
+	if (*where)
 		prev->next = room;
 	else
-		farm->rooms = room;
+		*where = room;
 	return (room);
 }

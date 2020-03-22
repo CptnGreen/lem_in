@@ -30,6 +30,7 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 	if (!(farm->adj_matrix = get_matrix_of_char(farm->n_rooms, farm->n_rooms, '0')) || \
 		build_room_ar(farm) == KO)
 		return (KO);
+	farm->end_room->n_ants = farm->n_ants;
 	printf("Adjacency matrix initialized, array of rooms is built.\n");
 	return (OK);
 }
@@ -64,7 +65,7 @@ int			get_rooms(int fd, t_farm *farm, char **line)
         else
         {
 			ft_strdel(line);
-			room = append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]));
+			room = init_and_append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]));
 			room->is_start = ((is_start) ? (1) : (0));
 			if (is_start)
 				farm->start_room = room;

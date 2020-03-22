@@ -11,7 +11,7 @@ t_room		*init_room(int num, char const *str, int x, int y)
 		room->name = ((str) ? (ft_strdup(str)) : (NULL));
 		room->x = x;
 		room->y = y;
-		room->ant_num = 0;
+		room->n_ants = 0;
 		room->next = NULL;
 		room->depth = -1;
 		room->is_start = 0;
