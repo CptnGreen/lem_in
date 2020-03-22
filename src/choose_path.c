@@ -11,7 +11,7 @@ int		choose_path(t_farm *farm)
 		printf("==#|=name==============|============parent=|=x==|=y==|==d=|=flags=|\n");
 		print_room(r);
 		r = r->parent;
-		append_room(&(farm->gateways), r);
+		enqueue_room(&(farm->gateways), r);
 		while (!(r->is_start))
 		{
 			r->is_chosen = 1;

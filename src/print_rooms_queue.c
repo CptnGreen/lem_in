@@ -6,7 +6,6 @@ int		print_rooms_queue(t_room_queue *queue)
 
 	if (queue)
 	{
-		printf("Current queue:\n");
 		printf("==#|=name==============|============parent=|=x==|=y==|==d=|=flags=|\n");
 		q = queue;
 		while (q)

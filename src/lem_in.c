@@ -1,20 +1,23 @@
 #include "lem-in.h"
 
-int		move_ant(t_farm *farm, t_room *gateway)
+#define FINISH 2
+
+int		move_ant(t_farm *farm, t_room_queue *gateway)
 {
 	t_room		*r;
 	t_ant		*a;
 
-	r = gateway;
+	farm->end_room->parent = gateway->room;
+	r = farm->end_room;
 	while (1)
 	{
 		if (r->is_start)
 			break ;
-		if (r->parent && r->ants == NULL && r->parent->ants != NULL)
+		if (r->parent && (r->ants == NULL || r == farm->end_room) && r->parent->ants != NULL)
 		{
-			printf("I'm here!\n");
 			a = dequeue_ant(&(r->parent->ants));
 			enqueue_ant(&(r->ants), a);
+			/* printf("L%d-"); */
 			a->room = r;
 		}
 		r = r->parent;
@@ -25,7 +28,9 @@ int		move_ant(t_farm *farm, t_room *gateway)
 
 int		make_move(t_farm *farm)
 {
-	t_room		*gateway;
+	t_room_queue	*gateway;
+	t_ant_queue		*a;
+	int				i;
 
 	gateway = farm->gateways;
 	while (gateway)
@@ -33,21 +38,26 @@ int		make_move(t_farm *farm)
 		move_ant(farm, gateway);
 		gateway = gateway->next;
 	}
-	return (KO);
+	i = 0;
+	a = farm->end_room->ants;
+	while (a)
+	{
+		i += 1;
+		a = a->next;
+	}
+	if (i == farm->n_ants)
+		return (FINISH);
+	return (OK);
 }
 
 int		lem_in(t_farm *farm)
 {
-	int		i;
-
-	/* while (farm->start_room->n_ants != farm->n_ants) */
-	/* 	make_move(farm); */
-	i = 0;
-	while (i < 10)
+	print_rooms(farm->rooms);
+	while (1)
 	{
-		make_move(farm);
+		if (make_move(farm) == FINISH)
+			break ;
 		printf("----------Move was made----------\n");
-		i += 1;
 	}
 	return (KO);
 }

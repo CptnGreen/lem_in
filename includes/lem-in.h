@@ -73,7 +73,7 @@ typedef struct			s_farm{
 	char				start_counter;
 	char				end_counter;
 	char				**adj_matrix;
-	struct s_room		*gateways;
+	struct s_room_queue	*gateways;
 }						t_farm;
 
 /*
