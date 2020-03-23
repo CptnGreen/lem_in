@@ -101,9 +101,9 @@ int		get_links(int fd, t_farm *farm, char **line)
 		if (get_new_link(fd, farm, line) == KO)
 			return (KO);
 	}
-	printf("Successfully reached end of the input; Printing links:\n");
-	print_links(farm->links);
-	printf("Adjacency matrix:\n");
-	print_mstr(farm->adj_matrix);
+	/* printf("Successfully reached end of the input; Printing links:\n"); */
+	/* print_links(farm->links); */
+	/* printf("Adjacency matrix:\n"); */
+	/* print_mstr(farm->adj_matrix); */
 	return (OK);
 }

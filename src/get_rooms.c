@@ -19,8 +19,8 @@ int			build_room_ar(t_farm *farm)
 int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 {
 	wipe_mstr(split);
-	printf("Reached end of rooms' declarations. Starts: %d, ends: %d\n", \
-		   farm->start_counter, farm->end_counter);
+	/* printf("Reached end of rooms' declarations. Starts: %d, ends: %d\n", \ */
+	/* 	   farm->start_counter, farm->end_counter); */
 	if (farm->start_counter != 1 || farm->end_counter != 1)
 	{
 		perror("lem-in: Wrong number of start or end headers; Aborting.\n");
@@ -31,7 +31,7 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 		build_room_ar(farm) == KO)
 		return (KO);
 	farm->end_room->n_ants = farm->n_ants;
-	printf("Adjacency matrix initialized, array of rooms is built.\n");
+	/* printf("Adjacency matrix initialized, array of rooms is built.\n"); */
 	return (OK);
 }
 
