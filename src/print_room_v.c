@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-void	print_room(t_room *room)
+void	print_room_v(t_room *room)
 {
 	t_ant_queue		*q;
 	int				i;

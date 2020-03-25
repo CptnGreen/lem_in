@@ -6,14 +6,13 @@ int		print_rooms(t_room *rooms)
 
 	if (rooms)
 	{
-		printf("==#|=name==============|============parent=|=x==|=y==|==d=|=flags=|=ants=inside==============\n");
 		room = rooms;
 		while (room)
 		{
-			print_room(room);
+			if (!(room->is_start || room->is_end))
+				printf("%s %d %d\n", room->name, room->x, room->y);
 			room = room->next;
 		}
-		printf("===|===================|===================|====|====|====|=======|==========================\n");
 		return (OK);
 	}
 	perror("lem-in: Couldn't print rooms 'cause passed argument is NULL.\n");

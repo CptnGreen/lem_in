@@ -68,9 +68,15 @@ int			get_rooms(int fd, t_farm *farm, char **line)
 			room = init_and_append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]));
 			room->is_start = ((is_start) ? (1) : (0));
 			if (is_start)
+			{
 				farm->start_room = room;
+				/* printf("%s %d %d\n", room->name, room->x, room->y); */
+			}
 			if (is_end)
+			{
 				farm->end_room = room;
+				/* printf("%s %d %d\n", room->name, room->x, room->y); */
+			}
 			room->is_end = ((is_end) ? (1) : (0));
 			is_start = 0;
 			is_end = 0;

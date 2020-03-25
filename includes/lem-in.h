@@ -86,6 +86,7 @@ int						get_n_ants(int fd, t_farm *farm, char **line);
 int						get_rooms(int fd, t_farm *farm, char **line);
 int						handle_start_and_end_headers(t_farm *farm, char **line);
 int						get_links(int fd, t_farm *farm, char **line);
+void					print_farm_description(t_farm *farm);
 
 int						assign_depth(t_farm *farm);
 int						choose_path(t_farm *farm);
@@ -108,9 +109,8 @@ int						lem_in(t_farm *farm);
 ** Debugging:
 */
 
-void					print_room(t_room *room);
-int						print_rooms(t_room *rooms);
-int						print_rooms_queue(t_room_queue *queue);
-int						print_links(t_link *links);
+void					print_room_v(t_room *room);
+int						print_rooms_v(t_room *rooms);
+int						print_rooms_queue_v(t_room_queue *queue);
 
 #endif

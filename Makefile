@@ -1,4 +1,4 @@
-.PHONY: all clean fclean re libft norm memcheck
+.PHONY: all clean fclean re libft norm memcheck test
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
@@ -17,10 +17,10 @@ SRC_RAW = \
 	init_and_append_ant.c \
 	get_rooms.c \
 	get_links.c \
-	print_links.c \
-	print_room.c \
-	print_rooms.c \
-	print_rooms_queue.c \
+	print_farm_description.c \
+	print_room_v.c \
+	print_rooms_v.c \
+	print_rooms_queue_v.c \
 	enqueue_room.c \
 	enqueue_ant.c \
 	dequeue_ant.c \
@@ -62,3 +62,6 @@ norm:
 
 memcheck:
 	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$(NAME)
+
+test:
+	@ cd ../lem-in_test && sh unit_tests.sh && cd ../lem-in

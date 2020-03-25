@@ -37,10 +37,9 @@ int			process_farm_description(int fd, t_farm *farm)
 	if (i == 0)
 		return (KO);
 	/* printf("Gateways - last rooms (except for \"end\") in the found paths:\n"); */
-	/* print_rooms_queue(farm->gateways); */
+	/* print_rooms_queue_v(farm->gateways); */
 	make_ants(farm);
 	/* printf("Farm description successfully processed.\n\n"); */
-	lem_in(farm);
 	return (OK);
 }
 
@@ -52,6 +51,8 @@ int		main(void)
 	if (init_farm(&farm) && \
 		process_farm_description(FD, &farm))
 	{
+		print_farm_description(&farm);
+		lem_in(&farm);
 		return (OK);
 	}
 	printf("ERROR\n");

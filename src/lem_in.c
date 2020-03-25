@@ -17,12 +17,13 @@ int		move_ant(t_farm *farm, t_room_queue *gateway)
 		{
 			a = dequeue_ant(&(r->parent->ants));
 			enqueue_ant(&(r->ants), a);
-			printf("L%d-%s ", a->num, r->name);
+			printf("L%d-%s", a->num, r->name);
+			if (!(r->parent->is_start))
+				printf(" ");
 			a->room = r;
 		}
 		r = r->parent;
 	}
-	/* print_rooms(farm->rooms); */
 	return (OK);
 }
 
@@ -53,12 +54,10 @@ int		make_move(t_farm *farm)
 
 int		lem_in(t_farm *farm)
 {
-	/* print_rooms(farm->rooms); */
 	while (1)
 	{
 		if (make_move(farm) == FINISH)
 			break ;
-		/* printf("----------Move was made----------\n"); */
 	}
 	return (KO);
 }

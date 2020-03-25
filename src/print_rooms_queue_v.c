@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-int		print_rooms_queue(t_room_queue *queue)
+int		print_rooms_queue_v(t_room_queue *queue)
 {
 	t_room_queue	*q;
 
@@ -10,7 +10,7 @@ int		print_rooms_queue(t_room_queue *queue)
 		q = queue;
 		while (q)
 		{
-			print_room(q->room);
+			print_room_v(q->room);
 			q = q->next;
 		}
 		printf("===|===================|===================|====|====|====|=======|\n");

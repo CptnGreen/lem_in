@@ -7,7 +7,7 @@ int			handle_start_header(t_farm *farm, char **line)
 		ft_strdel(line);
 		if (farm->start_counter == 0)
 		{
-			/* printf("Successfully found start header!\n"); // remove later! */
+			/* printf("##start\n"); */
 			farm->start_counter += 1;
 			return (START_HEADER_IS_FOUND);
 		}
@@ -27,7 +27,7 @@ int			handle_end_header(t_farm *farm, char **line)
 		ft_strdel(line);
 		if (farm->end_counter == 0)
 		{
-			/* printf("Successfully found end header!\n"); // remove later! */
+			/* printf("##end\n"); */
 			farm->end_counter += 1;
 			return (END_HEADER_IS_FOUND);
 		}
