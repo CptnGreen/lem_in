@@ -1,0 +1,7 @@
+* NEXT Make code more readable
+  - [ ] set up printing errors into a log-file
+* TODO Fix bugs
+  - [ ] Make sure program finds looped links and shoots error
+* TODO Write print_farm_description_v() for verbose output [/]
+  - [ ]
+* TODO Set up norminette for Manjaro

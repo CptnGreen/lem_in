@@ -2,21 +2,22 @@
 
 int		init_farm(t_farm *farm)
 {
-	if (farm)
+	if (farm && \
+		(farm->log_fd = open(LOG, O_WRONLY | O_APPEND)) >= 0)
 	{
+		farm->n_ants = 0;
 		farm->rooms = NULL;
-		farm->ants = NULL;
 		farm->start_room = NULL;
 		farm->end_room = NULL;
-		farm->gateways = NULL;
 		farm->links = NULL;
-		farm->n_ants = 0;
+		farm->gateways = NULL;
+		farm->ants = NULL;
 		farm->n_rooms = 0;
 		farm->start_counter = 0;
 		farm->end_counter = 0;
 		farm->adj_matrix = NULL;
 		farm->room_ar = NULL;
-		/* printf("Ant farm successfully initialized!\n"); */
+		ft_putstr_fd("Ant farm was successfully initialized!\n", farm->log_fd);
 		return (OK);
 	}
 	return (KO);

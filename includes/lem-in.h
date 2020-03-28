@@ -2,6 +2,7 @@
 # define LEM_IN_H
 
 # define FD 0
+# define LOG "stderr.log"
 
 #define OK 1
 #define KO 0
@@ -62,6 +63,7 @@ typedef struct			s_link{
 }						t_link;
 
 typedef struct			s_farm{
+	int					log_fd;
 	struct s_room		*rooms;
 	struct s_ant		*ants;
 	struct s_room		*start_room;
@@ -81,12 +83,13 @@ typedef struct			s_farm{
 */
 
 int						init_farm(t_farm *farm);
-t_link					*init_link(char const *src, char const *dst);
-int						get_n_ants(int fd, t_farm *farm, char **line);
+t_link					*init_link(t_farm * farm, char const *src, char const *dst);
+int						get_n_ants(t_farm *farm, int fd, char **line);
 int						get_rooms(int fd, t_farm *farm, char **line);
 int						handle_start_and_end_headers(t_farm *farm, char **line);
-int						get_links(int fd, t_farm *farm, char **line);
+int						get_links(t_farm *farm, int fd, char **line);
 void					print_farm_description(t_farm *farm);
+void					print_farm_description_v(t_farm *farm);
 
 int						assign_depth(t_farm *farm);
 int						choose_path(t_farm *farm);

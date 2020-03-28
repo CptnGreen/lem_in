@@ -18,6 +18,7 @@ SRC_RAW = \
 	get_rooms.c \
 	get_links.c \
 	print_farm_description.c \
+	print_farm_description_v.c \
 	print_room_v.c \
 	print_rooms_v.c \
 	print_rooms_queue_v.c \

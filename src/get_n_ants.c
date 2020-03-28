@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-int			get_n_ants(int fd, t_farm *farm, char **line)
+int			get_n_ants(t_farm *farm, int fd, char **line)
 {
     while (get_next_line(fd, line) > 0)
     {
@@ -12,13 +12,12 @@ int			get_n_ants(int fd, t_farm *farm, char **line)
         if ((farm->n_ants = ft_atoi(*line)) > 0)
         {
             ft_strdel(line);
-			/* printf("%d\n", farm->n_ants); */
             return (OK);
         }
         ft_strdel(line);
-        perror("lem_in: Number of ants equals 0.\n");
+        ft_putstr_fd("Number of ants equals 0.\n", farm->log_fd);
         return (KO);
     }
-    perror("lem_in: Couldn't find number of ants.\n");
+    ft_putstr_fd("Couldn't find number of ants.\n", farm->log_fd);
     return (KO);
 }

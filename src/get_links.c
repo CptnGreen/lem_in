@@ -10,7 +10,7 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 
 	if (ft_strequ(src, dst))
 	{
-		perror("lem-in: Loop-link found; Aborting.\n");
+		ft_putstr_fd("Loop-link found; Aborting.\n", farm->log_fd);
 		return (KO);
 	}
 	is_checked_src = 0;
@@ -36,7 +36,7 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 		}
 		room = room->next;
 	}
-	perror("lem-in: Corrupt link found - src or dst was never declared; Aborting.\n");
+	ft_putstr_fd("Corrupt link found - src or dst was never declared; Aborting.\n", farm->log_fd);
 	return (KO);
 }
 
@@ -54,7 +54,7 @@ int		append_link(t_farm *farm, char const *src, char const *dst)
 		prev = link;
 		link = link->next;
 	}
-	link = init_link(src, dst);
+	link = init_link(farm, src, dst);
 	if (farm->links)
 		prev->next = link;
 	else
@@ -62,7 +62,7 @@ int		append_link(t_farm *farm, char const *src, char const *dst)
 	return (OK);
 }
 
-int		get_new_link(int fd, t_farm *farm, char **line)
+int		get_new_link(t_farm *farm, int fd, char **line)
 {
 	char		**split;
 
@@ -70,17 +70,14 @@ int		get_new_link(int fd, t_farm *farm, char **line)
 	{
 		ft_strdel(line);
 		if (!(get_next_line(fd, line) > 0))
-		{
-			printf("Reached end of the input. Last line is a comment.\n");
 			return (OK);
-		}
 	}
 	split = ft_strsplit(*line, '-');
 	ft_strdel(line);
 	if (!split[0] || !split[1] || split[2])
 	{
 		wipe_mstr(split);
-		perror("lem-in: Wrong link declaration found; Aborting.\n");
+		ft_putstr_fd("Wrong link declaration found; Aborting.\n", farm->log_fd);
 		return (KO);
 	}
 	if (!(append_link(farm, split[0], split[1])))
@@ -92,18 +89,15 @@ int		get_new_link(int fd, t_farm *farm, char **line)
 	return (OK);
 }
 
-int		get_links(int fd, t_farm *farm, char **line)
+int		get_links(t_farm *farm, int fd, char **line)
 {
-	if (get_new_link(fd, farm, line) == KO)
+	if (get_new_link(farm, fd, line) == KO)
 		return (KO);
 	while (get_next_line(fd, line) > 0)
 	{
-		if (get_new_link(fd, farm, line) == KO)
+		if (get_new_link(farm, fd, line) == KO)
 			return (KO);
 	}
-	/* printf("Successfully reached end of the input; Printing links:\n"); */
-	/* print_links(farm->links); */
-	/* printf("Adjacency matrix:\n"); */
-	/* print_mstr(farm->adj_matrix); */
+	ft_putstr_fd("Successfully reached end of the input.\n", farm->log_fd);
 	return (OK);
 }
