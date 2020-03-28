@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-t_ant		*init_ant(int num)
+t_ant		*init_ant(t_farm *farm, int num)
 {
 	t_ant	*ant;
 
@@ -12,7 +12,7 @@ t_ant		*init_ant(int num)
 		ant->next = NULL;
 	}
 	else
-		perror("lem_in: Failed to allocate memory for an ant.\n");
+		ft_putstr_fd("Failed to allocate memory for an ant.\n", farm->log_fd);
 	return (ant);
 }
 
@@ -28,7 +28,7 @@ t_ant		*init_and_append_ant(t_farm *farm, int num)
 		prev = ant;
 		ant = ant->next;
 	}
-	ant = init_ant(num);
+	ant = init_ant(farm, num);
 	if (farm->ants)
 		prev->next = ant;
 	else

@@ -7,13 +7,12 @@ int			handle_start_header(t_farm *farm, char **line)
 		ft_strdel(line);
 		if (farm->start_counter == 0)
 		{
-			/* printf("##start\n"); */
 			farm->start_counter += 1;
 			return (START_HEADER_IS_FOUND);
 		}
 		else
 		{
-			perror("lem-in: Too many start headers. Aborting.\n");
+			ft_putstr_fd("Too many start headers. Aborting.\n", farm->log_fd);
 			return (HEADERS_TOO_MANY);
 		}
 	}
@@ -27,13 +26,12 @@ int			handle_end_header(t_farm *farm, char **line)
 		ft_strdel(line);
 		if (farm->end_counter == 0)
 		{
-			/* printf("##end\n"); */
 			farm->end_counter += 1;
 			return (END_HEADER_IS_FOUND);
 		}
 		else
 		{
-			perror("lem-in: Too many end headers. Aborting.\n");
+			ft_putstr_fd("Too many end headers. Aborting.\n", farm->log_fd);
 			return (HEADERS_TOO_MANY);
 		}
 	}

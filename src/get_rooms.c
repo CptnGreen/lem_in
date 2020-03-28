@@ -13,17 +13,21 @@ int			build_room_ar(t_farm *farm)
 		room = room->next;
 	}
 	farm->room_ar[farm->n_rooms] = NULL;
+	ft_putstr_fd("Array of rooms is built.\n", farm->log_fd);
 	return (OK);
 }
 
 int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 {
 	wipe_mstr(split);
-	/* printf("Reached end of rooms' declarations. Starts: %d, ends: %d\n", \ */
-	/* 	   farm->start_counter, farm->end_counter); */
+	ft_putstr_fd("Reached end of rooms' declarations. Starts: ", farm->log_fd);
+	ft_putnbr_fd(farm->start_counter, farm->log_fd);
+	ft_putstr_fd(", ends: ", farm->log_fd);
+	ft_putnbr_fd(farm->end_counter, farm->log_fd);
+	ft_putstr_fd("\n", farm->log_fd);
 	if (farm->start_counter != 1 || farm->end_counter != 1)
 	{
-		perror("lem-in: Wrong number of start or end headers; Aborting.\n");
+		ft_putstr_fd("Wrong number of start or end headers; Aborting.\n", farm->log_fd);
 		ft_strdel(line);
 		return (KO);
 	}
@@ -31,11 +35,11 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 		build_room_ar(farm) == KO)
 		return (KO);
 	farm->end_room->n_ants = farm->n_ants;
-	/* printf("Adjacency matrix initialized, array of rooms is built.\n"); */
+	ft_putstr_fd("Adjacency matrix initialized.\n", farm->log_fd);
 	return (OK);
 }
 
-int			get_rooms(int fd, t_farm *farm, char **line)
+int			get_rooms(t_farm *farm, int fd, char **line)
 {
     char		**split;
 	int			res;
@@ -68,15 +72,9 @@ int			get_rooms(int fd, t_farm *farm, char **line)
 			room = init_and_append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]));
 			room->is_start = ((is_start) ? (1) : (0));
 			if (is_start)
-			{
 				farm->start_room = room;
-				/* printf("%s %d %d\n", room->name, room->x, room->y); */
-			}
 			if (is_end)
-			{
 				farm->end_room = room;
-				/* printf("%s %d %d\n", room->name, room->x, room->y); */
-			}
 			room->is_end = ((is_end) ? (1) : (0));
 			is_start = 0;
 			is_end = 0;
@@ -85,6 +83,6 @@ int			get_rooms(int fd, t_farm *farm, char **line)
         }
     }
 	ft_strdel(line);
-	perror("lem-in: Reached end of file, but no links were found; Aborting.\n");
+	ft_putstr_fd("Reached end of file, but no links were found; Aborting.\n", farm->log_fd);
 	return (OK);
 }

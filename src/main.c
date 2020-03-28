@@ -8,7 +8,7 @@ int			make_ants(t_farm *farm)
 	i = 0;
 	while (i < farm->n_ants)
 	{
-		init_and_append_ant(farm, i);
+		init_and_append_ant(farm, i + 1);
 		i += 1;
 	}
 	a = farm->ants;
@@ -27,7 +27,7 @@ int			process_farm_description(int fd, t_farm *farm)
 
 	line = NULL;
     if (get_n_ants(farm, fd, &line) != OK || \
-		get_rooms(fd, farm, &line) != OK || \
+		get_rooms(farm, fd, &line) != OK || \
 		get_links(farm, fd, &line) != OK)
 		return (KO);
 	i = 0;
@@ -48,7 +48,7 @@ int		main(void)
 		process_farm_description(FD, &farm))
 	{
 		print_farm_description(&farm);
-		print_farm_description_v(&farm);
+		/* print_farm_description_v(&farm); */
 		lem_in(&farm);
 		return (OK);
 	}
