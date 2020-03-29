@@ -65,4 +65,4 @@ memcheck:
 	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$(NAME)
 
 test:
-	@ cd ../lem-in_test && sh unit_tests.sh && cd ../lem-in
+	@ cd /home/ak/Documents/lem-in_test && sh unit_tests.sh && cd /home/ak/Documents/lem_in
