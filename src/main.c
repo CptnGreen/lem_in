@@ -50,10 +50,8 @@ int		main(void)
 		print_farm_description(&farm);
 		/* print_farm_description_v(&farm); */
 		lem_in(&farm);
-		sleep();
 		return (OK);
 	}
 	printf("ERROR\n");
-	sleep();
 	return (KO);
 }
