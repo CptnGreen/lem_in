@@ -25,6 +25,11 @@
 
 # include <stdio.h>
 
+typedef struct			s_input_line{
+	struct s_input_line	*next;
+	char				*line;
+}						t_input_line;
+
 typedef struct			s_ant{
 	int					num;
 	struct s_ant		*next;

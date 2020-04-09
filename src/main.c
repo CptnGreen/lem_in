@@ -40,16 +40,59 @@ int			process_farm_description(int fd, t_farm *farm)
 	return (OK);
 }
 
+int		get_input(t_farm *farm, int fd, t_input_line **input_seed)
+{
+	t_input_line	*prev;
+	t_input_line	*input;
+	char			*line;
+
+	input = *input_seed;
+	line = NULL;
+	input = NULL;
+	while (get_next_line(fd, &line) > 0)
+	{
+		prev = input;
+		input = (t_input_line *)ft_memalloc(sizeof(t_input_line));
+		if (prev)
+			prev->next = input;
+		input->line = ft_strdup(line);
+		ft_strdel(&line);
+		input->next = NULL;
+	}
+	if (input)
+	{
+		ft_putstr_fd("Input lines parsed to list.\n", farm->log_fd);
+		return (OK);
+	}
+	ft_putstr_fd("Input empty; Aborting.\n", farm->log_fd);
+	return (KO);
+}
+
+void	print_input(t_input_line *input_seed)
+{
+	t_input_line	*input;
+
+	input = input_seed;
+	while (input)
+	{
+		printf("%s\n", input->line);
+		input = input->next;
+	}
+}
+
 int		main(void)
 {
-	t_farm	farm;
+	t_farm			farm;
+	t_input_line	*input;
 
-	if (init_farm(&farm) && \
-		process_farm_description(FD, &farm))
+	if (init_farm(&farm) &&	\
+		get_input(&farm, FD, &input)) // &&		\
+		/* process_farm_description(FD, &farm)) */
 	{
-		print_farm_description(&farm);
+		print_input(input);
+		/* print_farm_description(&farm); */
 		/* print_farm_description_v(&farm); */
-		lem_in(&farm);
+		/* lem_in(&farm); */
 		return (OK);
 	}
 	printf("ERROR\n");
