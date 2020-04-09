@@ -89,8 +89,8 @@ typedef struct			s_farm{
 
 int						init_farm(t_farm *farm);
 t_link					*init_link(t_farm * farm, char const *src, char const *dst);
-int						get_n_ants(t_farm *farm, int fd, char **line);
-int						get_rooms(t_farm *farm, int fd, char **line);
+int						get_n_ants(t_farm *farm, t_input_line *input, char **line);
+int						get_rooms(t_farm *farm, t_input_line *input, char **line);
 int						handle_start_and_end_headers(t_farm *farm, char **line);
 int						get_links(t_farm *farm, int fd, char **line);
 void					print_farm_description(t_farm *farm);

@@ -20,16 +20,17 @@ int			make_ants(t_farm *farm)
 	return (OK);
 }
 
-int			process_farm_description(int fd, t_farm *farm)
+int			process_farm_description(t_input_line *input, t_farm *farm)
 {
 	char	*line;
 	int		i;
 
 	line = NULL;
-    if (get_n_ants(farm, fd, &line) != OK || \
-		get_rooms(farm, fd, &line) != OK || \
-		get_links(farm, fd, &line) != OK)
+    if (get_n_ants(farm, input, &line) != OK || \
+		get_rooms(farm, input->next, &line) != OK) // ||	 \
+		/* get_links(farm, fd, &line) != OK) */
 		return (KO);
+	printf("%s\n", input->line);
 	i = 0;
 	while (assign_depth(farm) != NO_MORE_PATHS_FOUND)
 		i += 1;
@@ -40,26 +41,33 @@ int			process_farm_description(int fd, t_farm *farm)
 	return (OK);
 }
 
-int		get_input(t_farm *farm, int fd, t_input_line **input_seed)
+int		get_input(t_farm *farm, int fd, t_input_line **input_lst)
 {
 	t_input_line	*prev;
-	t_input_line	*input;
+	t_input_line	*cur;
 	char			*line;
+	int				is_first;
 
-	input = *input_seed;
+	cur = NULL;
 	line = NULL;
-	input = NULL;
+	is_first = 1;
 	while (get_next_line(fd, &line) > 0)
 	{
-		prev = input;
-		input = (t_input_line *)ft_memalloc(sizeof(t_input_line));
+		prev = cur;
+		if (!(cur = (t_input_line *)ft_memalloc(sizeof(t_input_line))))
+			return (KO);
+		if (is_first)
+		{
+			*input_lst = cur;
+			is_first = 0;
+		}
 		if (prev)
-			prev->next = input;
-		input->line = ft_strdup(line);
+			prev->next = cur;
+		cur->line = ft_strdup(line);
 		ft_strdel(&line);
-		input->next = NULL;
+		cur->next = NULL;
 	}
-	if (input)
+	if (cur)
 	{
 		ft_putstr_fd("Input lines parsed to list.\n", farm->log_fd);
 		return (OK);
@@ -86,8 +94,8 @@ int		main(void)
 	t_input_line	*input;
 
 	if (init_farm(&farm) &&	\
-		get_input(&farm, FD, &input)) // &&		\
-		/* process_farm_description(FD, &farm)) */
+		get_input(&farm, FD, &input) && \
+		process_farm_description(input, &farm))
 	{
 		print_input(input);
 		/* print_farm_description(&farm); */

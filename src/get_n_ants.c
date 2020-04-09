@@ -1,9 +1,11 @@
 #include "lem-in.h"
 
-int			get_n_ants(t_farm *farm, int fd, char **line)
+int			get_n_ants(t_farm *farm, t_input_line *input, char **line)
 {
-    while (get_next_line(fd, line) > 0)
+    while (input)
     {
+		*line = ft_strdup(input->line);
+		input = input->next;
         if ((*line)[0] == '#')
         {
             ft_strdel(line);

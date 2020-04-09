@@ -39,7 +39,7 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 	return (OK);
 }
 
-int			get_rooms(t_farm *farm, int fd, char **line)
+int			get_rooms(t_farm *farm, t_input_line *input, char **line)
 {
     char		**split;
 	int			res;
@@ -51,8 +51,10 @@ int			get_rooms(t_farm *farm, int fd, char **line)
 	res = 0;
 	is_start = 0;
 	is_end = 0;
-    while (get_next_line(fd, line) > 0)
+    while (input)
     {
+		*line = ft_strdup(input->line);
+		input = input->next;
         if ((*line)[0] == '#')
         {
 			if ((res = handle_start_and_end_headers(farm, line)) != COMMENT_FOUND)
