@@ -15,7 +15,6 @@ int		print_links(t_link *links)
 			link = link->next;
 			i += 1;
 		}
-		printf("\n");
 		return (OK);
 	}
 	perror("lem-in: Couldn't print links 'cause passed argument is NULL.\n");

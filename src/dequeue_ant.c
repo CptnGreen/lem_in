@@ -4,6 +4,7 @@ t_ant	*dequeue_ant(t_ant_queue **queue)
 {
 	t_ant_queue	*q;
 
+	q = NULL;
 	if (*queue)
 	{
 		q = *queue;

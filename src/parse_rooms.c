@@ -1,4 +1,5 @@
 #include "lem-in.h"
+#include "libft.h"
 
 int			build_room_ar(t_farm *farm)
 {
@@ -13,21 +14,21 @@ int			build_room_ar(t_farm *farm)
 		room = room->next;
 	}
 	farm->room_ar[farm->n_rooms] = NULL;
-	ft_putstr_fd("Array of rooms is built.\n", farm->log_fd);
+	ft_putstr_fd("build_room_ar(): Array of rooms is built.\n", farm->log_fd);
 	return (OK);
 }
 
 int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 {
 	wipe_mstr(split);
-	ft_putstr_fd("Reached end of rooms' declarations. Starts: ", farm->log_fd);
+	ft_putstr_fd("handle_no_more_rooms(): Reached end of rooms' declarations. Starts: ", farm->log_fd);
 	ft_putnbr_fd(farm->start_counter, farm->log_fd);
 	ft_putstr_fd(", ends: ", farm->log_fd);
 	ft_putnbr_fd(farm->end_counter, farm->log_fd);
 	ft_putstr_fd("\n", farm->log_fd);
 	if (farm->start_counter != 1 || farm->end_counter != 1)
 	{
-		ft_putstr_fd("Wrong number of start or end headers; Aborting.\n", farm->log_fd);
+		ft_putstr_fd("handle_no_more_rooms(): Wrong number of start or end headers; Aborting.\n", farm->log_fd);
 		ft_strdel(line);
 		return (KO);
 	}
@@ -35,26 +36,29 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 		build_room_ar(farm) == KO)
 		return (KO);
 	farm->end_room->n_ants = farm->n_ants;
-	ft_putstr_fd("Adjacency matrix initialized.\n", farm->log_fd);
+	ft_putstr_fd("handle_no_more_rooms(): Adjacency matrix initialized.\n", farm->log_fd);
+	/* print_rooms_v(*(farm->room_ar)); */
 	return (OK);
 }
 
-int			get_rooms(t_farm *farm, t_input_line *input, char **line)
+int			parse_rooms(t_farm *farm, t_input_line **input_passed, char **line)
 {
-    char		**split;
-	int			res;
-	int			is_start;
-	int			is_end;
-	t_room		*room;
+    char			**split;
+	int				res;
+	int				is_start;
+	int				is_end;
+	t_room			*room;
+	t_input_line	*input;
 
     split = NULL;
 	res = 0;
 	is_start = 0;
 	is_end = 0;
+	input = *input_passed;
     while (input)
     {
-		*line = ft_strdup(input->line);
 		input = input->next;
+		*line = ft_strdup(input->line);
         if ((*line)[0] == '#')
         {
 			if ((res = handle_start_and_end_headers(farm, line)) != COMMENT_FOUND)
@@ -67,7 +71,11 @@ int			get_rooms(t_farm *farm, t_input_line *input, char **line)
 		}
 		split = ft_strsplit(*line, ' ');
         if (!split[0] || !split[1] || !split[2] || split[3])
+		{
+			/* print_rooms_v(farm->rooms); */
+			*input_passed = input;
 			return ((handle_no_more_rooms(farm, split, line) == OK) ? (OK) : (KO));
+		}
         else
         {
 			ft_strdel(line);
@@ -85,6 +93,6 @@ int			get_rooms(t_farm *farm, t_input_line *input, char **line)
         }
     }
 	ft_strdel(line);
-	ft_putstr_fd("Reached end of file, but no links were found; Aborting.\n", farm->log_fd);
+	ft_putstr_fd("parse_rooms(): Reached end of file, but no links were found; Aborting.\n", farm->log_fd);
 	return (OK);
 }

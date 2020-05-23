@@ -1,5 +1,7 @@
-Ant farm was successfully initialized!
-Input lines parsed to list.
-Reached end of rooms' declarations. Starts: 1, ends: 1
-Array of rooms is built.
-Adjacency matrix initialized.
+init_farm(): Success.
+get_input(): Input parsed to list.
+handle_no_more_rooms(): Reached end of rooms' declarations. Starts: 1, ends: 1
+build_room_ar(): Array of rooms is built.
+handle_no_more_rooms(): Adjacency matrix initialized.
+parse_links(): Reached end of input.
+process_farm_description(): Success.

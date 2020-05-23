@@ -1,22 +1,27 @@
-.PHONY: all clean fclean re libft norm memcheck test
+.PHONY: all clean fclean re libft norm memcheck test unit-tests
 
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Werror -Wextra
 LFLAGS =
 
 NAME = lem-in
+MAP = three_ways
+LOG = stderr.log
 
 SRC_DIR = src
 SRC_RAW = \
 	init_farm.c \
+	get_input.c \
+	process_farm_description.c \
 	init_link.c \
 	handle_start_and_end_headers.c \
-	get_n_ants.c \
+	parse_n_ants.c \
 	append_room.c \
 	init_and_append_room.c \
 	init_and_append_ant.c \
-	get_rooms.c \
-	get_links.c \
+	parse_rooms.c \
+	parse_links.c \
+	print_links.c \
 	print_farm_description.c \
 	print_farm_description_v.c \
 	print_room_v.c \
@@ -29,6 +34,7 @@ SRC_RAW = \
 	reset_depth.c \
 	assign_depth.c \
 	lem_in.c
+
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
 
 MAIN_RAW = main.c
@@ -64,5 +70,11 @@ norm:
 memcheck:
 	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$(NAME)
 
-test:
+test: all
+	@ echo "" | > $(LOG)
+	@ echo -e "\nOUTPUT:\n================\n"
+	@ ./$(NAME) < $(MAP)
+	@ echo -e "\n================\n"
+
+unit-tests:
 	@ cd /home/ak/Documents/lem-in_test && sh unit_tests.sh && cd /home/ak/Documents/lem_in

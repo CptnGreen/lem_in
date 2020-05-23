@@ -88,11 +88,13 @@ typedef struct			s_farm{
 */
 
 int						init_farm(t_farm *farm);
-t_link					*init_link(t_farm * farm, char const *src, char const *dst);
-int						get_n_ants(t_farm *farm, t_input_line *input, char **line);
-int						get_rooms(t_farm *farm, t_input_line *input, char **line);
+int						get_input(t_farm *farm, int fd, t_input_line **input_lst);
+int						process_farm_description(t_input_line *input, t_farm *farm);
+t_link					*init_link(t_farm *farm, char const *src, char const *dst);
+int						parse_n_ants(t_farm *farm, t_input_line *input, char **line);
+int						parse_rooms(t_farm *farm, t_input_line **input_passed, char **line);
 int						handle_start_and_end_headers(t_farm *farm, char **line);
-int						get_links(t_farm *farm, int fd, char **line);
+int						parse_links(t_farm *farm, t_input_line *input);
 void					print_farm_description(t_farm *farm);
 void					print_farm_description_v(t_farm *farm);
 
@@ -117,6 +119,7 @@ int						lem_in(t_farm *farm);
 ** Debugging:
 */
 
+int						print_links(t_link *links);
 void					print_room_v(t_room *room);
 int						print_rooms_v(t_room *rooms);
 int						print_rooms_queue_v(t_room_queue *queue);

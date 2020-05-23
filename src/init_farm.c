@@ -17,7 +17,7 @@ int		init_farm(t_farm *farm)
 		farm->end_counter = 0;
 		farm->adj_matrix = NULL;
 		farm->room_ar = NULL;
-		ft_putstr_fd("Ant farm was successfully initialized!\n", farm->log_fd);
+		ft_putstr_fd("init_farm(): Success.\n", farm->log_fd);
 		return (OK);
 	}
 	return (KO);

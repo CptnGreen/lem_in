@@ -62,18 +62,18 @@ int		append_link(t_farm *farm, char const *src, char const *dst)
 	return (OK);
 }
 
-int		get_new_link(t_farm *farm, int fd, char **line)
+int		parse_next_link(t_farm *farm, t_input_line *input)
 {
 	char		**split;
 
-	while ((*line)[0] == '#')
+	while ((input->line)[0] == '#')
 	{
-		ft_strdel(line);
-		if (!(get_next_line(fd, line) > 0))
+		input = input->next;
+		if (!(input))
 			return (OK);
 	}
-	split = ft_strsplit(*line, '-');
-	ft_strdel(line);
+	/* printf("parse_next_link(): %s\n", input->line); */
+	split = ft_strsplit(input->line, '-');
 	if (!split[0] || !split[1] || split[2])
 	{
 		wipe_mstr(split);
@@ -89,15 +89,22 @@ int		get_new_link(t_farm *farm, int fd, char **line)
 	return (OK);
 }
 
-int		get_links(t_farm *farm, int fd, char **line)
+/*
+** This function is called in process_farm_description()
+** after parse_n_ants() and parse_rooms().
+*/
+
+int		parse_links(t_farm *farm, t_input_line *input)
 {
-	if (get_new_link(farm, fd, line) == KO)
+	if (parse_next_link(farm, input) == KO)
 		return (KO);
-	while (get_next_line(fd, line) > 0)
+	while (input->next)
 	{
-		if (get_new_link(farm, fd, line) == KO)
+		input = input->next;
+		if (parse_next_link(farm, input) == KO)
 			return (KO);
 	}
-	ft_putstr_fd("Successfully reached end of the input.\n", farm->log_fd);
+	ft_putstr_fd("parse_links(): Reached end of input.\n", farm->log_fd);
+	/* print_links(farm->links); */
 	return (OK);
 }

@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-int			get_n_ants(t_farm *farm, t_input_line *input, char **line)
+int			parse_n_ants(t_farm *farm, t_input_line *input, char **line)
 {
     while (input)
     {
