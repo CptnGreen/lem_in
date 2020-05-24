@@ -67,5 +67,5 @@ int		lem_in(t_farm *farm)
 {
 	while (make_move(farm) != FINISH)
 		;
-	return (KO);
+	return (OK);
 }

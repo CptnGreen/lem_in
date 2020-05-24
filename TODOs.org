@@ -1,8 +1,42 @@
-* NEXT Make code more readable
-  - [ ] set up printing errors into a log-file
+* NEXT Cleanup code [50%]
+  - [X] set up printing errors into a log-file
+  - [ ]
 * TODO Fix bugs
   - [ ] Make sure program finds looped links and shoots error
   - [ ] Bug: program can't find all paths on map "2.map"
-* TODO Write print_farm_description_v() for verbose output [/]
-  - [ ]
-* TODO Set up norminette for Manjaro
+* NEXT Set up norminette for Manjaro
+* NEXT Проверить чекером emilwallner [6/7]
+  - [X] 1.map
+  - [X] 2.map
+  - [X] 5.map
+  - [X] 9_path_depth_4_ants.map
+  - [X] 10_lots_of_comments.map
+  - [X] 20.map -> works twice better!
+  - [ ] 10K.map
+  - [ ] 100K.map
+  - [ ] err_3_coordinates.map
+FILE10="err_duplicate.map";
+FILE11="err_no_ants2.map";
+FILE12="err_no_ants.map";
+FILE13="err_too_few_ants.map";
+FILE14="err_no_links.map";
+FILE15="err_empty.map";
+FILE16="err_no_ants3.map";
+FILE17="err_no_rooms.map";
+FILE18="err_letter_in_coordinate.map";
+FILE19="err_no_path.map";
+FILE20="9_path_depth_2_ants.map";
+FILE24="9_path_depth_1_ants.map";
+FILE21="9_path_depth_8_ants.map";
+FILE22="9_path_depth_9_ants.map";
+FILE23="9_path_depth_10_ants.map";
+FILE19="err_link_to_unknown_room.map";
+FILE24="err_no_end2.map";
+FILE25="err_no_start2.map";
+FILE26="err_start_end_same.map";
+FILE27="err_too_many_ants.map";
+FILE28="err_no_start.map";
+FILE29="err_no_ants3.map";
+FILE30="err_no_rooms.map";
+FILE31="err_letter_in_coordinate.map";
+FILE32="err_no_end.map";

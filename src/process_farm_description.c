@@ -20,22 +20,21 @@ int			make_ants(t_farm *farm)
 	return (OK);
 }
 
-int			process_farm_description(t_input_line *input, t_farm *farm)
+/*
+** Called from main()
+*/
+
+int			process_farm_description(t_input_line **input, t_farm *farm)
 {
 	char	*line;
-	int		i;
 
 	line = NULL;
-	if (parse_n_ants(farm, input, &line) != OK || \
-		parse_rooms(farm, &input, &line) != OK ||	\
+	if (parse_n_ants(farm, input) != OK || \
+		parse_rooms(farm, input) != OK || \
 		parse_links(farm, input) != OK)
 		return (KO);
-	/* printf("%s\n", input->line); */
-	i = 0;
-	while (assign_depth(farm) != NO_MORE_PATHS_FOUND)
-		i += 1;
-	/* if (i == 0) */
-	/* 	return (KO); */
+	while (find_path(farm) != NO_MORE_PATHS_FOUND)
+		;
 	make_ants(farm);
 	ft_putstr_fd("process_farm_description(): Success.\n", farm->log_fd);
 	return (OK);

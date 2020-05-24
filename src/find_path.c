@@ -25,7 +25,12 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	return (OK);
 }
 
-int		assign_depth(t_farm *farm)
+/*
+** With every call of this function one more path is found.
+** It assigns depths during its working process.
+*/
+
+int		find_path(t_farm *farm)
 {
 	t_room_queue	*q;
 	t_room_queue	*q_tmp;

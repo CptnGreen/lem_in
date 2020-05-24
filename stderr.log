@@ -1,7 +1,9 @@
+
+
+LOG:
+================
 init_farm(): Success.
 get_input(): Input parsed to list.
-handle_no_more_rooms(): Reached end of rooms' declarations. Starts: 1, ends: 1
-build_room_ar(): Array of rooms is built.
-handle_no_more_rooms(): Adjacency matrix initialized.
-parse_links(): Reached end of input.
-process_farm_description(): Success.
+parse_n_ants(): Number of ants = 100
+handle_no_more_rooms(): Reached end of rooms' declarations. Starts: 0, ends: 0
+handle_no_more_rooms(): Wrong number of start or end headers; Aborting.

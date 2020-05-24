@@ -1,5 +1,9 @@
 #include "lem-in.h"
 
+/*
+** This function is called in main()
+*/
+
 int		get_input(t_farm *farm, int fd, t_input_line **input_lst)
 {
 	t_input_line	*prev;

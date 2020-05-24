@@ -94,14 +94,14 @@ int		parse_next_link(t_farm *farm, t_input_line *input)
 ** after parse_n_ants() and parse_rooms().
 */
 
-int		parse_links(t_farm *farm, t_input_line *input)
+int		parse_links(t_farm *farm, t_input_line **input)
 {
-	if (parse_next_link(farm, input) == KO)
+	if (parse_next_link(farm, *input) == KO)
 		return (KO);
-	while (input->next)
+	while ((*input)->next)
 	{
-		input = input->next;
-		if (parse_next_link(farm, input) == KO)
+		*input = (*input)->next;
+		if (parse_next_link(farm, (*input)) == KO)
 			return (KO);
 	}
 	ft_putstr_fd("parse_links(): Reached end of input.\n", farm->log_fd);

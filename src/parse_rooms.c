@@ -41,7 +41,11 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 	return (OK);
 }
 
-int			parse_rooms(t_farm *farm, t_input_line **input_passed, char **line)
+/*
+** Called from process_farm_description()
+*/
+
+int			parse_rooms(t_farm *farm, t_input_line **input_passed)
 {
     char			**split;
 	int				res;
@@ -49,6 +53,7 @@ int			parse_rooms(t_farm *farm, t_input_line **input_passed, char **line)
 	int				is_end;
 	t_room			*room;
 	t_input_line	*input;
+	char			*line;
 
     split = NULL;
 	res = 0;
@@ -58,27 +63,27 @@ int			parse_rooms(t_farm *farm, t_input_line **input_passed, char **line)
     while (input)
     {
 		input = input->next;
-		*line = ft_strdup(input->line);
-        if ((*line)[0] == '#')
+		line = ft_strdup(input->line);
+        if (line[0] == '#')
         {
-			if ((res = handle_start_and_end_headers(farm, line)) != COMMENT_FOUND)
+			if ((res = handle_start_and_end_headers(farm, &line)) != COMMENT_FOUND)
 			{
 				is_start = ((res == START_HEADER_IS_FOUND) ? (1) : (0));
 				is_end = ((res == END_HEADER_IS_FOUND) ? (1) : (0));
 			}
-			ft_strdel(line);
+			ft_strdel(&line);
 			continue ;
 		}
-		split = ft_strsplit(*line, ' ');
+		split = ft_strsplit(line, ' ');
         if (!split[0] || !split[1] || !split[2] || split[3])
 		{
 			/* print_rooms_v(farm->rooms); */
 			*input_passed = input;
-			return ((handle_no_more_rooms(farm, split, line) == OK) ? (OK) : (KO));
+			return ((handle_no_more_rooms(farm, split, &line) == OK) ? (OK) : (KO));
 		}
         else
         {
-			ft_strdel(line);
+			ft_strdel(&line);
 			room = init_and_append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]));
 			room->is_start = ((is_start) ? (1) : (0));
 			if (is_start)
@@ -92,7 +97,7 @@ int			parse_rooms(t_farm *farm, t_input_line **input_passed, char **line)
 			continue ;
         }
     }
-	ft_strdel(line);
+	ft_strdel(&line);
 	ft_putstr_fd("parse_rooms(): Reached end of file, but no links were found; Aborting.\n", farm->log_fd);
 	return (OK);
 }

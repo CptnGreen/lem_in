@@ -32,7 +32,7 @@ SRC_RAW = \
 	dequeue_ant.c \
 	choose_path.c \
 	reset_depth.c \
-	assign_depth.c \
+	find_path.c \
 	lem_in.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
@@ -78,3 +78,7 @@ test: all
 
 unit-tests:
 	@ cd /home/ak/Documents/lem-in_test && sh unit_tests.sh && cd /home/ak/Documents/lem_in
+
+emilwallner: all
+	@ echo "" > stderr.log
+	@ sh Maps/run.sh
