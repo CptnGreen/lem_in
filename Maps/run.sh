@@ -108,8 +108,8 @@ FILE32="err_no_end.map";
 # echo -e "\n\n\033[32m$FILE9\n\033[37m"
 # $C $DIR$FILE9 | $P > $USER$FILE9;
 
-echo -e "\n\n\033[32m$FILE10\n\033[37m"
-$C $DIR$FILE10 | $P > $USER$FILE10;
+# echo -e "\n\n\033[32m$FILE10\n\033[37m"
+# $C $DIR$FILE10 | $P > $USER$FILE10;
 
 # echo -e "\n\n\033[32m$FILE11\n\033[37m"
 # $C $DIR$FILE11 | $P > $USER$FILE11;
@@ -132,8 +132,8 @@ $C $DIR$FILE10 | $P > $USER$FILE10;
 # echo -e "\n\n\033[32m$FILE17\n\033[37m"
 # $C $DIR$FILE17 | $P > $USER$FILE17;
 
-# echo -e "\n\n\033[32m$FILE18\n\033[37m"
-# $C $DIR$FILE18 | $P > $USER$FILE18;
+echo -e "\n\n\033[32m$FILE18\n\033[37m"
+$C $DIR$FILE18 | $P > $USER$FILE18;
 
 # echo -e "\n\n\033[32m$FILE19\n\033[37m"
 # $C $DIR$FILE19 | $P > $USER$FILE19;

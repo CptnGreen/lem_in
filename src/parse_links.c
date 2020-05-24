@@ -10,7 +10,7 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 
 	if (ft_strequ(src, dst))
 	{
-		ft_putstr_fd("Loop-link found; Aborting.\n", farm->log_fd);
+		ft_putstr_fd("check_link(): Loop-link found; Aborting.\n", farm->log_fd);
 		return (KO);
 	}
 	is_checked_src = 0;
@@ -36,7 +36,7 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 		}
 		room = room->next;
 	}
-	ft_putstr_fd("Corrupt link found - src or dst was never declared; Aborting.\n", farm->log_fd);
+	ft_putstr_fd("check_link(): Corrupt link found - src or dst was never declared; Aborting.\n", farm->log_fd);
 	return (KO);
 }
 
@@ -72,12 +72,11 @@ int		parse_next_link(t_farm *farm, t_input_line *input)
 		if (!(input))
 			return (OK);
 	}
-	/* printf("parse_next_link(): %s\n", input->line); */
 	split = ft_strsplit(input->line, '-');
 	if (!split[0] || !split[1] || split[2])
 	{
 		wipe_mstr(split);
-		ft_putstr_fd("Wrong link declaration found; Aborting.\n", farm->log_fd);
+		ft_putstr_fd("parse_next_link(): Wrong link declaration found; Aborting.\n", farm->log_fd);
 		return (KO);
 	}
 	if (!(append_link(farm, split[0], split[1])))
@@ -94,17 +93,25 @@ int		parse_next_link(t_farm *farm, t_input_line *input)
 ** after parse_n_ants() and parse_rooms().
 */
 
-int		parse_links(t_farm *farm, t_input_line **input)
+int		parse_links(t_farm *farm, t_input_line **input_passed)
 {
-	if (parse_next_link(farm, *input) == KO)
-		return (KO);
-	while ((*input)->next)
+	t_input_line	*input;
+
+	input = *input_passed;
+	if (input)
 	{
-		*input = (*input)->next;
-		if (parse_next_link(farm, (*input)) == KO)
+		printf("input->line: %s\n", input->line);
+		if (parse_next_link(farm, input) == KO)
 			return (KO);
+		while (input->next)
+		{
+			input = input->next;
+			if (parse_next_link(farm, input) == KO)
+				return (KO);
+		}
+		ft_putstr_fd("parse_links(): Reached end of input.\n", farm->log_fd);
+		return (OK);
 	}
-	ft_putstr_fd("parse_links(): Reached end of input.\n", farm->log_fd);
-	/* print_links(farm->links); */
-	return (OK);
+	ft_putstr_fd("parse_links(): No links found. Aborting.\n", farm->log_fd);
+	return (KO);
 }

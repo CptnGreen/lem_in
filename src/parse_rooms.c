@@ -53,15 +53,16 @@ int			parse_rooms(t_farm *farm, t_input_line **input_passed)
 	t_room			*room;
 	t_input_line	*input;
 	char			*line;
+	int				i;
 
+	i = 0;
     split = NULL;
 	res = 0;
 	is_start = 0;
 	is_end = 0;
-	input = *input_passed;
+	input = (*input_passed)->next;
     while (input)
     {
-		input = input->next;
 		line = ft_strdup(input->line);
         if (line[0] == '#')
         {
@@ -71,6 +72,7 @@ int			parse_rooms(t_farm *farm, t_input_line **input_passed)
 				is_end = ((res == END_HEADER_IS_FOUND) ? (1) : (0));
 			}
 			ft_strdel(&line);
+			input = input->next;
 			continue ;
 		}
 		split = ft_strsplit(line, ' ');
@@ -87,6 +89,26 @@ int			parse_rooms(t_farm *farm, t_input_line **input_passed)
         else
         {
 			ft_strdel(&line);
+			i = 0;
+			while (split[1][i])
+			{
+				if (split[1][i] < '0' || split[1][i] > '9')
+				{
+					ft_putstr_fd("parse_rooms(): Letter as the coordinate - aborting.\n", farm->log_fd);
+					return (KO);
+				}
+				i += 1;
+			}
+			i = 0;
+			while (split[2][i])
+			{
+				if (split[2][i] < '0' || split[2][i] > '9')
+				{
+					ft_putstr_fd("parse_rooms(): Letter as the coordinate - aborting.\n", farm->log_fd);
+					return (KO);
+				}
+				i += 1;
+			}
 			if ((room = init_and_append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]))))
 			{
 				room->is_start = ((is_start) ? (1) : (0));
@@ -99,10 +121,11 @@ int			parse_rooms(t_farm *farm, t_input_line **input_passed)
 				is_end = 0;
 			}
             wipe_mstr(split);
+			input = input->next;
 			continue ;
         }
     }
 	ft_strdel(&line);
 	ft_putstr_fd("parse_rooms(): Reached end of file, but no links were found; Aborting.\n", farm->log_fd);
-	return (OK);
+	return (KO);
 }

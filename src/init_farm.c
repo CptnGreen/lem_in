@@ -1,5 +1,9 @@
 #include "lem-in.h"
 
+/*
+** Called in main()
+*/
+
 int		init_farm(t_farm *farm)
 {
 	if (farm && \

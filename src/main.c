@@ -26,7 +26,7 @@ int		main(void)
 		if (process_farm_description(&input, &farm) && \
 			lem_in(&farm))
 		{
-			print_rooms_v(*(farm.room_ar));
+			/* print_rooms_v(*(farm.room_ar)); */
 			sleep(3);
 			return (0);
 		}
