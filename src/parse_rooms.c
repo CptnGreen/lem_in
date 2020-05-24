@@ -37,7 +37,6 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 		return (KO);
 	farm->end_room->n_ants = farm->n_ants;
 	ft_putstr_fd("handle_no_more_rooms(): Adjacency matrix initialized.\n", farm->log_fd);
-	/* print_rooms_v(*(farm->room_ar)); */
 	return (OK);
 }
 
@@ -77,22 +76,28 @@ int			parse_rooms(t_farm *farm, t_input_line **input_passed)
 		split = ft_strsplit(line, ' ');
         if (!split[0] || !split[1] || !split[2] || split[3])
 		{
-			/* print_rooms_v(farm->rooms); */
+			if (split[0] && split[1] && split[2] && split[3])
+			{
+				ft_putstr_fd("parse_rooms(): Too many coords given - aborting.\n", farm->log_fd);
+				return (KO);
+			}
 			*input_passed = input;
 			return ((handle_no_more_rooms(farm, split, &line) == OK) ? (OK) : (KO));
 		}
         else
         {
 			ft_strdel(&line);
-			room = init_and_append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]));
-			room->is_start = ((is_start) ? (1) : (0));
-			if (is_start)
-				farm->start_room = room;
-			if (is_end)
-				farm->end_room = room;
-			room->is_end = ((is_end) ? (1) : (0));
-			is_start = 0;
-			is_end = 0;
+			if ((room = init_and_append_room(farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]))))
+			{
+				room->is_start = ((is_start) ? (1) : (0));
+				if (is_start)
+					farm->start_room = room;
+				if (is_end)
+					farm->end_room = room;
+				room->is_end = ((is_end) ? (1) : (0));
+				is_start = 0;
+				is_end = 0;
+			}
             wipe_mstr(split);
 			continue ;
         }

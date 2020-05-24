@@ -5,7 +5,7 @@
   - [ ] Make sure program finds looped links and shoots error
   - [ ] Bug: program can't find all paths on map "2.map"
 * NEXT Set up norminette for Manjaro
-* NEXT Проверить чекером emilwallner [6/7]
+* NEXT Проверить чекером emilwallner [7/9]
   - [X] 1.map
   - [X] 2.map
   - [X] 5.map
@@ -14,8 +14,8 @@
   - [X] 20.map -> works twice better!
   - [ ] 10K.map
   - [ ] 100K.map
-  - [ ] err_3_coordinates.map
-FILE10="err_duplicate.map";
+  - [X] err_3_coordinates.map
+  - [ ] err_duplicate.map
 FILE11="err_no_ants2.map";
 FILE12="err_no_ants.map";
 FILE13="err_too_few_ants.map";
