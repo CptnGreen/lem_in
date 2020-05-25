@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 #define FINISH 2
 
@@ -24,14 +24,12 @@ int		move_ant(t_farm *farm, t_room_queue *gateway, int *was_move)
 	*was_move = 0;
 	while (!(r->is_start))
 	{
-		if (r->parent && \
-			(r->ants == NULL || r == farm->end_room) && \
-			r->parent->ants != NULL)
+		if ((r->parent) && (r->ants == NULL || r == farm->end_room) && \
+			(r->parent->ants != NULL))
 		{
 			a = dequeue_ant(&(r->parent->ants));
 			enqueue_ant(&(r->ants), a);
-			if (*was_move)
-				printf(" ");
+			printf((*was_move) ? (" ") : (""));
 			*was_move = 0;
 			printf("L%d-%s", a->num, r->name);
 			*was_move = 1;

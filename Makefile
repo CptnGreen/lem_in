@@ -34,7 +34,6 @@ SRC_RAW = \
 	parse_rooms.c \
 	parse_links.c \
 	print_links.c \
-	print_farm_description.c \
 	print_farm_description_v.c \
 	print_room_v.c \
 	print_rooms_v.c \
@@ -89,7 +88,7 @@ test: all
 	@ echo -e "\n================\n"
 
 unit-tests:
-	@ cd /home/ak/Documents/lem-in_test && sh unit_tests.sh && cd /home/ak/Documents/lem_in
+	@ cd /home/ak/Documents/lem_in_test && sh unit_tests.sh && cd /home/ak/Documents/lem_in
 
 emilwallner: all
 	@ echo "" > stderr.log

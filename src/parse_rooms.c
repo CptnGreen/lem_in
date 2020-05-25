@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 #include "libft.h"
 
 #define AR_BUILT "build_room_ar(): Array of rooms is built.\n"

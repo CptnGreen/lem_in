@@ -10,40 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 #define LOOP_LINK "check_link(): Loop-link found - aborting.\n"
 #define BAD_LINK "check_link(): Bad link found - aborting.\n"
+
+/*
+** Called in append_link()
+** Checks for:
+** (1) loop-links (like "room-room"),
+** (2) links pointing to missing rooms.
+*/
 
 int		check_link(t_farm *farm, char const *src, char const *dst)
 {
 	t_room	*room;
 	t_room	*room_src;
 	t_room	*room_dst;
-	int		is_checked_src;
-	int		is_checked_dst;
 
 	if (ft_strequ(src, dst))
-	{
-		ft_putstr_fd(LOOP_LINK, farm->log_fd);
 		return (KO);
-	}
-	is_checked_src = 0;
-	is_checked_dst = 0;
+	room_src = NULL;
+	room_dst = NULL;
 	room = farm->rooms;
 	while (room)
 	{
-		if (!is_checked_src && ft_strequ(src, room->name))
-		{
-			room_src = room;
-			is_checked_src = 1;
-		}
-		if (!is_checked_dst && ft_strequ(dst, room->name))
-		{
-			room_dst = room;
-			is_checked_dst = 1;
-		}
-		if (is_checked_src && is_checked_dst)
+		room_src = ((!room_src && ft_strequ(src, room->name)) ? \
+					room : room_src);
+		room_dst = ((!room_dst && ft_strequ(dst, room->name)) ? \
+					room : room_dst);
+		if (room_src && room_dst)
 		{
 			farm->adj_matrix[room_src->num][room_dst->num] = '1';
 			farm->adj_matrix[room_dst->num][room_src->num] = '1';
@@ -51,7 +47,6 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 		}
 		room = room->next;
 	}
-	ft_putstr_fd(BAD_LINK, farm->log_fd);
 	return (KO);
 }
 
@@ -61,7 +56,10 @@ int		append_link(t_farm *farm, char const *src, char const *dst)
 	t_link		*prev;
 
 	if (check_link(farm, src, dst) != OK)
+	{
+		ft_putstr_fd(BAD_LINK, farm->log_fd);
 		return (KO);
+	}
 	prev = farm->links;
 	link = farm->links;
 	while (link)

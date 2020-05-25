@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 {
@@ -62,13 +62,11 @@ int		find_path(t_farm *farm)
 		enqueue_neighbours(farm, q_tmp, r);
 		q_tmp = q_tmp->next;
 	}
-	/* print_rooms_queue_v(q); */
 	if (choose_path(farm) == FOUND_PATH && !(farm->end_room->parent->is_start))
 	{
 		reset_depth(&q);
 		return (FOUND_PATH);
 	}
-	/* print_rooms_v(farm->rooms); */
 	reset_depth(&q);
 	return (NO_MORE_PATHS_FOUND);
 }

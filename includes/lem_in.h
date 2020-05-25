@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem-in.h                                           :+:      :+:    :+:   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -16,18 +16,18 @@
 # define FD 0
 # define LOG "stderr.log"
 
-#define OK 1
-#define KO 0
+# define OK 1
+# define KO 0
 
-#define ROOM_MISSING -2
-#define HEADERS_TOO_MANY -1
-#define FOUND_START 1
-#define FOUND_END 2
-#define COMMENT_FOUND 3
+# define ROOM_MISSING -2
+# define HEADERS_TOO_MANY -1
 
-#define FOUND_PATH 1
-#define NO_MORE_PATHS_FOUND 2
+# define FOUND_START 1
+# define FOUND_END 2
+# define COMMENT_FOUND 3
 
+# define FOUND_PATH 1
+# define NO_MORE_PATHS_FOUND 2
 
 # include "libft.h"
 
@@ -100,17 +100,18 @@ typedef struct			s_farm{
 */
 
 int						init_farm(t_farm *farm);
-int						get_input(t_farm *farm, int fd, t_input_line **input_lst);
-int						process_farm_description(t_input_line **input, t_farm *farm);
-t_link					*init_link(t_farm *farm, char const *src, char const *dst);
+int						get_input(\
+							t_farm *farm, int fd, t_input_line **input_lst);
+int						process_farm_description(\
+							t_input_line **input, t_farm *farm);
+t_link					*init_link(\
+							t_farm *farm, char const *src, char const *dst);
 
 int						parse_n_ants(t_farm *farm, t_input_line **input);
 int						parse_rooms(t_farm *farm, t_input_line **input_passed);
 int						parse_links(t_farm *farm, t_input_line **input);
 
 int						handle_start_and_end_headers(t_farm *farm, char **line);
-void					print_farm_description(t_farm *farm);
-void					print_farm_description_v(t_farm *farm);
 
 int						find_path(t_farm *farm);
 int						choose_path(t_farm *farm);
@@ -121,7 +122,8 @@ int						reset_depth(t_room_queue **q);
 */
 
 t_room					*append_room(t_room **where, t_room *what);
-t_room					*init_and_append_room(t_farm *farm, char const *name, int x, int y);
+t_room					*init_and_append_room(\
+							t_farm *farm, char const *name, int x, int y);
 t_ant					*init_and_append_ant(t_farm *farm, int num);
 int						enqueue_room(t_room_queue **queue, t_room *room);
 int						enqueue_ant(t_ant_queue **queue, t_ant *ant);
@@ -137,5 +139,6 @@ int						print_links(t_link *links);
 void					print_room_v(t_room *room);
 int						print_rooms_v(t_room *rooms);
 int						print_rooms_queue_v(t_room_queue *queue);
+void					print_farm_description_v(t_farm *farm);
 
 #endif

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 void	print_input(t_input_line *input_seed)
 {
@@ -31,14 +31,12 @@ int		main(void)
 	t_farm			farm;
 	t_input_line	*input;
 
-	if (init_farm(&farm) &&	\
-		get_input(&farm, FD, &input))
+	if (init_farm(&farm) &&	get_input(&farm, FD, &input))
 	{
 		print_input(input);
 		if (process_farm_description(&input, &farm) && \
 			lem_in(&farm))
 		{
-			/* print_rooms_v(*(farm.room_ar)); */
 			sleep(3);
 			return (0);
 		}

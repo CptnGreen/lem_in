@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 int		enqueue_ant(t_ant_queue **queue, t_ant *ant)
 {

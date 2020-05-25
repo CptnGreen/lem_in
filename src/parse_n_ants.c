@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
+
+#define NO_ANTS "parse_n_ants(): Number of ants <= 0. Aborting.\n"
+#define ANTS_MISSING "parse_n_ants(): Can't find number of ants - aborting.\n"
 
 /*
 ** Called from process farm_description()
@@ -22,28 +25,28 @@ int			parse_n_ants(t_farm *farm, t_input_line **input_passed)
 	char			*line;
 
 	input = *input_passed;
-    while (input)
-    {
+	while (input)
+	{
 		line = ft_strdup(input->line);
-        if (line[0] == '#')
-        {
-            ft_strdel(&line);
+		if (line[0] == '#')
+		{
+			ft_strdel(&line);
 			input = input->next;
-            continue ;
-        }
-        if ((farm->n_ants = ft_atoi(line)) > 0)
-        {
+			continue ;
+		}
+		if ((farm->n_ants = ft_atoi(line)) > 0)
+		{
 			ft_putstr_fd("parse_n_ants(): Number of ants = ", farm->log_fd);
 			ft_putnbr_fd(farm->n_ants, farm->log_fd);
 			ft_putstr_fd("\n", farm->log_fd);
-            ft_strdel(&line);
+			ft_strdel(&line);
 			*input_passed = input->next;
-            return (OK);
-        }
-        ft_strdel(&line);
-        ft_putstr_fd("parse_n_ants(): Number of ants equals or less than 0. Aborting.\n", farm->log_fd);
-        return (KO);
-    }
-    ft_putstr_fd("parse_n_ants(): Couldn't find number of ants. Aborting.\n", farm->log_fd);
-    return (KO);
+			return (OK);
+		}
+		ft_strdel(&line);
+		ft_putstr_fd(NO_ANTS, farm->log_fd);
+		return (KO);
+	}
+	ft_putstr_fd(ANTS_MISSING, farm->log_fd);
+	return (KO);
 }

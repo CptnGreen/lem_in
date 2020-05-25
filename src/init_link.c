@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 t_link		*init_link(t_farm *farm, char const *src, char const *dst)
 {
@@ -24,6 +24,8 @@ t_link		*init_link(t_farm *farm, char const *src, char const *dst)
 		link->next = NULL;
 	}
 	else
-		ft_putstr_fd("lem_in: Failed to allocate memory for a new link.\n", farm->log_fd);
+		ft_putstr_fd(\
+			"init_link(): Failed to allocate memory for a new link.\n", \
+			farm->log_fd);
 	return (link);
 }
