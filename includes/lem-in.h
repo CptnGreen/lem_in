@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lem-in.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 03:08:52 by slisandr          #+#    #+#             */
+/*   Updated: 2020/05/25 03:08:53 by slisandr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
@@ -9,9 +21,9 @@
 
 #define ROOM_MISSING -2
 #define HEADERS_TOO_MANY -1
-#define COMMENT_FOUND 0
-#define START_HEADER_IS_FOUND 1
-#define END_HEADER_IS_FOUND 2
+#define FOUND_START 1
+#define FOUND_END 2
+#define COMMENT_FOUND 3
 
 #define FOUND_PATH 1
 #define NO_MORE_PATHS_FOUND 2

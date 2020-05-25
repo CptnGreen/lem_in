@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_n_ants.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 03:08:12 by slisandr          #+#    #+#             */
+/*   Updated: 2020/05/25 03:08:13 by slisandr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem-in.h"
 
 /*
@@ -25,7 +37,7 @@ int			parse_n_ants(t_farm *farm, t_input_line **input_passed)
 			ft_putnbr_fd(farm->n_ants, farm->log_fd);
 			ft_putstr_fd("\n", farm->log_fd);
             ft_strdel(&line);
-			*input_passed = input;
+			*input_passed = input->next;
             return (OK);
         }
         ft_strdel(&line);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_start_and_end_headers.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 03:07:52 by slisandr          #+#    #+#             */
+/*   Updated: 2020/05/25 03:07:52 by slisandr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem-in.h"
 
 int			handle_start_header(t_farm *farm, char **line)
@@ -9,7 +21,7 @@ int			handle_start_header(t_farm *farm, char **line)
 		if (farm->start_counter == 0)
 		{
 			farm->start_counter += 1;
-			return (START_HEADER_IS_FOUND);
+			return (FOUND_START);
 		}
 		else
 		{
@@ -29,7 +41,7 @@ int			handle_end_header(t_farm *farm, char **line)
 		if (farm->end_counter == 0)
 		{
 			farm->end_counter += 1;
-			return (END_HEADER_IS_FOUND);
+			return (FOUND_END);
 		}
 		else
 		{

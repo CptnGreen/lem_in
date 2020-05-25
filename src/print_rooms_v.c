@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_rooms_v.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 03:08:36 by slisandr          #+#    #+#             */
+/*   Updated: 2020/05/25 03:08:36 by slisandr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem-in.h"
 
 int		print_rooms_v(t_room *rooms)
@@ -6,16 +18,18 @@ int		print_rooms_v(t_room *rooms)
 
 	if (rooms)
 	{
-		printf("==#|=name==============|============parent=|=x===|=y===|==d=|=flags=|=ants=inside==============\n");
+		printf("==#|=name==============|============parent=|=x===|=y===");
+		printf("|==d=|=flags=|=ants=inside==============\n");
 		room = rooms;
 		while (room)
 		{
 			print_room_v(room);
 			room = room->next;
 		}
-		printf("===|===================|===================|=====|=====|====|=======|==========================\n");
+		printf("===|===================|===================|=====|=====");
+		printf("=|====|=======|==========================\n");
 		return (OK);
 	}
-	perror("lem-in: Couldn't print rooms 'cause passed argument is NULL.\n");
+	perror("print_rooms_v(): Can't print rooms 'cause passed argument is 0.\n");
 	return (KO);
 }

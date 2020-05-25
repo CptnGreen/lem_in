@@ -1,4 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_links.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 03:08:10 by slisandr          #+#    #+#             */
+/*   Updated: 2020/05/25 03:08:11 by slisandr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem-in.h"
+
+#define LOOP_LINK "check_link(): Loop-link found - aborting.\n"
+#define BAD_LINK "check_link(): Bad link found - aborting.\n"
 
 int		check_link(t_farm *farm, char const *src, char const *dst)
 {
@@ -10,7 +25,7 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 
 	if (ft_strequ(src, dst))
 	{
-		ft_putstr_fd("check_link(): Loop-link found; Aborting.\n", farm->log_fd);
+		ft_putstr_fd(LOOP_LINK, farm->log_fd);
 		return (KO);
 	}
 	is_checked_src = 0;
@@ -36,7 +51,7 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 		}
 		room = room->next;
 	}
-	ft_putstr_fd("check_link(): Corrupt link found - src or dst was never declared; Aborting.\n", farm->log_fd);
+	ft_putstr_fd(BAD_LINK, farm->log_fd);
 	return (KO);
 }
 
@@ -62,6 +77,10 @@ int		append_link(t_farm *farm, char const *src, char const *dst)
 	return (OK);
 }
 
+/*
+** Checks if link consists of exactly 2 parts
+*/
+
 int		parse_next_link(t_farm *farm, t_input_line *input)
 {
 	char		**split;
@@ -76,7 +95,7 @@ int		parse_next_link(t_farm *farm, t_input_line *input)
 	if (!split[0] || !split[1] || split[2])
 	{
 		wipe_mstr(split);
-		ft_putstr_fd("parse_next_link(): Wrong link declaration found; Aborting.\n", farm->log_fd);
+		ft_putstr_fd(BAD_LINK, farm->log_fd);
 		return (KO);
 	}
 	if (!(append_link(farm, split[0], split[1])))
@@ -100,7 +119,6 @@ int		parse_links(t_farm *farm, t_input_line **input_passed)
 	input = *input_passed;
 	if (input)
 	{
-		printf("input->line: %s\n", input->line);
 		if (parse_next_link(farm, input) == KO)
 			return (KO);
 		while (input->next)
