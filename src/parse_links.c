@@ -50,16 +50,6 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 	return (KO);
 }
 
-int		append_link(t_farm *farm, char const *src, char const *dst)
-{
-	if (check_link(farm, src, dst) != OK)
-	{
-		ft_putstr_fd(BAD_LINK, farm->log_fd);
-		return (KO);
-	}
-	return (OK);
-}
-
 /*
 ** Checks if link consists of exactly 2 parts
 */
@@ -81,8 +71,9 @@ int		parse_next_link(t_farm *farm, t_input_line *input)
 		ft_putstr_fd(BAD_LINK, farm->log_fd);
 		return (KO);
 	}
-	if (!(append_link(farm, split[0], split[1])))
+	if (check_link(farm, split[0], split[1]) != OK)
 	{
+		ft_putstr_fd(BAD_LINK, farm->log_fd);
 		wipe_mstr(split);
 		return (KO);
 	}

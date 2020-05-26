@@ -16,20 +16,43 @@
 void	wipe_rooms(t_farm *farm)
 {
 	t_room		*room;
-	t_room		*prev;
+	t_room		*prev_room;
+	t_ant_queue	*ant;
+	t_ant_queue	*prev_ant;
+	t_room_queue	*gateway;
+	t_room_queue	*prev_gateway;
 
 	room = farm->rooms;
 	if (room)
 	{
 		while (room)
 		{
-			prev = room;
+			prev_room = room;
 			room = room->next;
-			ft_strdel(&(prev->name));
-			free(prev);
-			prev = NULL;
+			ant = prev_room->ants;
+			while (ant)
+			{
+				prev_ant = ant;
+				ant = ant->next;
+				free(prev_ant->ant);
+				prev_ant->ant = NULL;
+				free(prev_ant);
+				prev_ant = NULL;
+			}
+			ft_strdel(&(prev_room->name));
+			prev_room->parent = NULL;
+			free(prev_room);
+			prev_room = NULL;
 		}
-		farm->rooms = NULL;
+		gateway = farm->gateways;
+		while (gateway)
+		{
+			prev_gateway = gateway;
+			gateway = gateway->next;
+			free(prev_gateway);
+			prev_gateway = NULL;
+		}
+		wipe_mstr(farm->adj_matrix);
 		free(farm->room_ar);
 		farm->room_ar = NULL;
 	}

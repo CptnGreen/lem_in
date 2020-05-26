@@ -20,6 +20,8 @@ int		dequeue_room(t_room_queue **queue)
 	{
 		q = *queue;
 		*queue = q->next;
+		free(q);
+		q = NULL;
 	}
 	return (OK);
 }

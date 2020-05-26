@@ -18,13 +18,13 @@
 ** Called form make_move()
 */
 
-int		move_ants(t_farm *farm, t_room_queue *gateway)
+int		move_ants_along_the_path(t_farm *farm, t_room_queue *gateway)
 {
 	t_room		*r;
 	t_ant		*a;
-	int			was_move_on_path;
+	int			was_move;
 
-	was_move_on_path = 0;
+	was_move = 0;
 	farm->end_room->parent = gateway->room;
 	r = farm->end_room;
 	while (!(r->is_start))
@@ -35,9 +35,9 @@ int		move_ants(t_farm *farm, t_room_queue *gateway)
 			a = dequeue_ant(&(r->parent->ants));
 			enqueue_ant(&(r->ants), a);
 			printf("%s%sL%d-%s", \
-				((!was_move_on_path && gateway != farm->gateways) ? " " : ""), \
-				(was_move_on_path ? " " : ""), a->num, r->name);
-			was_move_on_path = ((was_move_on_path == 0) ? 1 : was_move_on_path);
+				((!was_move && gateway != farm->gateways) ? " " : ""), \
+				(was_move ? " " : ""), a->num, r->name);
+			was_move = ((was_move == 0) ? 1 : was_move);
 			a->room = r;
 		}
 		r = r->parent;
@@ -60,7 +60,7 @@ int		make_move(t_farm *farm)
 	gateway = farm->gateways;
 	while (gateway)
 	{
-		move_ants(farm, gateway);
+		move_ants_along_the_path(farm, gateway);
 		gateway = gateway->next;
 	}
 	a = farm->end_room->ants;

@@ -15,12 +15,16 @@
 t_ant	*dequeue_ant(t_ant_queue **queue)
 {
 	t_ant_queue	*q;
+	t_ant		*ant;
 
-	q = NULL;
 	if (*queue)
 	{
 		q = *queue;
+		ant = q->ant;
 		*queue = q->next;
+		free(q);
+		q = NULL;
+		return (ant);
 	}
-	return (q->ant);
+	return (NULL);
 }

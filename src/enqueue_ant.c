@@ -21,6 +21,10 @@ int		handle_empty_ants_queue(t_ant_queue **queue, t_ant *ant)
 	return (OK);
 }
 
+/*
+** Called in lem-in()->move_ants_along_the_path()
+*/
+
 int		enqueue_ant(t_ant_queue **queue, t_ant *ant)
 {
 	t_ant_queue	*q;
