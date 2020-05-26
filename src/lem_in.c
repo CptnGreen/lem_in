@@ -18,7 +18,7 @@
 ** Called form make_move()
 */
 
-int		move_ant(t_farm *farm, t_room_queue *gateway, int *was_move)
+int		move_ants(t_farm *farm, t_room_queue *gateway, int *was_move_on_path)
 {
 	t_room		*r;
 	t_ant		*a;
@@ -32,17 +32,16 @@ int		move_ant(t_farm *farm, t_room_queue *gateway, int *was_move)
 		{
 			a = dequeue_ant(&(r->parent->ants));
 			enqueue_ant(&(r->ants), a);
-			printf((*was_move) ? (" ") : (""));
-			*was_move = 0;
+			printf((*was_move_on_path) ? (" ") : (""));
 			printf("L%d-%s", a->num, r->name);
-			*was_move = 1;
+			*was_move_on_path = 1;
 			a->room = r;
 		}
 		r = r->parent;
 	}
 	if (!(gateway->next))
 	{
-		*was_move = 0;
+		*was_move_on_path = 0;
 		printf("\n");
 	}
 	return (OK);
@@ -57,19 +56,19 @@ int		make_move(t_farm *farm)
 	t_room_queue	*gateway;
 	t_ant_queue		*a;
 	int				i;
-	int				was_move;
+	int				was_move_on_path;
 
 	gateway = farm->gateways;
 	while (gateway)
 	{
-		was_move = 0;
-		move_ant(farm, gateway, &was_move);
-		if (was_move)
-			printf(" ");
+		was_move_on_path = 0;
+		move_ants(farm, gateway, &was_move_on_path);
+		if (was_move_on_path)
+			printf("|");
 		gateway = gateway->next;
 	}
-	i = 0;
 	a = farm->end_room->ants;
+	i = 0;
 	while (a)
 	{
 		i += 1;
