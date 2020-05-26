@@ -48,7 +48,7 @@ int		move_ants(t_farm *farm, t_room_queue *gateway)
 }
 
 /*
-** Called form lem-in()
+** Called from lem-in()
 */
 
 int		make_move(t_farm *farm)

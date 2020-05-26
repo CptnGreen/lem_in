@@ -11,6 +11,27 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include "libft.h"
+
+void wipe_input(t_input_line **input_passed)
+{
+	t_input_line	*input;
+	t_input_line	*prev;
+
+	if (*input_passed)
+	{
+		input = *input_passed;
+		while (input)
+		{
+			prev = input;
+			input = input->next;
+			ft_strdel(&(prev->line));
+			free(prev);
+			prev = NULL;
+		}
+		input_passed = NULL;
+	}
+}
 
 void	print_input(t_input_line *input_seed)
 {
@@ -31,12 +52,14 @@ int		main(void)
 	t_farm			farm;
 	t_input_line	*input;
 
-	if (init_farm(&farm) && get_input(&farm, FD, &input))
+	if (init_farm(&farm) && \
+		get_input(&farm, FD, &input))
 	{
 		print_input(input);
 		if (process_farm_description(&input, &farm) && \
 			lem_in(&farm))
 		{
+			wipe_input(&input);
 			sleep(3);
 			return (0);
 		}

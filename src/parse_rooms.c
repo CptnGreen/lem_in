@@ -21,6 +21,10 @@
 #define WRONG_NUM "handle_no_more_rooms(): Starts/ends wrong num - aborting.\n"
 #define ADJ_INIT "handle_no_more_rooms(): Adjacency matrix initialized.\n"
 
+/*
+** Called in handle_no_more_rooms()
+*/
+
 int			build_room_ar(t_farm *farm)
 {
 	t_room		*room;

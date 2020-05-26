@@ -77,8 +77,8 @@ re: fclean all
 norm:
 	@ norminette $(SRC_DIR) includes
 
-memcheck:
-	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$(NAME)
+memcheck: all
+	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$(NAME) < $(MAP)
 
 test: all
 	@ echo "" | > $(LOG)
