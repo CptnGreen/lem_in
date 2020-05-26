@@ -23,6 +23,10 @@
 
 /*
 ** Called in handle_no_more_rooms()
+**
+** I need my rooms' list's nodes to be organized consequently (as an array)
+** but i can't start forming this array before i know an exact number of rooms
+** so i first build a regular list and then move it to the array.
 */
 
 int			build_room_ar(t_farm *farm)

@@ -33,7 +33,6 @@ SRC_RAW = \
 	init_and_append_ant.c \
 	parse_rooms.c \
 	parse_links.c \
-	print_links.c \
 	print_room_v.c \
 	print_rooms_v.c \
 	print_rooms_queue_v.c \

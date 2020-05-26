@@ -32,7 +32,7 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 		return (KO);
 	room_src = NULL;
 	room_dst = NULL;
-	room = farm->rooms;
+	room = farm->room_ar[0];
 	while (room)
 	{
 		room_src = ((!room_src && ft_strequ(src, room->name)) ? \

@@ -13,7 +13,29 @@
 #include "lem_in.h"
 #include "libft.h"
 
-void wipe_input(t_input_line **input_passed)
+void	wipe_rooms(t_farm *farm)
+{
+	t_room		*room;
+	t_room		*prev;
+
+	room = farm->rooms;
+	if (room)
+	{
+		while (room)
+		{
+			prev = room;
+			room = room->next;
+			ft_strdel(&(prev->name));
+			free(prev);
+			prev = NULL;
+		}
+		farm->rooms = NULL;
+		free(farm->room_ar);
+		farm->room_ar = NULL;
+	}
+}
+
+void	wipe_input(t_input_line **input_passed)
 {
 	t_input_line	*input;
 	t_input_line	*prev;
@@ -60,6 +82,7 @@ int		main(void)
 			lem_in(&farm))
 		{
 			wipe_input(&input);
+			wipe_rooms(&farm);
 			sleep(3);
 			return (0);
 		}
