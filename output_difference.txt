@@ -1,32 +1,35 @@
-Only in Result/: 100K.map
-Only in Maps/Bfs_one_path/: 10_lots_of_comments.map
+diff -r Maps/Bfs_one_path/-Nothing Result/-Nothing
+0a1,3
+> 
+> 
+> ERROR
+Only in Maps/Bfs_one_path/: -dev-null
+Only in Maps/Bfs_one_path/: -dev-urandom
+Only in Maps/Bfs_one_path/: -dev-zero
 Only in Maps/Bfs_one_path/: 1.map
-Only in Maps/Bfs_one_path/: 20.map
+Only in Maps/Bfs_one_path/: 10_lots_of_comments.map
 Only in Maps/Bfs_one_path/: 2.map
+Only in Maps/Bfs_one_path/: 20.map
 Only in Maps/Bfs_one_path/: 5.map
 Only in Maps/Bfs_one_path/: 9_path_depth_10_ants.map
 Only in Maps/Bfs_one_path/: 9_path_depth_2_ants.map
 Only in Maps/Bfs_one_path/: 9_path_depth_4_ants.map
 Only in Maps/Bfs_one_path/: 9_path_depth_8_ants.map
 Only in Maps/Bfs_one_path/: 9_path_depth_9_ants.map
-Only in Maps/Bfs_one_path/: -dev-null
-Only in Maps/Bfs_one_path/: -dev-urandom
-Only in Maps/Bfs_one_path/: -dev-zero
 Only in Maps/Bfs_one_path/: err_3_coordinates.map
 Only in Maps/Bfs_one_path/: err_duplicate.map
 Only in Maps/Bfs_one_path/: err_empty.map
 Only in Maps/Bfs_one_path/: err_letter_in_coordinate.map
 Only in Maps/Bfs_one_path/: err_link_to_unknown_room.map
+Only in Maps/Bfs_one_path/: err_no_ants.map
 Only in Maps/Bfs_one_path/: err_no_ants2.map
 Only in Maps/Bfs_one_path/: err_no_ants3.map
-Only in Maps/Bfs_one_path/: err_no_ants.map
-Only in Maps/Bfs_one_path/: err_no_end2.map
 Only in Maps/Bfs_one_path/: err_no_end.map
+Only in Maps/Bfs_one_path/: err_no_end2.map
 Only in Maps/Bfs_one_path/: err_no_links.map
 Only in Maps/Bfs_one_path/: err_no_rooms.map
-Only in Maps/Bfs_one_path/: err_no_start2.map
 Only in Maps/Bfs_one_path/: err_no_start.map
+Only in Maps/Bfs_one_path/: err_no_start2.map
 Only in Maps/Bfs_one_path/: err_start_end_same.map
 Only in Maps/Bfs_one_path/: err_too_few_ants.map
 Only in Maps/Bfs_one_path/: err_too_many_ants.map
-Only in Maps/Bfs_one_path/: -Nothing
