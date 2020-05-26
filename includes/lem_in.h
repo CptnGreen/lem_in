@@ -86,7 +86,6 @@ typedef struct			s_farm{
 	struct s_room		*start_room;
 	struct s_room		*end_room;
 	struct s_room		**room_ar;
-	struct s_link		*links;
 	int					n_ants;
 	int					n_rooms;
 	char				start_counter;
@@ -104,8 +103,6 @@ int						get_input(\
 							t_farm *farm, int fd, t_input_line **input_lst);
 int						process_farm_description(\
 							t_input_line **input, t_farm *farm);
-t_link					*init_link(\
-							t_farm *farm, char const *src, char const *dst);
 
 int						parse_n_ants(t_farm *farm, t_input_line **input);
 int						parse_rooms(t_farm *farm, t_input_line **input_passed);

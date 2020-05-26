@@ -52,26 +52,11 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 
 int		append_link(t_farm *farm, char const *src, char const *dst)
 {
-	t_link		*link;
-	t_link		*prev;
-
 	if (check_link(farm, src, dst) != OK)
 	{
 		ft_putstr_fd(BAD_LINK, farm->log_fd);
 		return (KO);
 	}
-	prev = farm->links;
-	link = farm->links;
-	while (link)
-	{
-		prev = link;
-		link = link->next;
-	}
-	link = init_link(farm, src, dst);
-	if (farm->links)
-		prev->next = link;
-	else
-		farm->links = link;
 	return (OK);
 }
 

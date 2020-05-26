@@ -25,7 +25,6 @@ SRC_RAW = \
 	init_farm.c \
 	get_input.c \
 	process_farm_description.c \
-	init_link.c \
 	handle_start_and_end_headers.c \
 	parse_n_ants.c \
 	append_room.c \
