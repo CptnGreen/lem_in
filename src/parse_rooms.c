@@ -71,29 +71,30 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 ** Called in handle_new_room()
 */
 
-int			check_coordinates(t_farm *farm, char *split1, char *split2)
+int			check_coordinates(t_farm *farm, char **split, char **line)
 {
 	int				i;
 
-	i = 0;
-	while (split1[i])
+	ft_strdel(line);
+	i = -1;
+	while (split[1][++i])
 	{
-		if (split1[i] < '0' || split1[i] > '9')
+		if (split[1][i] < '0' || split[1][i] > '9')
 		{
+			wipe_mstr(split);
 			ft_putstr_fd(FOUND_LETTER, farm->log_fd);
 			return (KO);
 		}
-		i += 1;
 	}
-	i = 0;
-	while (split2[i])
+	i = -1;
+	while (split[2][++i])
 	{
-		if (split2[i] < '0' || split2[i] > '9')
+		if (split[2][i] < '0' || split[2][i] > '9')
 		{
+			wipe_mstr(split);
 			ft_putstr_fd(FOUND_LETTER, farm->log_fd);
 			return (KO);
 		}
-		i += 1;
 	}
 	return (OK);
 }
@@ -102,12 +103,8 @@ int			handle_new_room(t_farm *farm, char **split, int res, char **line)
 {
 	t_room			*room;
 
-	if (check_coordinates(farm, split[1], split[2]) == KO)
-	{
-		ft_strdel(line);
-		wipe_mstr(split);
+	if (check_coordinates(farm, split, line) == KO)
 		return (KO);
-	}
 	if ((room = init_and_append_room(\
 			farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]))))
 	{

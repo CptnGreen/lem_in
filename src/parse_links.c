@@ -125,7 +125,7 @@ int		parse_links(t_farm *farm, t_input_line **input_passed)
 			if (parse_next_link(farm, input) == KO)
 				return (KO);
 		}
-		ft_putstr_fd("parse_links(): Reached end of input - continue.\n", farm->log_fd);
+		ft_putstr_fd("parse_links(): End of input - continue.\n", farm->log_fd);
 		return (OK);
 	}
 	ft_putstr_fd("parse_links(): No links found - aborting.\n", farm->log_fd);

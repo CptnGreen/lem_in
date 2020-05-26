@@ -25,7 +25,6 @@ int		move_ant(t_farm *farm, t_room_queue *gateway, int *was_move)
 
 	farm->end_room->parent = gateway->room;
 	r = farm->end_room;
-	*was_move = 0;
 	while (!(r->is_start))
 	{
 		if ((r->parent) && (r->ants == NULL || r == farm->end_room) && \
@@ -61,9 +60,9 @@ int		make_move(t_farm *farm)
 	int				was_move;
 
 	gateway = farm->gateways;
-	was_move = 0;
 	while (gateway)
 	{
+		was_move = 0;
 		move_ant(farm, gateway, &was_move);
 		if (was_move)
 			printf(" ");

@@ -165,8 +165,8 @@ FILE33="9_path_depth_1_ants.map";
 # echo -e "\n\n\033[32m$FILE32\n\033[37m"
 # $C $DIR$FILE32 | $P > $USER$FILE32;
 
-# echo -e "\n\n\033[32m/dev/urandom/\033[37m"
-# $C /dev/urandom | $P > $USER-dev-urandom;
+echo -e "\n\n\033[32m/dev/urandom/\033[37m"
+$C /dev/urandom | $P > $USER-dev-urandom;
 
 # echo -e "\n\n\033[32m/dev/null/\033[37m"
 # $C /dev/null | $P > $USER-dev-null;

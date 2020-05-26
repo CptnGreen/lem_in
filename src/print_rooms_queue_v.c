@@ -30,6 +30,6 @@ int		print_rooms_queue_v(t_room_queue *queue)
 		printf("=|====|=======|==========================\n");
 		return (OK);
 	}
-	perror("lem_in: Couldn't print rooms' queue 'cause passed argument is NULL.\n");
+	perror("print_rooms_queue_v(): Passed argument is NULL - can't print.\n");
 	return (KO);
 }
