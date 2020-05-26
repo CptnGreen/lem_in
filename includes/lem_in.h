@@ -139,6 +139,5 @@ int						print_links(t_link *links);
 void					print_room_v(t_room *room);
 int						print_rooms_v(t_room *rooms);
 int						print_rooms_queue_v(t_room_queue *queue);
-void					print_farm_description_v(t_farm *farm);
 
 #endif

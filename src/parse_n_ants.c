@@ -15,32 +15,35 @@
 #define NO_ANTS "parse_n_ants(): Number of ants <= 0 (or too many). Aborting.\n"
 #define ANTS_MISSING "parse_n_ants(): Can't find number of ants - aborting.\n"
 
+void		log_n_ants(int n_ants, int fd)
+{
+	ft_putstr_fd("parse_n_ants(): Number of ants = ", fd);
+	ft_putnbr_fd(n_ants, fd);
+	ft_putstr_fd("\n", fd);
+}
+
 /*
 ** Called from process farm_description()
 */
 
-int			parse_n_ants(t_farm *farm, t_input_line **input_passed)
+int			parse_n_ants(t_farm *farm, t_input_line **input)
 {
-	t_input_line	*input;
 	char			*line;
 
-	input = *input_passed;
-	while (input)
+	while (*input)
 	{
-		line = ft_strdup(input->line);
+		line = ft_strdup((*input)->line);
 		if (line[0] == '#')
 		{
 			ft_strdel(&line);
-			input = input->next;
+			(*input) = (*input)->next;
 			continue ;
 		}
 		if ((farm->n_ants = ft_atoi(line)) > 0)
 		{
-			ft_putstr_fd("parse_n_ants(): Number of ants = ", farm->log_fd);
-			ft_putnbr_fd(farm->n_ants, farm->log_fd);
-			ft_putstr_fd("\n", farm->log_fd);
+			log_n_ants(farm->n_ants, farm->log_fd);
 			ft_strdel(&line);
-			*input_passed = input->next;
+			(*input) = (*input)->next;
 			return (OK);
 		}
 		ft_strdel(&line);

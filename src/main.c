@@ -31,7 +31,7 @@ int		main(void)
 	t_farm			farm;
 	t_input_line	*input;
 
-	if (init_farm(&farm) &&	get_input(&farm, FD, &input))
+	if (init_farm(&farm) && get_input(&farm, FD, &input))
 	{
 		print_input(input);
 		if (process_farm_description(&input, &farm) && \

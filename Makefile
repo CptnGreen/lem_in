@@ -34,7 +34,6 @@ SRC_RAW = \
 	parse_rooms.c \
 	parse_links.c \
 	print_links.c \
-	print_farm_description_v.c \
 	print_room_v.c \
 	print_rooms_v.c \
 	print_rooms_queue_v.c \

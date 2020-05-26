@@ -12,44 +12,44 @@
 
 #include "lem_in.h"
 
+int		read_input(int fd, t_input_line **cur, t_input_line **input_lst)
+{
+	t_input_line	*prev;
+	char			*line;
+	int				is_first;
+
+	line = NULL;
+	is_first = 1;
+	while (get_next_line(fd, &line) > 0)
+	{
+		prev = *cur;
+		if (!(*cur = (t_input_line *)ft_memalloc(sizeof(t_input_line))))
+			return (KO);
+		if (is_first)
+		{
+			*input_lst = *cur;
+			is_first = 0;
+		}
+		if (prev)
+			prev->next = *cur;
+		(*cur)->line = ft_strdup(line);
+		ft_strdel(&line);
+		(*cur)->next = NULL;
+	}
+	return (OK);
+}
+
 /*
 ** This function is called in main()
 */
 
 int		get_input(t_farm *farm, int fd, t_input_line **input_lst)
 {
-	t_input_line	*prev;
 	t_input_line	*cur;
-	char			*line;
-	int				is_first;
-	int				i;
 
 	cur = NULL;
-	line = NULL;
-	is_first = 1;
-	i = 0;
-	while (get_next_line(fd, &line) > 0)
-	{
-		i += 1;
-		if (i > 2147483647)
-		{
-			ft_putstr_fd("get_input(): Too many lines in input - aborting.\n", farm->log_fd);
-			return (KO);
-		}
-		prev = cur;
-		if (!(cur = (t_input_line *)ft_memalloc(sizeof(t_input_line))))
-			return (KO);
-		if (is_first)
-		{
-			*input_lst = cur;
-			is_first = 0;
-		}
-		if (prev)
-			prev->next = cur;
-		cur->line = ft_strdup(line);
-		ft_strdel(&line);
-		cur->next = NULL;
-	}
+	if (read_input(fd, &cur, input_lst) == KO)
+		return (KO);
 	if (cur)
 	{
 		ft_putstr_fd("get_input(): Input parsed to list.\n", farm->log_fd);

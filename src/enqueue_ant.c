@@ -12,6 +12,15 @@
 
 #include "lem_in.h"
 
+int		handle_empty_ants_queue(t_ant_queue **queue, t_ant *ant)
+{
+	if (!(*queue = (t_ant_queue *)ft_memalloc(sizeof(t_ant_queue))))
+		return (KO);
+	(*queue)->ant = ant;
+	(*queue)->next = NULL;
+	return (OK);
+}
+
 int		enqueue_ant(t_ant_queue **queue, t_ant *ant)
 {
 	t_ant_queue	*q;
@@ -20,13 +29,7 @@ int		enqueue_ant(t_ant_queue **queue, t_ant *ant)
 	if (ant)
 	{
 		if (!(*queue))
-		{
-			if (!(*queue = (t_ant_queue *)ft_memalloc(sizeof(t_ant_queue))))
-				return (KO);
-			(*queue)->ant = ant;
-			(*queue)->next = NULL;
-			return (OK);
-		}
+			return (handle_empty_ants_queue(queue, ant));
 		q = *queue;
 		while (q)
 		{

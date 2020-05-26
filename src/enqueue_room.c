@@ -12,6 +12,15 @@
 
 #include "lem_in.h"
 
+int		handle_empty_rooms_queue(t_room_queue **queue, t_room *room)
+{
+	if (!(*queue = (t_room_queue *)ft_memalloc(sizeof(t_room_queue))))
+		return (KO);
+	(*queue)->room = room;
+	(*queue)->next = NULL;
+	return (OK);
+}
+
 int		enqueue_room(t_room_queue **queue, t_room *room)
 {
 	t_room_queue	*q;
@@ -20,13 +29,7 @@ int		enqueue_room(t_room_queue **queue, t_room *room)
 	if (room)
 	{
 		if (!(*queue))
-		{
-			if (!(*queue = (t_room_queue *)ft_memalloc(sizeof(t_room_queue))))
-				return (KO);
-			(*queue)->room = room;
-			(*queue)->next = NULL;
-			return (OK);
-		}
+			return (handle_empty_rooms_queue(queue, room));
 		q = *queue;
 		while (q)
 		{
