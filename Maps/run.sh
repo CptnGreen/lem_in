@@ -23,7 +23,7 @@ FILE1="9_path_depth_4_ants.map";
 FILE2="2.map";
 FILE3="5.map";
 FILE4="10K.map";
-FILE5="100K.map";
+FILE6="err_link_to_unknown_room.map";
 FILE7="10_lots_of_comments.map";
 FILE8="20.map";
 FILE9="err_3_coordinates.map";
@@ -38,11 +38,9 @@ FILE17="err_no_rooms.map";
 FILE18="err_letter_in_coordinate.map";
 FILE19="err_no_path.map";
 FILE20="9_path_depth_2_ants.map";
-FILE24="9_path_depth_1_ants.map";
 FILE21="9_path_depth_8_ants.map";
 FILE22="9_path_depth_9_ants.map";
 FILE23="9_path_depth_10_ants.map";
-FILE19="err_link_to_unknown_room.map";
 FILE24="err_no_end2.map";
 FILE25="err_no_start2.map";
 FILE26="err_start_end_same.map";
@@ -52,6 +50,7 @@ FILE29="err_no_ants3.map";
 FILE30="err_no_rooms.map";
 FILE31="err_letter_in_coordinate.map";
 FILE32="err_no_end.map";
+FILE33="9_path_depth_1_ants.map";
 
 # echo -e "\n\n\033[32m$FILE\n\033[37m"
 # $C $DIR$FILE | $P > $USER$FILE
@@ -85,14 +84,9 @@ FILE32="err_no_end.map";
 # $C $DIR$FILE3 | $P > $USER$FILE3;
 # echo -e "\x1b[36mOutput: cat $USER$FILE3\n"
 
-# # echo -e "\n\n\033[32m$FILE4\n\033[37m"
-# # $C $DIR$FILE4 | $P > $USER$FILE4;
-# # echo -e "\x1b[36mOutput: cat $USER$FILE4\n"
-
-# # echo -e "\n\n\033[32m$FILE5\n\033[37m"
-# # $C $DIR$FILE5 | $P > $USER$FILE5;
-# # echo -e "\x1b[36mOutput: cat $USER$FILE5\n"
-
+# echo -e "\n\n\033[32m$FILE4\n\033[37m"
+# $C $DIR$FILE4 | $P > $USER$FILE4;
+# echo -e "\x1b[36mOutput: cat $USER$FILE4\n"
 
 # echo -e "\n\n\033[32m$FILE7\n\033[37m"
 # $C $DIR$FILE7 | $P > $USER$FILE7;
@@ -104,6 +98,9 @@ FILE32="err_no_end.map";
 
 # echo -e "\n\n\033[32m$FILE24\n\033[37m"
 # $C $DIR$FILE24 | $P > $USER$FILE24;
+
+# echo -e "\n\n\033[32m$FILE33\n\033[37m"
+# $C $DIR$FILE33 | $P > $USER$FILE33;
 
 # echo -e "\n\n\033[32m$FILE9\n\033[37m"
 # $C $DIR$FILE9 | $P > $USER$FILE9;
@@ -132,11 +129,14 @@ FILE32="err_no_end.map";
 # echo -e "\n\n\033[32m$FILE17\n\033[37m"
 # $C $DIR$FILE17 | $P > $USER$FILE17;
 
-echo -e "\n\n\033[32m$FILE18\n\033[37m"
-$C $DIR$FILE18 | $P > $USER$FILE18;
+# echo -e "\n\n\033[32m$FILE18\n\033[37m"
+# $C $DIR$FILE18 | $P > $USER$FILE18;
 
 # echo -e "\n\n\033[32m$FILE19\n\033[37m"
 # $C $DIR$FILE19 | $P > $USER$FILE19;
+
+# echo -e "\n\n\033[32m$FILE6\n\033[37m"
+# $C $DIR$FILE6 | $P > $USER$FILE6;
 
 # echo -e "\n\n\033[32m$FILE24\n\033[37m"
 # $C $DIR$FILE24 | $P > $USER$FILE24;

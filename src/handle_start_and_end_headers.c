@@ -21,10 +21,7 @@ int			handle_start_header(t_farm *farm, char **line)
 			farm->log_fd);
 		ft_strdel(line);
 		if (farm->start_counter == 0)
-		{
-			farm->start_counter += 1;
 			return (FOUND_START);
-		}
 		else
 		{
 			ft_putstr_fd(\
@@ -45,10 +42,7 @@ int			handle_end_header(t_farm *farm, char **line)
 			farm->log_fd);
 		ft_strdel(line);
 		if (farm->end_counter == 0)
-		{
-			farm->end_counter += 1;
 			return (FOUND_END);
-		}
 		else
 		{
 			ft_putstr_fd(\

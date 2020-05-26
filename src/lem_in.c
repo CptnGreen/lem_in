@@ -14,6 +14,10 @@
 
 #define FINISH 2
 
+/*
+** Called form make_move()
+*/
+
 int		move_ant(t_farm *farm, t_room_queue *gateway, int *was_move)
 {
 	t_room		*r;
@@ -45,6 +49,10 @@ int		move_ant(t_farm *farm, t_room_queue *gateway, int *was_move)
 	return (OK);
 }
 
+/*
+** Called form lem-in()
+*/
+
 int		make_move(t_farm *farm)
 {
 	t_room_queue	*gateway;
@@ -73,9 +81,18 @@ int		make_move(t_farm *farm)
 	return (OK);
 }
 
+/*
+** Called from main()
+*/
+
 int		lem_in(t_farm *farm)
 {
-	while (make_move(farm) != FINISH)
-		;
-	return (OK);
+	if (farm->gateways)
+	{
+		while (make_move(farm) != FINISH)
+			;
+		return (OK);
+	}
+	ft_putstr_fd("lem-in(): No gateways - aborting.\n", farm->log_fd);
+	return (KO);
 }

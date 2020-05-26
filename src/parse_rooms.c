@@ -67,6 +67,10 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 	return (OK);
 }
 
+/*
+** Called in handle_new_room()
+*/
+
 int			check_coordinates(t_farm *farm, char *split1, char *split2)
 {
 	int				i;
@@ -94,7 +98,7 @@ int			check_coordinates(t_farm *farm, char *split1, char *split2)
 	return (OK);
 }
 
-void		handle_new_room(t_farm *farm, char **split, int res, char **line)
+int			handle_new_room(t_farm *farm, char **split, int res, char **line)
 {
 	t_room			*room;
 
@@ -102,20 +106,27 @@ void		handle_new_room(t_farm *farm, char **split, int res, char **line)
 	{
 		ft_strdel(line);
 		wipe_mstr(split);
-		exit(1);
+		return (KO);
 	}
 	if ((room = init_and_append_room(\
 			farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]))))
 	{
-		room->is_start = ((res == FOUND_START) ? (1) : (0));
-		room->is_end = ((res == FOUND_END) ? (1) : (0));
-		farm->start_room = \
-			((res == FOUND_START) ? (room) : (farm->start_room));
-		farm->end_room = \
-			((res == FOUND_END) ? (room) : (farm->end_room));
+		if (res == FOUND_START)
+		{
+			farm->start_counter += 1;
+			room->is_start = 1;
+			farm->start_room = room;
+		}
+		if (res == FOUND_END)
+		{
+			farm->end_counter += 1;
+			room->is_end = 1;
+			farm->end_room = room;
+		}
 	}
 	ft_strdel(line);
 	wipe_mstr(split);
+	return (OK);
 }
 
 /*
@@ -142,7 +153,8 @@ int			parse_rooms(t_farm *farm, t_input_line **input)
 		split = ft_strsplit(line, ' ');
 		if (!split[0] || !split[1] || !split[2] || split[3])
 			return ((handle_no_more_rooms(farm, split, &line) == OK) ? OK : KO);
-		handle_new_room(farm, split, res, &line);
+		if (handle_new_room(farm, split, res, &line) == KO)
+			return (KO);
 		res = 0;
 		(*input) = (*input)->next;
 	}

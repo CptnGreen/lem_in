@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-#define NO_ANTS "parse_n_ants(): Number of ants <= 0. Aborting.\n"
+#define NO_ANTS "parse_n_ants(): Number of ants <= 0 (or too many). Aborting.\n"
 #define ANTS_MISSING "parse_n_ants(): Can't find number of ants - aborting.\n"
 
 /*
