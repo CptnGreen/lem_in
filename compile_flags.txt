@@ -1,7 +1,9 @@
 -I/home/ak/Projects/lem-in/src
--I/home/ak/Projects/lem-in/libft/src
+-I/home/ak/Projects/lem-in/ft_printf/src
+-I/home/ak/Projects/lem-in/ft_printf/libft/src
 -I/home/ak/Projects/lem-in/includes
--I/home/ak/Projects/lem-in/libft/includes
+-I/home/ak/Projects/lem-in/ft_printf/includes
+-I/home/ak/Projects/lem-in/ft_printf/libft/includes
 -Wall
 -Werror
 -Wextra

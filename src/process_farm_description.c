@@ -38,9 +38,6 @@ int			make_ants(t_farm *farm)
 
 int			process_farm_description(t_input_line **input, t_farm *farm)
 {
-	char	*line;
-
-	line = NULL;
 	if (parse_n_ants(farm, input) != OK || \
 		parse_rooms(farm, input) != OK || \
 		parse_links(farm, input) != OK)

@@ -21,28 +21,28 @@ void	print_ants(t_room *room)
 	i = 0;
 	while (q)
 	{
-		printf("L%d ", q->ant->num);
+		ft_printf("L%d ", q->ant->num);
 		i += 1;
 		if (i > 10)
 		{
-			printf("...");
+			ft_printf("...");
 			break ;
 		}
 		q = q->next;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
 void	print_room_v(t_room *room)
 {
 	if (room)
 	{
-		printf("%3d| %-17s < %17s | %-3d | %-3d | %2d ", room->num, \
+		ft_printf("%3d| %-17s < %17s | %-3d | %-3d | %2d ", room->num, \
 				room->name, ((room->parent) ? (room->parent->name) : ("")), \
 				room->x, room->y, room->depth);
-		printf((room->is_start) ? ("| start | ") : (""));
-		printf((room->is_end) ? ("|  end  | ") : (""));
-		printf((room->is_chosen) ? ("|   *   | ") : (""));
+		ft_printf((room->is_start) ? ("| start | ") : (""));
+		ft_printf((room->is_end) ? ("|  end  | ") : (""));
+		ft_printf((room->is_chosen) ? ("|   *   | ") : (""));
 		print_ants(room);
 	}
 }

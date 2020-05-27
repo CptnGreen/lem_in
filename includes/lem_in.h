@@ -29,7 +29,7 @@
 # define FOUND_PATH 1
 # define NO_MORE_PATHS_FOUND 2
 
-# include "libft.h"
+# include "libftprintf.h"
 
 /*
 ** for perror() and strerror():

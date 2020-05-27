@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include "libft.h"
 
 void	wipe_input(t_input_line **input_passed)
 {
@@ -40,10 +39,10 @@ void	print_input(t_input_line *input_seed)
 	input = input_seed;
 	while (input)
 	{
-		printf("%s\n", input->line);
+		ft_printf("%s\n", input->line);
 		input = input->next;
 	}
-	printf("\n");
+	ft_printf("\n");
 	return ;
 }
 

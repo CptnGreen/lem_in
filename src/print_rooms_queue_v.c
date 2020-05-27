@@ -18,16 +18,16 @@ int		print_rooms_queue_v(t_room_queue *queue)
 
 	if (queue)
 	{
-		printf("==#|=name==============|============parent=|=x===|=y===");
-		printf("|==d=|=flags=|=ants=inside==============\n");
+		ft_printf("==#|=name==============|============parent=|=x===|=y===");
+		ft_printf("|==d=|=flags=|=ants=inside==============\n");
 		q = queue;
 		while (q)
 		{
 			print_room_v(q->room);
 			q = q->next;
 		}
-		printf("===|===================|===================|=====|=====");
-		printf("=|====|=======|==========================\n");
+		ft_printf("===|===================|===================|=====|=====");
+		ft_printf("=|====|=======|==========================\n");
 		return (OK);
 	}
 	perror("print_rooms_queue_v(): Passed argument is NULL - can't print.\n");

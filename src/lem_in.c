@@ -34,7 +34,7 @@ int		move_ants_along_the_path(t_farm *farm, t_room_queue *gateway)
 		{
 			a = dequeue_ant(&(r->parent->ants));
 			enqueue_ant(&(r->ants), a);
-			printf("%s%sL%d-%s", \
+			ft_printf("%s%sL%d-%s", \
 				((!was_move && gateway != farm->gateways) ? " " : ""), \
 				(was_move ? " " : ""), a->num, r->name);
 			was_move = ((was_move == 0) ? 1 : was_move);

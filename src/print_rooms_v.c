@@ -18,16 +18,16 @@ int		print_rooms_v(t_room *rooms)
 
 	if (rooms)
 	{
-		printf("==#|=name==============|============parent=|=x===|=y===");
-		printf("|==d=|=flags=|=ants=inside==============\n");
+		ft_printf("==#|=name==============|============parent=|=x===|=y===");
+		ft_printf("|==d=|=flags=|=ants=inside==============\n");
 		room = rooms;
 		while (room)
 		{
 			print_room_v(room);
 			room = room->next;
 		}
-		printf("===|===================|===================|=====|=====");
-		printf("=|====|=======|==========================\n");
+		ft_printf("===|===================|===================|=====|=====");
+		ft_printf("=|====|=======|==========================\n");
 		return (OK);
 	}
 	perror("print_rooms_v(): Can't print rooms 'cause passed argument is 0.\n");

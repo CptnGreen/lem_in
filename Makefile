@@ -10,9 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re libft norm memcheck test unit-tests
+.PHONY: all clean fclean re ft_printf norm memcheck test unit-tests
 
-CC = clang
+CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 LFLAGS =
 
@@ -56,21 +56,21 @@ OBJ = $(addprefix $(OBJ_DIR)/,$(OBJ_RAW))
 
 all: $(NAME)
 
-$(NAME): libft $(OBJ)
-	@ $(CC) $(LFLAGS) -o $(NAME) $(OBJ) $(MAIN) -I "includes/" -I "libft/includes/" -L "libft/" -lft
-libft:
-	@ make -C libft/
+$(NAME): ft_printf $(OBJ)
+	@ $(CC) $(LFLAGS) -o $(NAME) $(OBJ) $(MAIN) -I "includes/" -I "ft_printf/includes/" -I "ft_printf/libft/includes" -L "ft_printf/" -lftprintf
+ft_printf:
+	@ make -C ft_printf/
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR)
-	@ $(CC) $(CFLAGS) -I "includes/" -I "libft/includes/" -c $< -o $@
+	@ $(CC) $(CFLAGS) -I "includes/" -I "ft_printf/includes/" -I "ft_printf/libft/includes" -c $< -o $@
 $(OBJ_DIR):
 	@ mkdir -p $(OBJ_DIR)
 
 clean:
 	@ rm -rf $(OBJ_DIR)
-	@ make clean -C libft/
+	@ make clean -C ft_printf/
 fclean: clean
 	@ rm -f $(NAME)
-	@ make fclean -C libft/
+	@ make fclean -C ft_printf/
 
 re: fclean all
 
