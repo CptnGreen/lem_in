@@ -106,6 +106,8 @@ int						process_farm_description(\
 
 int						parse_n_ants(t_farm *farm, t_input_line **input);
 int						parse_rooms(t_farm *farm, t_input_line **input_passed);
+int						handle_no_more_rooms(\
+							t_farm *farm, char **split, char **line);
 int						parse_links(t_farm *farm, t_input_line **input);
 
 int						handle_start_and_end_headers(t_farm *farm, char **line);
@@ -125,6 +127,8 @@ t_ant					*init_and_append_ant(t_farm *farm, int num);
 int						enqueue_room(t_room_queue **queue, t_room *room);
 int						enqueue_ant(t_ant_queue **queue, t_ant *ant);
 t_ant					*dequeue_ant(t_ant_queue **queue);
+
+void					wipe_farm(t_farm *farm);
 
 int						lem_in(t_farm *farm);
 

@@ -23,6 +23,7 @@ LOG = stderr.log
 SRC_DIR = src
 SRC_RAW = \
 	init_farm.c \
+	wipe_farm.c \
 	get_input.c \
 	process_farm_description.c \
 	handle_start_and_end_headers.c \
@@ -31,6 +32,7 @@ SRC_RAW = \
 	init_and_append_room.c \
 	init_and_append_ant.c \
 	parse_rooms.c \
+	handle_no_more_rooms.c \
 	parse_links.c \
 	print_room_v.c \
 	print_rooms_v.c \
