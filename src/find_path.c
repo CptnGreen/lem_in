@@ -21,7 +21,7 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	d = r->depth;
 	while (1)
 	{
-		if (!(farm->adj_matrix[r->num][i]))
+		if (i >= farm->n_rooms)
 			break ;
 		if (farm->adj_matrix[r->num][i] == '1' && \
 			farm->room_ar[i]->depth == -1 && \
@@ -38,8 +38,10 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 }
 
 /*
+** Called in loop in process_farm_description()
+**
 ** With every call of this function one more path is found.
-** It assigns depths during its working process.
+** It assigns depths to rooms during its working process.
 */
 
 int		find_path(t_farm *farm)
@@ -47,11 +49,9 @@ int		find_path(t_farm *farm)
 	t_room_queue	*q;
 	t_room_queue	*q_tmp;
 	t_room			*r;
-	int				d;
 
-	d = 0;
 	r = farm->start_room;
-	r->depth = d;
+	r->depth = 0;
 	q = NULL;
 	if (!(enqueue_room(&q, r)))
 		return (KO);
@@ -62,7 +62,7 @@ int		find_path(t_farm *farm)
 		enqueue_neighbours(farm, q_tmp, r);
 		q_tmp = q_tmp->next;
 	}
-	if (choose_path(farm) == FOUND_PATH && !(farm->end_room->parent->is_start))
+	if (mark_rooms_in_path_as_chosen(farm) == FOUND_PATH && !(farm->end_room->parent->is_start))
 	{
 		reset_depth(&q);
 		return (FOUND_PATH);
