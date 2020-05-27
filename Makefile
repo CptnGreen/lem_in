@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re ft_printf norm memcheck test unit-tests
+.PHONY: all clean fclean re ft_printf norm memcheck test
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
@@ -40,7 +40,7 @@ SRC_RAW = \
 	enqueue_room.c \
 	enqueue_ant.c \
 	dequeue_ant.c \
-	choose_path.c \
+	mark_rooms_in_path_as_chosen.c \
 	reset_depth.c \
 	find_path.c \
 	lem_in.c
@@ -86,9 +86,10 @@ test: all
 	@ ./$(NAME) < $(MAP)
 	@ echo -e "\n================\n"
 
-unit-tests:
-	@ cd /home/ak/Documents/lem_in_test && sh unit_tests.sh && cd /home/ak/Documents/lem_in
-
 emilwallner: all
 	@ echo "" > stderr.log
 	@ sh Maps/run.sh
+
+Xel4ek: all
+	@ echo "" > stderr.log
+	@ ./check.sh
