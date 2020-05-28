@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mark_rooms_in_path_as_chosen.c                                      :+:      :+:    :+:   */
+/*   choose_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int		mark_rooms_in_path_as_chosen(t_farm *farm)
+int		choose_path(t_farm *farm)
 {
 	t_room	*r;
 

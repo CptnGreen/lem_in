@@ -40,7 +40,7 @@ SRC_RAW = \
 	enqueue_room.c \
 	enqueue_ant.c \
 	dequeue_ant.c \
-	mark_rooms_in_path_as_chosen.c \
+	choose_path.c \
 	reset_depth.c \
 	find_path.c \
 	lem_in.c

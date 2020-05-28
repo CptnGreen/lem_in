@@ -69,6 +69,7 @@ typedef struct			s_ant_queue{
 }						t_ant_queue;
 
 typedef struct			s_room_queue{
+	t_room				*parent;
 	t_room				*room;
 	struct s_room_queue	*next;
 }						t_room_queue;
@@ -113,7 +114,7 @@ int						parse_links(t_farm *farm, t_input_line **input);
 int						handle_start_and_end_headers(t_farm *farm, char **line);
 
 int						find_path(t_farm *farm);
-int						mark_rooms_in_path_as_chosen(t_farm *farm);
+int						choose_path(t_farm *farm);
 int						reset_depth(t_room_queue **q);
 
 /*

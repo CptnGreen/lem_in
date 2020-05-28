@@ -62,7 +62,7 @@ int		find_path(t_farm *farm)
 		enqueue_neighbours(farm, q_tmp, r);
 		q_tmp = q_tmp->next;
 	}
-	if (mark_rooms_in_path_as_chosen(farm) == FOUND_PATH && !(farm->end_room->parent->is_start))
+	if (choose_path(farm) == FOUND_PATH && !(farm->end_room->parent->is_start))
 	{
 		reset_depth(&q);
 		return (FOUND_PATH);
