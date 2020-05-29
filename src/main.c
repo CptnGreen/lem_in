@@ -65,6 +65,6 @@ int		main(void)
 			return (0);
 		}
 	}
-	printf("ERROR\n");
+	ft_printf("ERROR\n");
 	return (1);
 }

@@ -12,6 +12,8 @@
 
 #include "lem_in.h"
 
+#define FOUND_SINK 2
+
 int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 {
 	int		i;
@@ -23,7 +25,7 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	{
 		if (!(farm->adj_matrix[r->num][i]))
 			break ;
-		if ((farm->adj_matrix[r->num][i] == '0' ||	\
+		if ((farm->adj_matrix[r->num][i] == '0' || \
 			 farm->adj_matrix[r->num][i] == '-') &&	\
 			farm->room_ar[i]->depth == -1 && \
 			!(farm->room_ar[i]->is_chosen))
@@ -32,6 +34,8 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 				return (KO);
 			farm->room_ar[i]->parent = r;
 			farm->room_ar[i]->depth = d + 1;
+			if (farm->room_ar[i]->is_end)
+				return (FOUND_SINK);
 		}
 		i += 1;
 	}
@@ -65,7 +69,8 @@ int		find_path(t_farm *farm)
 	while (q_tmp)
 	{
 		r = q_tmp->room;
-		enqueue_neighbours(farm, q_tmp, r);
+		if (enqueue_neighbours(farm, q_tmp, r) == FOUND_SINK)
+			break ;
 		q_tmp = q_tmp->next;
 	}
 	if (choose_path(farm) == FOUND_PATH && !(farm->end_room->parent->is_start))

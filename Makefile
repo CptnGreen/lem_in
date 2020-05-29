@@ -17,7 +17,8 @@ CFLAGS = -Wall -Werror -Wextra -g
 LFLAGS =
 
 NAME = lem-in
-MAP = three_ways
+MAP = my_map1
+# MAP = three_ways
 LOG = stderr.log
 
 SRC_DIR = src

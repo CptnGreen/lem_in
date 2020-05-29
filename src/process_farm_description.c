@@ -12,6 +12,7 @@
 
 #include "lem_in.h"
 #include "libft.h"
+#include "libftprintf.h"
 
 int			make_ants(t_farm *farm)
 {
@@ -46,9 +47,12 @@ int			process_farm_description(t_input_line **input, t_farm *farm)
 		parse_links(farm, input) != OK)
 		return (KO);
 	while (find_path(farm) != NO_MORE_PATHS_FOUND)
-		;
+	{
+		print_mstr(farm->adj_matrix);
+		ft_printf("\n");
+		/* ; */
+	}
 	i = 0;
-	print_mstr(farm->adj_matrix);
 	while (1)
 	{
 		if (!(farm->adj_matrix[farm->end_room->num][i]))

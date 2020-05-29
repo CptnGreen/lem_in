@@ -43,7 +43,7 @@ int		move_ants_along_the_path(t_farm *farm, t_room_queue *gateway)
 		r = r->parent;
 	}
 	if (!(gateway->next))
-		printf("\n");
+		ft_printf("\n");
 	return (OK);
 }
 
