@@ -58,9 +58,8 @@ typedef struct			s_room{
 	char				is_start;
 	char				is_end;
 	struct s_room		*next;
-	int					depth;
+	int					is_visited;
 	struct s_room		*parent;
-	char				is_chosen;
 }						t_room;
 
 typedef struct			s_ant_queue{
@@ -68,9 +67,14 @@ typedef struct			s_ant_queue{
 	struct s_ant_queue	*next;
 }						t_ant_queue;
 
+/*
+** First member of the queue gets n = 0
+*/
+
 typedef struct			s_room_queue{
 	t_room				*room;
 	struct s_room_queue	*next;
+	int					n;
 }						t_room_queue;
 
 typedef struct			s_link{
@@ -114,7 +118,7 @@ int						handle_start_and_end_headers(t_farm *farm, char **line);
 
 int						find_path(t_farm *farm);
 int						choose_path(t_farm *farm);
-int						reset_depth(t_room_queue **q);
+int						reset_queue(t_room_queue **q);
 
 /*
 ** Utils:

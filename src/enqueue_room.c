@@ -17,6 +17,7 @@ int		handle_empty_rooms_queue(t_room_queue **queue, t_room *room)
 	if (!(*queue = (t_room_queue *)ft_memalloc(sizeof(t_room_queue))))
 		return (KO);
 	(*queue)->room = room;
+	(*queue)->n = 0;
 	(*queue)->next = NULL;
 	return (OK);
 }
@@ -40,6 +41,7 @@ int		enqueue_room(t_room_queue **queue, t_room *room)
 			return (KO);
 		prev->next = q;
 		q->room = room;
+		q->n = prev->n + 1;
 		q->next = NULL;
 		return (OK);
 	}

@@ -9,4 +9,7 @@
   - [X] Remove gateways' queue formation from =choose_path=
   - [X] Form gateways' queue right after BFS finishes its work
   - [X] Fix bug with assigning right symbols to edges leading to end room
-  - [ ] Fix possible bugs preventing algorythm from working perfectly
+* NEXT Handle ants' possible deficiency
+  - [X] Assign depth property to every gateway
+  - [ ] Sort gateways in ascending order using depth property
+  - [ ] Rewrite =make_move= to correctly distribute ants between routes

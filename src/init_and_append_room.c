@@ -26,7 +26,7 @@ t_room		*init_room(int num, char const *str, int x, int y)
 		room->n_ants = 0;
 		room->next = NULL;
 		room->ants = NULL;
-		room->depth = -1;
+		room->is_visited = 0;
 		room->is_start = 0;
 		room->is_end = 0;
 	}

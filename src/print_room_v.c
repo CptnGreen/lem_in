@@ -39,10 +39,9 @@ void	print_room_v(t_room *room)
 	{
 		ft_printf("%3d| %-17s < %17s | %-3d | %-3d | %2d ", room->num, \
 				room->name, ((room->parent) ? (room->parent->name) : ("")), \
-				room->x, room->y, room->depth);
+				room->x, room->y, room->is_visited);
 		ft_printf((room->is_start) ? ("| start | ") : (""));
 		ft_printf((room->is_end) ? ("|  end  | ") : (""));
-		ft_printf((room->is_chosen) ? ("|   *   | ") : (""));
 		print_ants(room);
 	}
 }

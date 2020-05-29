@@ -43,7 +43,7 @@ SRC_RAW = \
 	enqueue_ant.c \
 	dequeue_ant.c \
 	choose_path.c \
-	reset_depth.c \
+	reset_queue.c \
 	find_path.c \
 	lem_in.c
 

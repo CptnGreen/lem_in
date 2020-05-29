@@ -12,29 +12,25 @@
 
 #include "lem_in.h"
 #include "libft.h"
+#include "libftprintf.h"
 
 #define FOUND_SINK 2
 
 int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 {
 	int		i;
-	int		d;
 
 	i = 0;
-	d = r->depth;
-	while (1)
+	while (i < farm->n_rooms)
 	{
-		if (!(farm->adj_matrix[r->num][i]))
-			break ;
 		if ((farm->adj_matrix[r->num][i] == '0' || \
 			 farm->adj_matrix[r->num][i] == '-') &&	\
-			farm->room_ar[i]->depth == -1 && \
-			!(farm->room_ar[i]->is_chosen))
+			farm->room_ar[i]->is_visited == 0)
 		{
 			if (!(enqueue_room(&q, farm->room_ar[i])))
 				return (KO);
 			farm->room_ar[i]->parent = r;
-			farm->room_ar[i]->depth = d + 1;
+			farm->room_ar[i]->is_visited = 1;
 			if (farm->room_ar[i]->is_end)
 				return (FOUND_SINK);
 		}
@@ -49,7 +45,7 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 ** With every call of this function one more (shortest possible)
 ** path is found via BFS algorythm.
 **
-** This function also assigns depth properties during its
+** This function also assigns is_visited properties during its
 ** working process.
 */
 
@@ -58,11 +54,8 @@ int		find_path(t_farm *farm)
 	t_room_queue	*q;
 	t_room_queue	*q_tmp;
 	t_room			*r;
-	int				d;
 
-	d = 0;
 	r = farm->start_room;
-	r->depth = d;
 	q = NULL;
 	if (!(enqueue_room(&q, r)))
 		return (KO);
@@ -74,14 +67,16 @@ int		find_path(t_farm *farm)
 			break ;
 		q_tmp = q_tmp->next;
 	}
-	/* print_rooms_queue_v(q); */
-	/* print_rooms_v(farm->room_ar[0]); */
-	if (choose_path(farm) == FOUND_PATH && !(farm->end_room->parent->is_start))
+	if (choose_path(farm) == FOUND_PATH /* && !(farm->end_room->parent->is_start) */)
 	{
-		/* print_mstr(farm->adj_matrix); */
-		reset_depth(&q);
+		/* print_rooms_queue_v(q); */
+		reset_queue(&q);
 		return (FOUND_PATH);
 	}
-	reset_depth(&q);
+	/* print_rooms_queue_v(q); */
+	reset_queue(&q);
+	/* ft_printf("\n"); */
+	/* print_mstr(farm->adj_matrix); */
+	/* ft_printf("\n"); */
 	return (NO_MORE_PATHS_FOUND);
 }

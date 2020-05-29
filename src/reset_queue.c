@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reset_depth.c                                      :+:      :+:    :+:   */
+/*   reset_queue.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -26,15 +26,12 @@ int		dequeue_room(t_room_queue **queue)
 	return (OK);
 }
 
-int		reset_depth(t_room_queue **q)
+int		reset_queue(t_room_queue **q)
 {
 	while (*q)
 	{
-		if (!((*q)->room->is_chosen || (*q)->room->is_start))
-		{
-			(*q)->room->parent = NULL;
-			(*q)->room->depth = -1;
-		}
+		(*q)->room->parent = NULL;
+		(*q)->room->is_visited = 0;
 		dequeue_room(q);
 	}
 	return (OK);

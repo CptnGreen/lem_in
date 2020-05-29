@@ -15,7 +15,7 @@
 #define FINISH 2
 
 /*
-** Called form make_move() for each gateway
+** Called from make_move() for each gateway
 */
 
 int		move_ants_along_the_path(t_farm *farm, t_room_queue *gateway, int *new_line)
