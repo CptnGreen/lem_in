@@ -17,6 +17,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 LFLAGS =
 
 NAME = lem-in
+# MAP = maps_examples/valid/big/map_big_1
 MAP = my_map1
 # MAP = three_ways
 LOG = stderr.log

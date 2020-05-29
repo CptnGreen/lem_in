@@ -74,11 +74,11 @@ int		find_path(t_farm *farm)
 			break ;
 		q_tmp = q_tmp->next;
 	}
-	print_rooms_queue_v(q);
-	print_rooms_v(farm->room_ar[0]);
+	/* print_rooms_queue_v(q); */
+	/* print_rooms_v(farm->room_ar[0]); */
 	if (choose_path(farm) == FOUND_PATH && !(farm->end_room->parent->is_start))
 	{
-		print_mstr(farm->adj_matrix);
+		/* print_mstr(farm->adj_matrix); */
 		reset_depth(&q);
 		return (FOUND_PATH);
 	}
