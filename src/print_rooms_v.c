@@ -27,7 +27,7 @@ int		print_rooms_v(t_room *rooms)
 			room = room->next;
 		}
 		ft_printf("===|===================|===================|=====|=====");
-		ft_printf("=|====|=======|==========================\n");
+		ft_printf("|====|=======|==========================\n");
 		return (OK);
 	}
 	perror("print_rooms_v(): Can't print rooms 'cause passed argument is 0.\n");

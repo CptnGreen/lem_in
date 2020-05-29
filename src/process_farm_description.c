@@ -34,6 +34,25 @@ int			make_ants(t_farm *farm)
 	return (OK);
 }
 
+void		build_parents(t_farm *farm)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (farm->adj_matrix[i])
+	{
+		j = 0;
+		while (farm->adj_matrix[i][j] && !(farm->room_ar[j]->is_end))
+		{
+			if (farm->adj_matrix[i][j] == '+')
+				farm->room_ar[j]->parent = farm->room_ar[i];
+			j += 1;
+		}
+		i += 1;
+	}
+}
+
 /*
 ** Called from main()
 */
@@ -47,11 +66,7 @@ int			process_farm_description(t_input_line **input, t_farm *farm)
 		parse_links(farm, input) != OK)
 		return (KO);
 	while (find_path(farm) != NO_MORE_PATHS_FOUND)
-	{
-		print_mstr(farm->adj_matrix);
-		ft_printf("\n");
-		/* ; */
-	}
+		;
 	i = 0;
 	while (1)
 	{
@@ -63,6 +78,8 @@ int			process_farm_description(t_input_line **input, t_farm *farm)
 		}
 		i += 1;
 	}
+	build_parents(farm);
+	print_rooms_v(farm->room_ar[0]);
 	make_ants(farm);
 	ft_putstr_fd("process_farm_description(): Success.\n", farm->log_fd);
 	return (OK);

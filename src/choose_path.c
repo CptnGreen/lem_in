@@ -31,8 +31,8 @@ int		choose_path(t_farm *farm)
 				farm->adj_matrix[r->parent->num][r->num] = '0';
 				farm->adj_matrix[r->num][r->parent->num] = '0';
 			}
-			if (!(r->is_end) && !(r->is_start))
-				r->is_chosen = 1;
+			/* if (!(r->is_end) && !(r->is_start)) */
+			/* 	r->is_chosen = 1; */
 			r = r->parent;
 		}
 		return (FOUND_PATH);
