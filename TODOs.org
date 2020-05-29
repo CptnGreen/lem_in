@@ -1,45 +1,11 @@
-* NEXT Cleanup code [50%]
-  - [X] set up printing errors into a log-file
-  - [ ]
-* TODO Fix bugs
+* TODO Fix problems
   - [ ] Make sure program finds looped links and shoots error
   - [ ] Bug: program can't find all paths on map "2.map"
-* NEXT Set up norminette for Manjaro
-* NEXT Проверить чекером emilwallner [34/37]
-  - [X] 1.map
-  - [X] 2.map
-  - [X] 5.map
-  - [X] 9_path_depth_4_ants.map
-  - [X] 10_lots_of_comments.map
-  - [X] 20.map -> works twice better!
-  - [X] 10K.map
-  - [X] err_3_coordinates.map
-  - [X] err_duplicate.map
-  - [X] err_no_ants2.map
-  - [X] err_no_ants.map
-  - [X] err_too_few_ants.map
-  - [X] err_no_links.map
-  - [X] err_empty.map
-  - [X] err_no_ants3.map
-  - [X] err_no_rooms.map
-  - [X] err_letter_in_coordinate.map
-  - [X] err_no_path.map
-  - [X] 9_path_depth_2_ants.map
-  - [X] 9_path_depth_1_ants.map
-  - [X] 9_path_depth_8_ants.map
-  - [X] 9_path_depth_9_ants.map
-  - [X] 9_path_depth_10_ants.map
-  - [X] err_link_to_unknown_room.map
-  - [X] err_no_end2.map
-  - [X] err_no_start2.map
-  - [X] err_start_end_same.map
-  - [X] err_too_many_ants.map
-  - [X] err_no_start.map
-  - [X] err_no_ants3.map
-  - [X] err_no_rooms.map
-  - [X] err_letter_in_coordinate.map
-  - [X] err_no_end.map
-  - [X] /dev/null
-  - [ ] /dev/zero -> hangs!
-  - [ ] /dev/urandom -> hangs!
-  - [ ] ""
+  - [ ] Fix errors reported by dbendu (~/Pictures/Screenshots/slack*)
+* TODO Rewrite main algorythm
+  - [X] Rewrite adjacency matrix initialization (symbols: 'x', '-', '0', '+')
+  - [X] Change BFS (=find_path=) in a way it to use only '-' or '0' edges during work
+  - [X] Change =choose_path= in a way it to update adj_matrix cells
+  - [X] Remove gateways' queue formation from =choose_path=
+  - [X] Form gateways' queue right after BFS finishes its work
+  - [X] Fix bug with assigning right symbols to edges leading to end room

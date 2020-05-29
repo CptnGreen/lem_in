@@ -53,6 +53,10 @@ void		log_starts_and_ends(t_farm *farm)
 	ft_putstr_fd("\n", farm->log_fd);
 }
 
+/*
+** Adjacency matrix initialization happens here
+*/
+
 int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 {
 	if (split[0] && split[1] && split[2] && split[3])
@@ -71,7 +75,7 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 		return (KO);
 	}
 	if (!(farm->adj_matrix = get_matrix_of_char(\
-		farm->n_rooms, farm->n_rooms, '0')) || build_room_ar(farm) == KO)
+		farm->n_rooms, farm->n_rooms, 'x')) || build_room_ar(farm) == KO)
 	{
 		ft_strdel(line);
 		return (KO);

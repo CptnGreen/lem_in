@@ -23,7 +23,8 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	{
 		if (!(farm->adj_matrix[r->num][i]))
 			break ;
-		if (farm->adj_matrix[r->num][i] == '1' && \
+		if ((farm->adj_matrix[r->num][i] == '0' ||	\
+			 farm->adj_matrix[r->num][i] == '-') &&	\
 			farm->room_ar[i]->depth == -1 && \
 			!(farm->room_ar[i]->is_chosen))
 		{
@@ -38,8 +39,13 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 }
 
 /*
-** With every call of this function one more path is found.
-** It assigns depths during its working process.
+** Called in loop in process_farm_description()
+**
+** With every call of this function one more (shortest possible)
+** path is found via BFS algorythm.
+**
+** This function also assigns depth properties during its
+** working process.
 */
 
 int		find_path(t_farm *farm)

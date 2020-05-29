@@ -62,11 +62,9 @@ int		main(void)
 		{
 			wipe_input(&input_start);
 			wipe_farm(&farm);
-			sleep(3);
 			return (0);
 		}
 	}
 	printf("ERROR\n");
-	sleep(3);
 	return (1);
 }

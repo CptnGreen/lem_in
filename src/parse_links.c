@@ -20,6 +20,9 @@
 ** Checks for:
 ** (1) loop-links (like "room-room"),
 ** (2) links pointing to missing rooms.
+**
+** Puts '0's instead of 'x's in adjacency matrix to
+** mark connections between rooms.
 */
 
 int		check_link(t_farm *farm, char const *src, char const *dst)
@@ -41,8 +44,8 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 					room : room_dst);
 		if (room_src && room_dst)
 		{
-			farm->adj_matrix[room_src->num][room_dst->num] = '1';
-			farm->adj_matrix[room_dst->num][room_src->num] = '1';
+			farm->adj_matrix[room_src->num][room_dst->num] = '0';
+			farm->adj_matrix[room_dst->num][room_src->num] = '0';
 			return (OK);
 		}
 		room = room->next;
