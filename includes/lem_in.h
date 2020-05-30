@@ -71,7 +71,17 @@ typedef struct			s_room_queue{
 	t_room				*room;
 	struct s_room_queue	*next;
 	int					is_sorted;
+	int					ants_on_path;
+	struct s_ant_queue	*ants;
 }						t_room_queue;
+
+typedef struct			s_path
+{
+	int					n_ants_inside;
+	t_room				*gateway_room;
+	struct s_ant_queue	*ants;
+	struct s_path		*next;
+}						t_path;
 
 typedef struct			s_link{
 	char				*src;
@@ -92,6 +102,7 @@ typedef struct			s_farm{
 	char				end_counter;
 	char				**adj_matrix;
 	struct s_room_queue	*gateways;
+	struct s_path		*paths;
 }						t_farm;
 
 /*
@@ -124,6 +135,7 @@ t_room					*append_room(t_room **where, t_room *what);
 t_room					*init_and_append_room(\
 							t_farm *farm, char const *name, int x, int y);
 t_ant					*init_and_append_ant(t_farm *farm, int num);
+t_path					*init_and_append_path(t_farm *farm, t_room *gateway_room);
 int						enqueue_room(t_room_queue **queue, t_room *room);
 int						enqueue_ant(t_ant_queue **queue, t_ant *ant);
 t_ant					*dequeue_ant(t_ant_queue **queue);

@@ -13,4 +13,9 @@
 * NEXT Handle ants' possible deficiency
   - [X] Assign depth property to every gateway
   - [X] Sort gateways in ascending order using depth property
-  - [ ] Rewrite =make_move= to correctly distribute ants between routes
+  - [X] Create new data structure - =path=
+  - [X] Write function =init_and_append_path=
+  - [X] Rewrite =build_parents= in order to work with paths instead of gateways
+  - [ ] =calculate_gateways_depths= -> =calculate_paths_depths=
+  - [ ] Assign ants to paths using algorythm
+  - [ ] Send path along their ways turn by turn

@@ -16,8 +16,9 @@
 
 int			make_ants(t_farm *farm)
 {
-	int		i;
-	t_ant	*a;
+	int				i;
+	t_ant			*a;
+	/* t_room_queue	*g; */
 
 	i = 0;
 	while (i < farm->n_ants)
@@ -28,6 +29,11 @@ int			make_ants(t_farm *farm)
 	a = farm->ants;
 	while (a)
 	{
+		/* g = farm->gateways; */
+		/* while (g) */
+		/* { */
+		/* 	... */
+		/* } */
 		enqueue_ant(&(farm->start_room->ants), a);
 		a = a->next;
 	}
@@ -48,7 +54,10 @@ void		build_parents(t_farm *farm)
 			if (farm->adj_matrix[i][j] == '+')
 			{
 				if (farm->room_ar[j]->is_end)
-					enqueue_room(&(farm->gateways), farm->room_ar[i]);
+				{
+					init_and_append_path(farm, farm->room_ar[i]);
+					/* enqueue_room(&(farm->gateways), farm->room_ar[i]); */
+				}
 				else
 					farm->room_ar[j]->parent = farm->room_ar[i];
 			}
