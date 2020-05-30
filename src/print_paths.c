@@ -22,7 +22,6 @@ int		print_paths(t_path *paths)
 	p = paths;
 	if (p)
 	{
-		ft_printf("-------------------\n");
 		while (p)
 		{
 			r = p->gateway_room;
@@ -33,9 +32,7 @@ int		print_paths(t_path *paths)
 				ft_printf("L%d -> ", a->ant->num);
 				a = a->next;
 			}
-			ft_printf("\n");
-			ft_printf("n_ants_inside: %d\n", p->n_ants_inside);
-			ft_printf("-------------------\n");
+			ft_printf("\nn_ants_inside: %d\n---\n", p->n_ants_inside);
 			p = p->next;
 		}
 		ft_printf("\n\n\n\n\n");

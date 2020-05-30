@@ -24,7 +24,7 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	while (i < farm->n_rooms)
 	{
 		if ((farm->adj_matrix[r->num][i] == '0' || \
-			 farm->adj_matrix[r->num][i] == '-') &&	\
+			farm->adj_matrix[r->num][i] == '-') && \
 			farm->room_ar[i]->d == 0)
 		{
 			if (!(enqueue_room(&q, farm->room_ar[i])))
@@ -67,16 +67,11 @@ int		find_path(t_farm *farm)
 			break ;
 		q_tmp = q_tmp->next;
 	}
-	if (choose_path(farm) == FOUND_PATH /* && !(farm->end_room->parent->is_start) */)
+	if (choose_path(farm) == FOUND_PATH)
 	{
-		/* print_rooms_queue_v(q); */
 		reset_queue(&q);
 		return (FOUND_PATH);
 	}
-	/* print_rooms_queue_v(q); */
 	reset_queue(&q);
-	/* ft_printf("\n"); */
-	/* print_mstr(farm->adj_matrix); */
-	/* ft_printf("\n"); */
 	return (NO_MORE_PATHS_FOUND);
 }

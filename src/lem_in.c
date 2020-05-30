@@ -13,6 +13,31 @@
 #include "lem_in.h"
 
 #define FINISH 2
+#define CONT 3
+
+int		move_ant(t_path *p, t_room **r, int *is_new_line)
+{
+	t_ant		*a;
+
+	if ((*r)->parent->is_start)
+	{
+		if (p->ants)
+			a = dequeue_ant(&(p->ants));
+		else
+		{
+			*r = (*r)->parent;
+			return (CONT);
+		}
+	}
+	else
+		a = dequeue_ant(&(*r)->parent->ants);
+	enqueue_ant(&((*r)->ants), a);
+	ft_printf("%sL%d-%s", \
+		(*is_new_line) ? ("") : (" "), a->num, (*r)->name);
+	*is_new_line = 0;
+	a->room = *r;
+	return (OK);
+}
 
 /*
 ** Called from make_move() for each gateway
@@ -21,32 +46,16 @@
 int		move_ants_along_the_path(t_farm *farm, t_path *p, int *is_new_line)
 {
 	t_room		*r;
-	t_ant		*a;
 
 	farm->end_room->parent = p->gateway_room;
 	r = farm->end_room;
 	while (!(r->is_start))
 	{
-		if ((r->parent) && (r->ants == NULL || r == farm->end_room) && \
-			(r->parent->ants != NULL))
-		{
-			if (r->parent->is_start)
-			{
-				if (p->ants)
-					a = dequeue_ant(&(p->ants));
-				else
-				{
-					r = r->parent;
-					continue ;
-				}
-			}
-			else
-				a = dequeue_ant(&(r->parent->ants));
-			enqueue_ant(&(r->ants), a);
-			ft_printf("%sL%d-%s", (*is_new_line) ? ("") : (" "), a->num, r->name);
-			*is_new_line = 0;
-			a->room = r;
-		}
+		if ((r->parent) && \
+			(r->ants == NULL || r == farm->end_room) && \
+			(r->parent->ants != NULL) && \
+			move_ant(p, &r, is_new_line) == CONT)
+			continue ;
 		r = r->parent;
 	}
 	if (!(p->next))

@@ -101,7 +101,6 @@ typedef struct			s_farm{
 	char				start_counter;
 	char				end_counter;
 	char				**adj_matrix;
-	struct s_room_queue	*gateways;
 	struct s_path		*paths;
 }						t_farm;
 
@@ -124,6 +123,7 @@ int						parse_links(t_farm *farm, t_input_line **input);
 int						handle_start_and_end_headers(t_farm *farm, char **line);
 
 int						find_path(t_farm *farm);
+void					sort_paths(t_farm *farm);
 int						choose_path(t_farm *farm);
 int						reset_queue(t_room_queue **q);
 
@@ -135,12 +135,14 @@ t_room					*append_room(t_room **where, t_room *what);
 t_room					*init_and_append_room(\
 							t_farm *farm, char const *name, int x, int y);
 t_ant					*init_and_append_ant(t_farm *farm, int num);
-t_path					*init_and_append_path(t_farm *farm, t_room *gateway_room);
+t_path					*init_and_append_path(\
+							t_farm *farm, t_room *gateway_room);
 int						enqueue_room(t_room_queue **queue, t_room *room);
 int						enqueue_ant(t_ant_queue **queue, t_ant *ant);
 t_ant					*dequeue_ant(t_ant_queue **queue);
 
 void					wipe_farm(t_farm *farm);
+void					wipe_paths(t_path **path);
 
 int						lem_in(t_farm *farm);
 

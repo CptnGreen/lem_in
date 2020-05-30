@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wipe_farm.c                                        :+:      :+:    :+:   */
+/*   wipe_paths.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,57 +12,17 @@
 
 #include "lem_in.h"
 
-void	wipe_ants_queue(t_ant_queue *a)
+void	wipe_paths(t_path **path)
 {
-	t_ant_queue		*prev_a;
+	t_path	*p;
+	t_path	*prev_p;
 
-	while (a)
+	p = *path;
+	while (p)
 	{
-		prev_a = a;
-		a = a->next;
-		free(prev_a);
-		prev_a = NULL;
+		prev_p = p;
+		p = p->next;
+		free(prev_p);
+		prev_p = NULL;
 	}
-}
-
-void	wipe_rooms(t_farm *farm)
-{
-	t_room			*room;
-	t_room			*prev_room;
-
-	room = farm->rooms;
-	if (room)
-	{
-		while (room)
-		{
-			prev_room = room;
-			room = room->next;
-			wipe_ants_queue(prev_room->ants);
-			ft_strdel(&(prev_room->name));
-			prev_room->parent = NULL;
-			free(prev_room);
-			prev_room = NULL;
-		}
-		free(farm->room_ar);
-		farm->room_ar = NULL;
-	}
-}
-
-void	wipe_farm(t_farm *farm)
-{
-	t_ant	*a;
-	t_ant	*prev_a;
-
-	wipe_rooms(farm);
-	wipe_paths(&(farm->paths));
-	wipe_mstr(farm->adj_matrix);
-	a = farm->ants;
-	while (a)
-	{
-		prev_a = a;
-		a = a->next;
-		free(prev_a);
-		prev_a = NULL;
-	}
-	farm->ants = NULL;
 }
