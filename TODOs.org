@@ -10,7 +10,7 @@
   - [X] Remove gateways' queue formation from =choose_path=
   - [X] Form gateways' queue right after BFS finishes its work
   - [X] Fix bug with assigning right symbols to edges leading to end room
-* NEXT Handle ants' possible deficiency
+* DONE Handle ants' possible deficiency
   - [X] Assign depth property to every gateway
   - [X] Sort gateways in ascending order using depth property
   - [X] Create new data structure - =path=
@@ -20,4 +20,9 @@
   - [X] Write =print_paths= function
   - [X] =sort_gateways= -> =sort_paths=
   - [X] Assign ants to paths using algorythm
-  - [ ] Send ants along their ways turn by turn
+  - [X] Send ants along their ways turn by turn
+* NEXT Try to handle "better-one-path" situation
+  - [ ] Cleanup code - norminette and leaks
+  - [ ] Isolate process of finding into a separate function
+  - [ ] Implement a way to store number of turns
+  - [ ] Increase number of paths iteratively
