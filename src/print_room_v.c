@@ -12,6 +12,8 @@
 
 #include "lem_in.h"
 
+#define SHOW_ANTS 5
+
 void	print_ants(t_room *room)
 {
 	int				i;
@@ -23,7 +25,7 @@ void	print_ants(t_room *room)
 	{
 		ft_printf("L%d ", q->ant->num);
 		i += 1;
-		if (i > 10)
+		if (i > SHOW_ANTS - 1)
 		{
 			ft_printf("...");
 			break ;
@@ -39,7 +41,7 @@ void	print_room_v(t_room *room)
 	{
 		ft_printf("%3d| %-17s < %17s | %-3d | %-3d | %2d ", room->num, \
 				room->name, ((room->parent) ? (room->parent->name) : ("")), \
-				room->x, room->y, room->is_visited);
+				room->x, room->y, room->d);
 		ft_printf((room->is_start) ? ("| start | ") : (""));
 		ft_printf((room->is_end) ? ("|  end  | ") : (""));
 		print_ants(room);

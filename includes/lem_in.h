@@ -58,7 +58,7 @@ typedef struct			s_room{
 	char				is_start;
 	char				is_end;
 	struct s_room		*next;
-	int					is_visited;
+	int					d;
 	struct s_room		*parent;
 }						t_room;
 
@@ -67,14 +67,10 @@ typedef struct			s_ant_queue{
 	struct s_ant_queue	*next;
 }						t_ant_queue;
 
-/*
-** First member of the queue gets n = 0
-*/
-
 typedef struct			s_room_queue{
 	t_room				*room;
 	struct s_room_queue	*next;
-	int					n;
+	int					is_sorted;
 }						t_room_queue;
 
 typedef struct			s_link{

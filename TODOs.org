@@ -2,6 +2,7 @@
   - [ ] Make sure program finds looped links and shoots error
   - [ ] Bug: program can't find all paths on map "2.map"
   - [ ] Fix errors reported by dbendu (~/Pictures/Screenshots/slack*)
+  - [ ] Fix bug with crash on empty line after farm description
 * DONE Rewrite main algorythm
   - [X] Rewrite adjacency matrix initialization (symbols: 'x', '-', '0', '+')
   - [X] Change BFS (=find_path=) in a way it to use only '-' or '0' edges during work
@@ -11,5 +12,5 @@
   - [X] Fix bug with assigning right symbols to edges leading to end room
 * NEXT Handle ants' possible deficiency
   - [X] Assign depth property to every gateway
-  - [ ] Sort gateways in ascending order using depth property
+  - [X] Sort gateways in ascending order using depth property
   - [ ] Rewrite =make_move= to correctly distribute ants between routes

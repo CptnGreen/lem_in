@@ -25,12 +25,12 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	{
 		if ((farm->adj_matrix[r->num][i] == '0' || \
 			 farm->adj_matrix[r->num][i] == '-') &&	\
-			farm->room_ar[i]->is_visited == 0)
+			farm->room_ar[i]->d == 0)
 		{
 			if (!(enqueue_room(&q, farm->room_ar[i])))
 				return (KO);
 			farm->room_ar[i]->parent = r;
-			farm->room_ar[i]->is_visited = 1;
+			farm->room_ar[i]->d = 1;
 			if (farm->room_ar[i]->is_end)
 				return (FOUND_SINK);
 		}
@@ -45,7 +45,7 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 ** With every call of this function one more (shortest possible)
 ** path is found via BFS algorythm.
 **
-** This function also assigns is_visited properties during its
+** This function also assigns d properties during its
 ** working process.
 */
 
