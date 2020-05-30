@@ -28,10 +28,10 @@ int			make_ants(t_farm *farm)
 	while (a)
 	{
 		p = farm->paths;
-		while (p->next)
+		while (1)
 		{
-			/* print_paths(farm->paths); */
-			if (p->n_ants_inside + p->gateway_room->d > \
+			while (p->next && \
+				   p->n_ants_inside + p->gateway_room->d >=			\
 				p->next->n_ants_inside + p->next->gateway_room->d)
 			{
 				p = p->next;
@@ -155,7 +155,7 @@ int			process_farm_description(t_input_line **input, t_farm *farm)
 	calculate_paths_depths(farm);
 	sort_paths(farm);
 	make_ants(farm);
-	print_paths(farm->paths);
+	/* print_paths(farm->paths); */
 	print_rooms_v(farm->room_ar[0]);
 	ft_putstr_fd("process_farm_description(): Success.\n", farm->log_fd);
 	return (OK);

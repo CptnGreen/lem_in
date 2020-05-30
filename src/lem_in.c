@@ -65,11 +65,6 @@ int		make_move(t_farm *farm)
 	gateway = farm->gateways;
 	while (gateway)
 	{
-		if (gateway->ants_on_path + gateway->room->d > gateway->next->ants_on_path)
-		{
-			gateway = gateway->next;
-			continue ;
-		}
 		move_ants_along_the_path(farm, gateway, &is_new_line);
 		gateway = gateway->next;
 	}
@@ -91,7 +86,7 @@ int		make_move(t_farm *farm)
 
 int		lem_in(t_farm *farm)
 {
-	if (farm->gateways)
+	if (farm->paths)
 	{
 		while (make_move(farm) != FINISH)
 			;
