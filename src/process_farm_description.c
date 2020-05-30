@@ -30,6 +30,7 @@ int			make_ants(t_farm *farm)
 		p = farm->paths;
 		while (p->next)
 		{
+			/* print_paths(farm->paths); */
 			if (p->n_ants_inside + p->gateway_room->d > \
 				p->next->n_ants_inside + p->next->gateway_room->d)
 			{
@@ -99,39 +100,40 @@ void		calculate_paths_depths(t_farm *farm)
 	}
 }
 
-void		sort_gateways(t_farm *farm)
+void		sort_paths(t_farm *farm)
 {
-	t_room_queue	*q;
-	t_room_queue	*g_s;
-	t_room_queue	*g;
+	t_path			*path;
+	t_path			*p_u;
+	t_path			*p;
 	int				d_min;
 	t_room			*r;
 
-	g_s = NULL;
+	p_u = farm->paths;
+	farm->paths = NULL;
 	r = NULL;
 	while (1)
 	{
-		g = farm->gateways;
+		p = p_u;
 		d_min = 1000000;
-		while (g)
+		while (p)
 		{
-			if (g->room->d <= d_min && !(g->is_sorted))
+			if (p->gateway_room->d <= d_min && !(p->is_sorted))
 			{
-				d_min = g->room->d;
-				r = g->room;
-				q = g;
+				d_min = p->gateway_room->d;
+				r = p->gateway_room;
+				path = p;
 			}
-			g = g->next;
+			p = p->next;
 		}
 		if (r)
 		{
-			enqueue_room(&g_s, r);
-			q->is_sorted = 1;
+			init_and_append_path(farm, r);
+			path->is_sorted = 1;
 			r = NULL;
 		}
 		else
 		{
-			farm->gateways = g_s;
+			/* print_paths(farm->paths); */
 			return ;
 		}
 	}
@@ -151,7 +153,7 @@ int			process_farm_description(t_input_line **input, t_farm *farm)
 		;
 	build_parents(farm);
 	calculate_paths_depths(farm);
-	sort_gateways(farm);
+	sort_paths(farm);
 	make_ants(farm);
 	print_paths(farm->paths);
 	print_rooms_v(farm->room_ar[0]);

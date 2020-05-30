@@ -70,7 +70,6 @@ typedef struct			s_ant_queue{
 typedef struct			s_room_queue{
 	t_room				*room;
 	struct s_room_queue	*next;
-	int					is_sorted;
 	int					ants_on_path;
 	struct s_ant_queue	*ants;
 }						t_room_queue;
@@ -81,6 +80,7 @@ typedef struct			s_path
 	t_room				*gateway_room;
 	struct s_ant_queue	*ants;
 	struct s_path		*next;
+	int					is_sorted;
 }						t_path;
 
 typedef struct			s_link{
