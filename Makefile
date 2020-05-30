@@ -34,10 +34,12 @@ SRC_RAW = \
 	append_room.c \
 	init_and_append_room.c \
 	init_and_append_ant.c \
+	init_and_append_path.c \
 	parse_rooms.c \
 	handle_no_more_rooms.c \
 	parse_links.c \
 	print_room_v.c \
+	print_paths.c \
 	print_rooms_v.c \
 	print_rooms_queue_v.c \
 	enqueue_room.c \
