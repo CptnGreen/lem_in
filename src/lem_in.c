@@ -18,26 +18,30 @@
 ** Called from make_move() for each gateway
 */
 
-int		move_ants_along_the_path(t_farm *farm, t_room_queue *gateway, int *is_new_line)
+int		move_ants_along_the_path(t_farm *farm, t_path *p, int *is_new_line)
 {
 	t_room		*r;
 	t_ant		*a;
 
-	farm->end_room->parent = gateway->room;
+	farm->end_room->parent = p->gateway_room;
 	r = farm->end_room;
 	while (!(r->is_start))
 	{
 		if ((r->parent) && (r->ants == NULL || r == farm->end_room) && \
 			(r->parent->ants != NULL))
 		{
-			a = dequeue_ant(&(r->parent->ants));
 			if (r->parent->is_start)
-				gateway->ants_on_path += 1;
-			if (r->is_end)
 			{
-				gateway->ants_on_path -= 1;
-				r->n_ants += 1;
+				if (p->ants)
+					a = dequeue_ant(&(p->ants));
+				else
+				{
+					r = r->parent;
+					continue ;
+				}
 			}
+			else
+				a = dequeue_ant(&(r->parent->ants));
 			enqueue_ant(&(r->ants), a);
 			ft_printf("%sL%d-%s", (*is_new_line) ? ("") : (" "), a->num, r->name);
 			*is_new_line = 0;
@@ -45,7 +49,7 @@ int		move_ants_along_the_path(t_farm *farm, t_room_queue *gateway, int *is_new_l
 		}
 		r = r->parent;
 	}
-	if (!(gateway->next))
+	if (!(p->next))
 		ft_printf("\n");
 	return (OK);
 }
@@ -56,17 +60,17 @@ int		move_ants_along_the_path(t_farm *farm, t_room_queue *gateway, int *is_new_l
 
 int		make_move(t_farm *farm)
 {
-	t_room_queue	*gateway;
+	t_path			*p;
 	t_ant_queue		*a;
 	int				i;
 	int				is_new_line;
 
 	is_new_line = 1;
-	gateway = farm->gateways;
-	while (gateway)
+	p = farm->paths;
+	while (p)
 	{
-		move_ants_along_the_path(farm, gateway, &is_new_line);
-		gateway = gateway->next;
+		move_ants_along_the_path(farm, p, &is_new_line);
+		p = p->next;
 	}
 	a = farm->end_room->ants;
 	i = 0;

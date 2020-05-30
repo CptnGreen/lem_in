@@ -156,7 +156,7 @@ int			process_farm_description(t_input_line **input, t_farm *farm)
 	sort_paths(farm);
 	make_ants(farm);
 	/* print_paths(farm->paths); */
-	print_rooms_v(farm->room_ar[0]);
+	/* print_rooms_v(farm->room_ar[0]); */
 	ft_putstr_fd("process_farm_description(): Success.\n", farm->log_fd);
 	return (OK);
 }

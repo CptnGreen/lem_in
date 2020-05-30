@@ -18,6 +18,6 @@
   - [X] Rewrite =build_parents= in order to work with paths instead of gateways
   - [X] =calculate_gateways_depths= -> =calculate_paths_depths=
   - [X] Write =print_paths= function
-  - [ ] =sort_gateways= -> =sort_paths=
-  - [ ] Assign ants to paths using algorythm
-  - [ ] Send path along their ways turn by turn
+  - [X] =sort_gateways= -> =sort_paths=
+  - [X] Assign ants to paths using algorythm
+  - [ ] Send ants along their ways turn by turn
