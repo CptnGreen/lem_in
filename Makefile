@@ -25,6 +25,8 @@ LOG = stderr.log
 
 SRC_DIR = src
 SRC_RAW = \
+	process_input.c \
+	set_the_stage.c \
 	init_farm.c \
 	wipe_farm.c \
 	wipe_paths.c \

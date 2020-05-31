@@ -18,7 +18,6 @@ int		handle_empty_rooms_queue(t_room_queue **queue, t_room *room)
 		return (KO);
 	(*queue)->room = room;
 	(*queue)->next = NULL;
-	(*queue)->ants_on_path = 0;
 	return (OK);
 }
 

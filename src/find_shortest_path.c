@@ -29,7 +29,7 @@ int		enqueue_rooms_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	{
 		if ((farm->flow_matrix[r->num][i] == '0' || \
 			farm->flow_matrix[r->num][i] == '-') && \
-			farm->room_ar[i]->d == 0 /* && r->num != i */)
+			farm->room_ar[i]->d == 0)
 		{
 			if (!(enqueue_room(&q, farm->room_ar[i])))
 				return (KO);

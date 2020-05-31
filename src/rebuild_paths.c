@@ -98,17 +98,12 @@ void		rebuild_paths(t_farm *farm)
 	while (1)
 	{
 		investigate_shortest_path(p_u, &path, &r);
-		if (r)
-		{
-			init_and_append_path(farm, r);
-			path->is_sorted = 1;
-			r = NULL;
-		}
-		else
-		{
-			wipe_paths(&p_u);
-			p_u = NULL;
-			return ;
-		}
+		if (!r)
+			break ;
+		init_and_append_path(farm, r);
+		path->is_sorted = 1;
+		r = NULL;
 	}
+	wipe_paths(&p_u);
+	p_u = NULL;
 }

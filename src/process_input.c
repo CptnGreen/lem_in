@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redistribute_ants.c                                :+:      :+:    :+:   */
+/*   process_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,28 +12,32 @@
 
 #include "lem_in.h"
 
-/*
-** This function returns how much turns (lines) does
-** it take to move all the ants from start to finish.
-*/
-
-int			redistribute_ants(t_farm *farm)
+void	print_input(t_input_line *input_seed)
 {
-	t_ant			*a;
-	t_path			*p;
+	t_input_line	*input;
 
-	a = farm->ants;
-	while (a)
+	input = input_seed;
+	while (input)
 	{
-		p = farm->paths;
-		while (p->next && \
-				p->n_ants_inside + p->gateway_room->d >= \
-				p->next->n_ants_inside + p->next->gateway_room->d)
-			p = p->next;
-		enqueue_ant(&(p->ants), a);
-		p->n_ants_inside += 1;
-		enqueue_ant(&(farm->start_room->ants), a);
-		a = a->next;
+		ft_printf("%s\n", input->line);
+		input = input->next;
 	}
-	return (p->n_ants_inside + p->gateway_room->d);
+	ft_printf("\n");
+	return ;
+}
+
+void	process_input(t_farm *farm)
+{
+	t_input_line	*input;
+	t_input_line	*input_start;
+
+	if (init_farm(farm) && \
+		get_input(farm, FD, &input))
+	{
+		input_start = input;
+		print_input(input);
+		process_farm_description(&input, farm);
+		make_ants(farm);
+	}
+	wipe_input(&input_start);
 }

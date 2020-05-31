@@ -70,7 +70,6 @@ typedef struct			s_ant_queue{
 typedef struct			s_room_queue{
 	t_room				*room;
 	struct s_room_queue	*next;
-	int					ants_on_path;
 	struct s_ant_queue	*ants;
 }						t_room_queue;
 
@@ -105,50 +104,57 @@ typedef struct			s_farm{
 }						t_farm;
 
 /*
-** Input processing:
+** Part 1: Input processing:
 */
 
+void					process_input(t_farm *farm);
 int						init_farm(t_farm *farm);
 int						get_input(\
 							t_farm *farm, int fd, t_input_line **input_lst);
 int						process_farm_description(\
 							t_input_line **input, t_farm *farm);
-int						redistribute_ants(t_farm *farm);
-
 int						parse_n_ants(t_farm *farm, t_input_line **input);
 int						parse_rooms(t_farm *farm, t_input_line **input_passed);
+int						parse_links(t_farm *farm, t_input_line **input);
+int						handle_start_and_end_headers(t_farm *farm, char **line);
 int						handle_no_more_rooms(\
 							t_farm *farm, char **split, char **line);
-int						parse_links(t_farm *farm, t_input_line **input);
-
-int						handle_start_and_end_headers(t_farm *farm, char **line);
-
-int						find_shortest_path(t_farm *farm);
-void					rebuild_paths(t_farm *farm);
-int						wipe_rooms_queue(t_room_queue **q);
-void					reset_rooms(t_farm *farm);
+int						make_ants(t_farm *farm);
+void					wipe_input(t_input_line **input_passed);
 
 /*
-** Utils:
+** Part 2: Set the stage:
 */
 
-int						make_ants(t_farm *farm);
-t_room					*append_room(t_room **where, t_room *what);
+int						set_the_stage(t_farm *farm);
+int						find_shortest_path(t_farm *farm);
+void					rebuild_paths(t_farm *farm);
+int						redistribute_ants(t_farm *farm);
+
+/*
+** Part 3: Lem-in:
+*/
+
+int						lem_in(t_farm *farm);
+void					wipe_farm(t_farm *farm);
+
+/*
+** Utilities:
+*/
+
 t_room					*init_and_append_room(\
 							t_farm *farm, char const *name, int x, int y);
 t_ant					*init_and_append_ant(t_farm *farm, int num);
 t_path					*init_and_append_path(\
 							t_farm *farm, t_room *gateway_room);
+t_room					*append_room(t_room **where, t_room *what);
 int						enqueue_room(t_room_queue **queue, t_room *room);
 int						enqueue_ant(t_ant_queue **queue, t_ant *ant);
 t_ant					*dequeue_ant(t_ant_queue **queue);
-
-void					wipe_farm(t_farm *farm);
-void					wipe_paths(t_path **path);
-void					wipe_input(t_input_line **input_passed);
 void					wipe_ants_queue(t_ant_queue **ants);
-
-int						lem_in(t_farm *farm);
+void					reset_rooms(t_farm *farm);
+int						wipe_rooms_queue(t_room_queue **q);
+void					wipe_paths(t_path **path);
 
 /*
 ** Debugging:
@@ -157,7 +163,7 @@ int						lem_in(t_farm *farm);
 void					print_room_v(t_room *room);
 int						print_rooms_v(t_room *rooms);
 int						print_rooms_queue_v(t_room_queue *queue);
-int						print_paths(t_path *paths);
 void					print_ants(t_room *room);
+int						print_paths(t_path *paths);
 
 #endif
