@@ -27,8 +27,8 @@ int			redistribute_ants(t_farm *farm)
 	{
 		p = farm->paths;
 		while (p->next && \
-			   p->n_ants_inside + p->gateway_room->d >=	\
-			   p->next->n_ants_inside + p->next->gateway_room->d)
+				p->n_ants_inside + p->gateway_room->d >= \
+				p->next->n_ants_inside + p->next->gateway_room->d)
 			p = p->next;
 		enqueue_ant(&(p->ants), a);
 		p->n_ants_inside += 1;

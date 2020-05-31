@@ -89,31 +89,26 @@ int		main(void)
 	n_max_paths = 1;
 	res = -1;
 	m_res = NULL;
-	while (1)
+	while ((res = find_shortest_path(&farm) != NO_MORE_PATHS_FOUND))
 	{
-		if ((res = find_shortest_path(&farm)) == NO_MORE_PATHS_FOUND)
-		{
-			wipe_mstr(m_res);
-			break ;
-		}
 		update_flow(&farm);
 		rebuild_paths(&farm);
 		n_turns = redistribute_ants(&farm);
-		print_paths(farm.paths);
-		ft_printf("   | n_turns = %d\n   +-------------\n\n", n_turns);
+		/* print_paths(farm.paths); */
+		/* ft_printf("   | n_turns = %d\n   +-------------\n\n", n_turns); */
 		if (n_turns <= n_min_turns)
 		{
 			n_min_turns = n_turns;
 			wipe_mstr(m_res);
-			m_res = mstr_dup((char const **)farm.flow_matrix, farm.n_rooms, farm.n_rooms);
+			m_res = mstr_dup(\
+				(char const **)farm.flow_matrix, farm.n_rooms, farm.n_rooms);
 			continue ;
 		}
-		wipe_mstr(farm.flow_matrix);
-		farm.flow_matrix = m_res;
-		rebuild_paths(&farm);
-		n_turns = redistribute_ants(&farm);
-		break ;
 	}
+	wipe_mstr(farm.flow_matrix);
+	farm.flow_matrix = m_res;
+	rebuild_paths(&farm);
+	n_turns = redistribute_ants(&farm);
 	lem_in(&farm);
 	wipe_farm(&farm);
 	return (0);

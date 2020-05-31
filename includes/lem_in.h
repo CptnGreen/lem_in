@@ -132,7 +132,6 @@ void					reset_rooms(t_farm *farm);
 ** Utils:
 */
 
-
 int						make_ants(t_farm *farm);
 t_room					*append_room(t_room **where, t_room *what);
 t_room					*init_and_append_room(\
