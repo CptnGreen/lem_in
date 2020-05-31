@@ -99,12 +99,16 @@ int		make_move(t_farm *farm)
 
 int		lem_in(t_farm *farm)
 {
+	int		n_turns;
+
+	n_turns = 0;
 	if (farm->paths)
 	{
 		while (make_move(farm) != FINISH)
-			;
-		return (OK);
+			n_turns += 1;
+		ft_printf("TURNS: %d\n------------\n", n_turns);
+		return (n_turns);
 	}
 	ft_putstr_fd("lem-in(): No gateways - aborting.\n", farm->log_fd);
-	return (KO);
+	return (-1);
 }

@@ -28,7 +28,9 @@ SRC_RAW = \
 	init_farm.c \
 	wipe_farm.c \
 	wipe_paths.c \
+	wipe_input.c \
 	get_input.c \
+	make_and_distribute_ants.c \
 	process_farm_description.c \
 	handle_start_and_end_headers.c \
 	parse_n_ants.c \
@@ -49,7 +51,7 @@ SRC_RAW = \
 	choose_path.c \
 	sort_paths.c \
 	reset_queue.c \
-	find_path.c \
+	find_next_path.c \
 	lem_in.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))

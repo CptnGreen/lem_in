@@ -113,6 +113,7 @@ int						get_input(\
 							t_farm *farm, int fd, t_input_line **input_lst);
 int						process_farm_description(\
 							t_input_line **input, t_farm *farm);
+int						make_and_distribute_ants(t_farm *farm);
 
 int						parse_n_ants(t_farm *farm, t_input_line **input);
 int						parse_rooms(t_farm *farm, t_input_line **input_passed);
@@ -122,7 +123,7 @@ int						parse_links(t_farm *farm, t_input_line **input);
 
 int						handle_start_and_end_headers(t_farm *farm, char **line);
 
-int						find_path(t_farm *farm);
+int						find_next_path(t_farm *farm);
 void					sort_paths(t_farm *farm);
 int						choose_path(t_farm *farm);
 int						reset_queue(t_room_queue **q);
@@ -143,6 +144,7 @@ t_ant					*dequeue_ant(t_ant_queue **queue);
 
 void					wipe_farm(t_farm *farm);
 void					wipe_paths(t_path **path);
+void					wipe_input(t_input_line **input_passed);
 
 int						lem_in(t_farm *farm);
 

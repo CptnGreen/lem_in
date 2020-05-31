@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_path.c                                        :+:      :+:    :+:   */
+/*   find_next_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -49,7 +49,7 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 ** working process.
 */
 
-int		find_path(t_farm *farm)
+int		find_next_path(t_farm *farm)
 {
 	t_room_queue	*q;
 	t_room_queue	*q_tmp;
