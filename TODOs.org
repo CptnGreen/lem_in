@@ -22,7 +22,7 @@
   - [X] Assign ants to paths using algorythm
   - [X] Send ants along their ways turn by turn
 * NEXT Try to handle "better-one-path" situation
-  - [ ] Cleanup code - norminette and leaks
-  - [ ] Isolate process of finding into a separate function
+  - [X] Cleanup code - norminette and leaks
+  - [ ] Isolate process of finding paths into a separate function
   - [ ] Implement a way to store number of turns
   - [ ] Increase number of paths iteratively

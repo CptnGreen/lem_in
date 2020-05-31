@@ -46,6 +46,34 @@ void	print_input(t_input_line *input_seed)
 	return ;
 }
 
+int			make_ants(t_farm *farm)
+{
+	int				i;
+	t_ant			*a;
+	t_path			*p;
+
+	i = 0;
+	while (i < farm->n_ants)
+	{
+		init_and_append_ant(farm, i + 1);
+		i += 1;
+	}
+	a = farm->ants;
+	while (a)
+	{
+		p = farm->paths;
+		while (p->next && \
+			   p->n_ants_inside + p->gateway_room->d >=	\
+			   p->next->n_ants_inside + p->next->gateway_room->d)
+			p = p->next;
+		enqueue_ant(&(p->ants), a);
+		p->n_ants_inside += 1;
+		enqueue_ant(&(farm->start_room->ants), a);
+		a = a->next;
+	}
+	return (OK);
+}
+
 int		main(void)
 {
 	t_farm			farm;
@@ -57,12 +85,18 @@ int		main(void)
 	{
 		print_input(input);
 		input_start = input;
-		if (process_farm_description(&input, &farm) && \
-			lem_in(&farm))
+		if (process_farm_description(&input, &farm))
 		{
-			wipe_input(&input_start);
-			wipe_farm(&farm);
-			return (0);
+			while (find_path(&farm) != NO_MORE_PATHS_FOUND)
+				;
+			sort_paths(&farm);
+			make_ants(&farm);
+			if (lem_in(&farm))
+			{
+				wipe_input(&input_start);
+				wipe_farm(&farm);
+				return (0);
+			}
 		}
 	}
 	ft_printf("ERROR\n");
