@@ -28,35 +28,44 @@ void	print_input(t_input_line *input_seed)
 	return ;
 }
 
+void	set_the_stage(t_farm *farm)
+{
+	t_input_line	*input;
+	t_input_line	*input_start;
+
+	if (init_farm(farm) && \
+		get_input(farm, FD, &input))
+	{
+		input_start = input;
+		print_input(input);
+		process_farm_description(&input, farm);
+		make_ants(farm);
+	}
+	wipe_input(&input_start);
+}
+
 int		main(void)
 {
 	t_farm			farm;
-	t_input_line	*input;
 	int				res;
 	int				n_min_turns;
 	int				n_turns;
 	int				n_max_paths;
 	char			**m_res;
-	t_input_line	**input_start;
 
-	if (init_farm(&farm) && \
-		get_input(&farm, FD, &input))
-	{
-		input_start = &input;
-		print_input(input);
-		process_farm_description(&input, &farm);
-	}
+	set_the_stage(&farm);
 	n_min_turns = 1000000;
 	n_max_paths = 1;
 	res = -1;
-	make_ants(&farm);
-	while (res != NO_MORE_PATHS_FOUND)
+	m_res = NULL;
+	while (1)
 	{
-		res = find_next_path(&farm);
-		sort_paths(&farm);
+		if ((res = find_next_path(&farm) == NO_MORE_PATHS_FOUND))
+			break ;
+		rebuild_paths(&farm);
 		n_turns = redistribute_ants(&farm);
 		print_paths(farm.paths);
-		ft_printf("n_turns: %d\n", n_turns);
+		ft_printf("   | n_turns = %d\n   +-------------\n\n", n_turns);
 		if (n_turns <= n_min_turns)
 		{
 			n_min_turns = n_turns;
@@ -66,12 +75,12 @@ int		main(void)
 		}
 		wipe_mstr(farm.adj_matrix);
 		farm.adj_matrix = m_res;
-		sort_paths(&farm);
+		rebuild_paths(&farm);
 		n_turns = redistribute_ants(&farm);
 		break ;
 	}
 	lem_in(&farm);
-	wipe_input(input_start);
+	wipe_mstr(m_res);
 	wipe_farm(&farm);
 	return (0);
 }

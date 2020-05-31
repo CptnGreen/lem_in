@@ -12,10 +12,12 @@
 
 #include "lem_in.h"
 
-void	wipe_ants_queue(t_ant_queue *a)
+void	wipe_ants_queue(t_ant_queue **ants)
 {
 	t_ant_queue		*prev_a;
+	t_ant_queue		*a;
 
+	a = *ants;
 	while (a)
 	{
 		prev_a = a;

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_paths.c                                       :+:      :+:    :+:   */
+/*   rebuild_paths.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -82,13 +82,13 @@ void		investigate_shortest_path(t_path *p, t_path **path, t_room **r)
 	}
 }
 
-void		sort_paths(t_farm *farm)
+void		rebuild_paths(t_farm *farm)
 {
 	t_path			*path;
 	t_path			*p_u;
 	t_room			*r;
 
-	/* wipe_paths(&(farm->paths)); */
+	wipe_paths(&(farm->paths));
 	farm->paths = NULL;
 	rebuild_parents(farm);
 	calculate_paths_depths(farm);

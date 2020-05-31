@@ -18,7 +18,7 @@ LFLAGS =
 
 NAME = lem-in
 # MAP = maps_examples/valid/big/map_big_1
-MAP = my_map5
+MAP = my_map2
 # MAP = my_map1
 # MAP = three_ways
 LOG = stderr.log
@@ -51,7 +51,7 @@ SRC_RAW = \
 	enqueue_ant.c \
 	make_ants.c \
 	dequeue_ant.c \
-	sort_paths.c \
+	rebuild_paths.c \
 	reset_queue.c \
 	find_next_path.c \
 	lem_in.c

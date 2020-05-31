@@ -22,13 +22,6 @@ int			redistribute_ants(t_farm *farm)
 	t_ant			*a;
 	t_path			*p;
 
-	p = farm->paths;
-	while (p)
-	{
-		wipe_ants_queue(p->ants);
-		p->n_ants_inside = 0;
-		p = p->next;
-	}
 	a = farm->ants;
 	while (a)
 	{

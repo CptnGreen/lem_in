@@ -24,7 +24,7 @@ void	wipe_rooms(t_farm *farm)
 		{
 			prev_room = room;
 			room = room->next;
-			wipe_ants_queue(prev_room->ants);
+			wipe_ants_queue(&(prev_room->ants));
 			ft_strdel(&(prev_room->name));
 			prev_room->parent = NULL;
 			free(prev_room);

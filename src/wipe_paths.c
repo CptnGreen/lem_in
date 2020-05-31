@@ -22,6 +22,8 @@ void	wipe_paths(t_path **path)
 	{
 		prev_p = p;
 		p = p->next;
+		wipe_ants_queue(&(prev_p->ants));
+		prev_p->n_ants_inside = 0;
 		free(prev_p);
 		prev_p = NULL;
 	}
