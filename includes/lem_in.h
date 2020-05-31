@@ -107,7 +107,7 @@ typedef struct			s_farm{
 ** Part 1: Input processing:
 */
 
-void					process_input(t_farm *farm);
+int						process_input(t_farm *farm);
 int						init_farm(t_farm *farm);
 int						get_input(\
 							t_farm *farm, int fd, t_input_line **input_lst);

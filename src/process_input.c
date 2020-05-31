@@ -26,7 +26,7 @@ void	print_input(t_input_line *input_seed)
 	return ;
 }
 
-void	process_input(t_farm *farm)
+int		process_input(t_farm *farm)
 {
 	t_input_line	*input;
 	t_input_line	*input_start;
@@ -40,4 +40,5 @@ void	process_input(t_farm *farm)
 		make_ants(farm);
 	}
 	wipe_input(&input_start);
+	return (OK);
 }

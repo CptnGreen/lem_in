@@ -16,9 +16,12 @@ int		main(void)
 {
 	t_farm		farm;
 
-	process_input(&farm);
-	set_the_stage(&farm);
-	lem_in(&farm);
-	wipe_farm(&farm);
-	return (0);
+	if (process_input(&farm) &&	\
+		set_the_stage(&farm) &&	\
+		lem_in(&farm))
+	{
+		wipe_farm(&farm);
+		return (0);
+	}
+	return (1);
 }
