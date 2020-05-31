@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reset_rooms_depths.c                               :+:      :+:    :+:   */
+/*   reset_rooms.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void	reset_rooms_depths(t_farm *farm)
+void	reset_rooms(t_farm *farm)
 {
 	t_room		*r;
 
@@ -20,6 +20,7 @@ void	reset_rooms_depths(t_farm *farm)
 	while (r)
 	{
 		r->d = 0;
+		r->parent = NULL;
 		r = r->next;
 	}
 }

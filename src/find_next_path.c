@@ -15,7 +15,12 @@
 
 #define FOUND_SINK 2
 
-int		choose_path(t_farm *farm)
+/*
+** Updates flow martix along the shortest path found
+** on the previous step
+*/
+
+int		update_flow(t_farm *farm)
 {
 	t_room	*r;
 
@@ -41,7 +46,12 @@ int		choose_path(t_farm *farm)
 	return (NO_MORE_PATHS_FOUND);
 }
 
-int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
+/*
+** Finds room's neighbours (using flow matrix) and
+** adds them to the queue
+*/
+
+int		enqueue_rooms_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 {
 	int		i;
 
@@ -65,16 +75,11 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 }
 
 /*
-** Called in loop in process_farm_description()
-**
-** With every call of this function one more (shortest possible)
-** path is found via BFS algorythm.
-**
-** This function also assigns d properties during its
-** working process.
+** Performs breadth-first search in order to find
+** shortest path in current flow matrix constrains
 */
 
-int		update_flow_matrix(t_farm *farm)
+int		find_shortest_path(t_farm *farm)
 {
 	t_room_queue	*q;
 	t_room_queue	*q_tmp;
@@ -88,7 +93,7 @@ int		update_flow_matrix(t_farm *farm)
 	while (q_tmp)
 	{
 		r = q_tmp->room;
-		if (enqueue_neighbours(farm, q_tmp, r) == FOUND_SINK)
+		if (enqueue_rooms_neighbours(farm, q_tmp, r) == FOUND_SINK)
 			break ;
 		q_tmp = q_tmp->next;
 	}
@@ -97,27 +102,9 @@ int		update_flow_matrix(t_farm *farm)
 
 int		find_next_path(t_farm *farm)
 {
-	t_room_queue	*q;
-	t_room_queue	*q_tmp;
-	t_room			*r;
-
-	r = farm->start_room;
-	q = NULL;
-	if (!(enqueue_room(&q, r)))
-		return (KO);
-	q_tmp = q;
-	while (q_tmp)
-	{
-		r = q_tmp->room;
-		if (enqueue_neighbours(farm, q_tmp, r) == FOUND_SINK)
-			break ;
-		q_tmp = q_tmp->next;
-	}
-	if (choose_path(farm) == FOUND_PATH)
-	{
-		reset_queue(&q);
+	reset_rooms(farm);
+	find_shortest_path(farm);
+	if (update_flow(farm) == FOUND_PATH)
 		return (FOUND_PATH);
-	}
-	reset_queue(&q);
 	return (NO_MORE_PATHS_FOUND);
 }

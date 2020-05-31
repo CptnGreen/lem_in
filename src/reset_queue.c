@@ -31,7 +31,7 @@ int		reset_queue(t_room_queue **q)
 	while (*q)
 	{
 		(*q)->room->parent = NULL;
-		(*q)->room->d = 0;
+		/* (*q)->room->d = 0; */
 		dequeue_room(q);
 	}
 	return (OK);

@@ -53,7 +53,7 @@ SRC_RAW = \
 	dequeue_ant.c \
 	rebuild_paths.c \
 	reset_queue.c \
-	reset_rooms_depths.c \
+	reset_rooms.c \
 	find_next_path.c \
 	lem_in.c
 

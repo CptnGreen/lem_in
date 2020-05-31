@@ -126,7 +126,7 @@ int						handle_start_and_end_headers(t_farm *farm, char **line);
 int						find_next_path(t_farm *farm);
 void					rebuild_paths(t_farm *farm);
 int						reset_queue(t_room_queue **q);
-void					reset_rooms_depths(t_farm *farm);
+void					reset_rooms(t_farm *farm);
 
 /*
 ** Utils:
