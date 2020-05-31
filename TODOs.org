@@ -23,7 +23,7 @@
   - [X] Send ants along their ways turn by turn
 * NEXT Try to handle "better-one-path" situation
   - [X] Cleanup code - norminette and leaks
-  - [ ] Finish =remake_ants= function
-  - [ ] Isolate process of finding paths into a separate function
-  - [ ] Implement a way to store number of turns
-  - [ ] Increase number of paths iteratively
+  - [X] Finish =remake_ants= function
+  - [X] Increase number of paths iteratively
+  - [ ] Fix bug with resetting queues and depths
+  - [ ] Rewrite finding paths in order to go to the end every time

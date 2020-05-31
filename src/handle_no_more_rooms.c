@@ -74,7 +74,7 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 		ft_strdel(line);
 		return (KO);
 	}
-	if (!(farm->adj_matrix = get_matrix_of_char(\
+	if (!(farm->flow_matrix = get_matrix_of_char(\
 		farm->n_rooms, farm->n_rooms, 'x')) || build_room_ar(farm) == KO)
 	{
 		ft_strdel(line);

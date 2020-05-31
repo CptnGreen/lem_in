@@ -42,7 +42,7 @@ void	wipe_farm(t_farm *farm)
 
 	wipe_rooms(farm);
 	wipe_paths(&(farm->paths));
-	wipe_mstr(farm->adj_matrix);
+	wipe_mstr(farm->flow_matrix);
 	a = farm->ants;
 	while (a)
 	{

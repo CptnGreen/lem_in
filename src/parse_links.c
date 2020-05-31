@@ -44,8 +44,8 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 					room : room_dst);
 		if (room_src && room_dst)
 		{
-			farm->adj_matrix[room_src->num][room_dst->num] = '0';
-			farm->adj_matrix[room_dst->num][room_src->num] = '0';
+			farm->flow_matrix[room_src->num][room_dst->num] = '0';
+			farm->flow_matrix[room_dst->num][room_src->num] = '0';
 			return (OK);
 		}
 		room = room->next;

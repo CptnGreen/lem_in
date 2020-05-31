@@ -18,12 +18,12 @@ void		rebuild_parents(t_farm *farm)
 	int		j;
 
 	i = 0;
-	while (farm->adj_matrix[i])
+	while (farm->flow_matrix[i])
 	{
 		j = 0;
-		while (farm->adj_matrix[i][j])
+		while (farm->flow_matrix[i][j])
 		{
-			if (farm->adj_matrix[i][j] == '+')
+			if (farm->flow_matrix[i][j] == '+')
 			{
 				if (farm->room_ar[j]->is_end)
 					init_and_append_path(farm, farm->room_ar[i]);

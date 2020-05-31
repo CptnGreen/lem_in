@@ -24,15 +24,15 @@ int		choose_path(t_farm *farm)
 	{
 		while (!(r->is_start))
 		{
-			if (farm->adj_matrix[r->parent->num][r->num] == '0')
+			if (farm->flow_matrix[r->parent->num][r->num] == '0')
 			{
-				farm->adj_matrix[r->parent->num][r->num] = '+';
-				farm->adj_matrix[r->num][r->parent->num] = '-';
+				farm->flow_matrix[r->parent->num][r->num] = '+';
+				farm->flow_matrix[r->num][r->parent->num] = '-';
 			}
-			else if (farm->adj_matrix[r->parent->num][r->num] == '-')
+			else if (farm->flow_matrix[r->parent->num][r->num] == '-')
 			{
-				farm->adj_matrix[r->parent->num][r->num] = '0';
-				farm->adj_matrix[r->num][r->parent->num] = '0';
+				farm->flow_matrix[r->parent->num][r->num] = '0';
+				farm->flow_matrix[r->num][r->parent->num] = '0';
 			}
 			r = r->parent;
 		}
@@ -48,8 +48,8 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	i = 0;
 	while (i < farm->n_rooms)
 	{
-		if ((farm->adj_matrix[r->num][i] == '0' || \
-			farm->adj_matrix[r->num][i] == '-') && \
+		if ((farm->flow_matrix[r->num][i] == '0' || \
+			farm->flow_matrix[r->num][i] == '-') && \
 			farm->room_ar[i]->d == 0 /* && r->num != i */)
 		{
 			if (!(enqueue_room(&q, farm->room_ar[i])))
@@ -73,6 +73,27 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 ** This function also assigns d properties during its
 ** working process.
 */
+
+int		update_flow_matrix(t_farm *farm)
+{
+	t_room_queue	*q;
+	t_room_queue	*q_tmp;
+	t_room			*r;
+
+	r = farm->start_room;
+	q = NULL;
+	if (!(enqueue_room(&q, r)))
+		return (KO);
+	q_tmp = q;
+	while (q_tmp)
+	{
+		r = q_tmp->room;
+		if (enqueue_neighbours(farm, q_tmp, r) == FOUND_SINK)
+			break ;
+		q_tmp = q_tmp->next;
+	}
+	return (OK);
+}
 
 int		find_next_path(t_farm *farm)
 {

@@ -60,7 +60,7 @@ int		main(void)
 	m_res = NULL;
 	while (1)
 	{
-		if ((res = find_next_path(&farm) == NO_MORE_PATHS_FOUND))
+		if ((res = find_next_path(&farm)) == NO_MORE_PATHS_FOUND)
 			break ;
 		rebuild_paths(&farm);
 		n_turns = redistribute_ants(&farm);
@@ -70,11 +70,11 @@ int		main(void)
 		{
 			n_min_turns = n_turns;
 			wipe_mstr(m_res);
-			m_res = mstr_dup((char const **)farm.adj_matrix, farm.n_rooms, farm.n_rooms);
+			m_res = mstr_dup((char const **)farm.flow_matrix, farm.n_rooms, farm.n_rooms);
 			continue ;
 		}
-		wipe_mstr(farm.adj_matrix);
-		farm.adj_matrix = m_res;
+		wipe_mstr(farm.flow_matrix);
+		farm.flow_matrix = m_res;
 		rebuild_paths(&farm);
 		n_turns = redistribute_ants(&farm);
 		break ;

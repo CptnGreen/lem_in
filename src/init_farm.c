@@ -30,7 +30,7 @@ int		init_farm(t_farm *farm)
 		farm->n_rooms = 0;
 		farm->start_counter = 0;
 		farm->end_counter = 0;
-		farm->adj_matrix = NULL;
+		farm->flow_matrix = NULL;
 		farm->room_ar = NULL;
 		ft_putstr_fd("\nLOG:\n================\n", farm->log_fd);
 		ft_putstr_fd("init_farm(): Success.\n", farm->log_fd);
