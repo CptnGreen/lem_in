@@ -101,6 +101,7 @@ SRC_RAW = \
 			ft_tabint.c \
 			ft_tabdup.c \
 			mtab_dup.c \
+			mstr_dup.c \
 			get_next_line.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))

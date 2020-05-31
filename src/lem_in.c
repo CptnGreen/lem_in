@@ -106,9 +106,10 @@ int		lem_in(t_farm *farm)
 	{
 		while (make_move(farm) != FINISH)
 			n_turns += 1;
-		ft_printf("TURNS: %d\n------------\n", n_turns);
-		return (n_turns);
+		ft_printf("TURNS: %d\n------------\n", n_turns + 1);
+		return (n_turns + 1);
 	}
 	ft_putstr_fd("lem-in(): No gateways - aborting.\n", farm->log_fd);
+	ft_printf("ERROR\n");
 	return (-1);
 }

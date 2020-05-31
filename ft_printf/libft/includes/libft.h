@@ -141,5 +141,6 @@ int				*ft_tabdup(int const *tab, size_t size);
 int				*ft_strdup_int(char const *s1);
 int				*ft_tabint(int const *ptr, size_t size, int c);
 int				**mtab_dup(int const **m, unsigned int rows, unsigned int cols);
+char			**mstr_dup(char const **m, unsigned int rows, unsigned int cols);
 
 #endif

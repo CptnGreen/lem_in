@@ -12,19 +12,6 @@
 
 #include "lem_in.h"
 
-void	wipe_ants_queue(t_ant_queue *a)
-{
-	t_ant_queue		*prev_a;
-
-	while (a)
-	{
-		prev_a = a;
-		a = a->next;
-		free(prev_a);
-		prev_a = NULL;
-	}
-}
-
 void	wipe_rooms(t_farm *farm)
 {
 	t_room			*room;

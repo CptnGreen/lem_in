@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_next_path.c                                        :+:      :+:    :+:   */
+/*   find_next_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,10 +11,35 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include "libft.h"
 #include "libftprintf.h"
 
 #define FOUND_SINK 2
+
+int		choose_path(t_farm *farm)
+{
+	t_room	*r;
+
+	r = farm->end_room;
+	if (r->parent)
+	{
+		while (!(r->is_start))
+		{
+			if (farm->adj_matrix[r->parent->num][r->num] == '0')
+			{
+				farm->adj_matrix[r->parent->num][r->num] = '+';
+				farm->adj_matrix[r->num][r->parent->num] = '-';
+			}
+			else if (farm->adj_matrix[r->parent->num][r->num] == '-')
+			{
+				farm->adj_matrix[r->parent->num][r->num] = '0';
+				farm->adj_matrix[r->num][r->parent->num] = '0';
+			}
+			r = r->parent;
+		}
+		return (FOUND_PATH);
+	}
+	return (NO_MORE_PATHS_FOUND);
+}
 
 int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 {
@@ -25,7 +50,7 @@ int		enqueue_neighbours(t_farm *farm, t_room_queue *q, t_room *r)
 	{
 		if ((farm->adj_matrix[r->num][i] == '0' || \
 			farm->adj_matrix[r->num][i] == '-') && \
-			farm->room_ar[i]->d == 0)
+			farm->room_ar[i]->d == 0 /* && r->num != i */)
 		{
 			if (!(enqueue_room(&q, farm->room_ar[i])))
 				return (KO);

@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void		build_parents(t_farm *farm)
+void		rebuild_parents(t_farm *farm)
 {
 	int		i;
 	int		j;
@@ -88,7 +88,9 @@ void		sort_paths(t_farm *farm)
 	t_path			*p_u;
 	t_room			*r;
 
-	build_parents(farm);
+	/* wipe_paths(&(farm->paths)); */
+	farm->paths = NULL;
+	rebuild_parents(farm);
 	calculate_paths_depths(farm);
 	p_u = farm->paths;
 	farm->paths = NULL;

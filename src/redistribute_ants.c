@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_and_distribute_ants.c                         :+:      :+:    :+:   */
+/*   redistribute_ants.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,17 +17,17 @@
 ** it take to move all the ants from start to finish.
 */
 
-int			make_and_distribute_ants(t_farm *farm)
+int			redistribute_ants(t_farm *farm)
 {
-	int				i;
 	t_ant			*a;
 	t_path			*p;
 
-	i = 0;
-	while (i < farm->n_ants)
+	p = farm->paths;
+	while (p)
 	{
-		init_and_append_ant(farm, i + 1);
-		i += 1;
+		wipe_ants_queue(p->ants);
+		p->n_ants_inside = 0;
+		p = p->next;
 	}
 	a = farm->ants;
 	while (a)

@@ -113,7 +113,7 @@ int						get_input(\
 							t_farm *farm, int fd, t_input_line **input_lst);
 int						process_farm_description(\
 							t_input_line **input, t_farm *farm);
-int						make_and_distribute_ants(t_farm *farm);
+int						redistribute_ants(t_farm *farm);
 
 int						parse_n_ants(t_farm *farm, t_input_line **input);
 int						parse_rooms(t_farm *farm, t_input_line **input_passed);
@@ -125,13 +125,14 @@ int						handle_start_and_end_headers(t_farm *farm, char **line);
 
 int						find_next_path(t_farm *farm);
 void					sort_paths(t_farm *farm);
-int						choose_path(t_farm *farm);
 int						reset_queue(t_room_queue **q);
 
 /*
 ** Utils:
 */
 
+
+int						make_ants(t_farm *farm);
 t_room					*append_room(t_room **where, t_room *what);
 t_room					*init_and_append_room(\
 							t_farm *farm, char const *name, int x, int y);
@@ -145,6 +146,7 @@ t_ant					*dequeue_ant(t_ant_queue **queue);
 void					wipe_farm(t_farm *farm);
 void					wipe_paths(t_path **path);
 void					wipe_input(t_input_line **input_passed);
+void					wipe_ants_queue(t_ant_queue *a);
 
 int						lem_in(t_farm *farm);
 
@@ -156,5 +158,6 @@ void					print_room_v(t_room *room);
 int						print_rooms_v(t_room *rooms);
 int						print_rooms_queue_v(t_room_queue *queue);
 int						print_paths(t_path *paths);
+void					print_ants(t_room *room);
 
 #endif

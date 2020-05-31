@@ -18,7 +18,7 @@ LFLAGS =
 
 NAME = lem-in
 # MAP = maps_examples/valid/big/map_big_1
-MAP = my_map2
+MAP = my_map5
 # MAP = my_map1
 # MAP = three_ways
 LOG = stderr.log
@@ -29,8 +29,9 @@ SRC_RAW = \
 	wipe_farm.c \
 	wipe_paths.c \
 	wipe_input.c \
+	wipe_ants_queue.c \
 	get_input.c \
-	make_and_distribute_ants.c \
+	redistribute_ants.c \
 	process_farm_description.c \
 	handle_start_and_end_headers.c \
 	parse_n_ants.c \
@@ -43,12 +44,13 @@ SRC_RAW = \
 	parse_links.c \
 	print_room_v.c \
 	print_paths.c \
+	print_ants.c \
 	print_rooms_v.c \
 	print_rooms_queue_v.c \
 	enqueue_room.c \
 	enqueue_ant.c \
+	make_ants.c \
 	dequeue_ant.c \
-	choose_path.c \
 	sort_paths.c \
 	reset_queue.c \
 	find_next_path.c \

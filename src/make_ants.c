@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_room_v.c                                     :+:      :+:    :+:   */
+/*   make_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/25 03:08:30 by slisandr          #+#    #+#             */
-/*   Updated: 2020/05/25 03:08:30 by slisandr         ###   ########.fr       */
+/*   Created: 2020/05/25 03:08:07 by slisandr          #+#    #+#             */
+/*   Updated: 2020/05/25 03:08:08 by slisandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	print_room_v(t_room *room)
+int			make_ants(t_farm *farm)
 {
-	if (room)
+	int				i;
+
+	i = 0;
+	while (i < farm->n_ants)
 	{
-		ft_printf("%3d| %-17s < %17s | %-3d | %-3d | %2d ", room->num, \
-				room->name, ((room->parent) ? (room->parent->name) : ("")), \
-				room->x, room->y, room->d);
-		ft_printf((room->is_start) ? ("| start | ") : (""));
-		ft_printf((room->is_end) ? ("|  end  | ") : (""));
+		init_and_append_ant(farm, i + 1);
+		i += 1;
 	}
+	return (OK);
 }

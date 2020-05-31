@@ -24,6 +24,7 @@ int		print_rooms_v(t_room *rooms)
 		while (room)
 		{
 			print_room_v(room);
+			print_ants(room);
 			room = room->next;
 		}
 		ft_printf("===|===================|===================|=====|=====");
