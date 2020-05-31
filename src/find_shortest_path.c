@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_next_path.c                                   :+:      :+:    :+:   */
+/*   find_shortest_path.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,37 +14,6 @@
 #include "libftprintf.h"
 
 #define FOUND_SINK 2
-
-/*
-** Updates flow martix along the shortest path found
-** on the previous step
-*/
-
-int		update_flow(t_farm *farm)
-{
-	t_room	*r;
-
-	r = farm->end_room;
-	if (r->parent)
-	{
-		while (!(r->is_start))
-		{
-			if (farm->flow_matrix[r->parent->num][r->num] == '0')
-			{
-				farm->flow_matrix[r->parent->num][r->num] = '+';
-				farm->flow_matrix[r->num][r->parent->num] = '-';
-			}
-			else if (farm->flow_matrix[r->parent->num][r->num] == '-')
-			{
-				farm->flow_matrix[r->parent->num][r->num] = '0';
-				farm->flow_matrix[r->num][r->parent->num] = '0';
-			}
-			r = r->parent;
-		}
-		return (FOUND_PATH);
-	}
-	return (NO_MORE_PATHS_FOUND);
-}
 
 /*
 ** Finds room's neighbours (using flow matrix) and
@@ -85,6 +54,7 @@ int		find_shortest_path(t_farm *farm)
 	t_room_queue	*q_tmp;
 	t_room			*r;
 
+	reset_rooms(farm);
 	r = farm->start_room;
 	q = NULL;
 	if (!(enqueue_room(&q, r)))
@@ -94,17 +64,12 @@ int		find_shortest_path(t_farm *farm)
 	{
 		r = q_tmp->room;
 		if (enqueue_rooms_neighbours(farm, q_tmp, r) == FOUND_SINK)
-			break ;
+		{
+			wipe_rooms_queue(&q);
+			return (FOUND_PATH);
+		}
 		q_tmp = q_tmp->next;
 	}
-	return (OK);
-}
-
-int		find_next_path(t_farm *farm)
-{
-	reset_rooms(farm);
-	find_shortest_path(farm);
-	if (update_flow(farm) == FOUND_PATH)
-		return (FOUND_PATH);
+	wipe_rooms_queue(&q);
 	return (NO_MORE_PATHS_FOUND);
 }

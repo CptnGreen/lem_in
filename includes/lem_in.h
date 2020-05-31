@@ -123,9 +123,9 @@ int						parse_links(t_farm *farm, t_input_line **input);
 
 int						handle_start_and_end_headers(t_farm *farm, char **line);
 
-int						find_next_path(t_farm *farm);
+int						find_shortest_path(t_farm *farm);
 void					rebuild_paths(t_farm *farm);
-int						reset_queue(t_room_queue **q);
+int						wipe_rooms_queue(t_room_queue **q);
 void					reset_rooms(t_farm *farm);
 
 /*

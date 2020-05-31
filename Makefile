@@ -52,9 +52,9 @@ SRC_RAW = \
 	make_ants.c \
 	dequeue_ant.c \
 	rebuild_paths.c \
-	reset_queue.c \
+	wipe_rooms_queue.c \
 	reset_rooms.c \
-	find_next_path.c \
+	find_shortest_path.c \
 	lem_in.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))

@@ -44,6 +44,37 @@ void	set_the_stage(t_farm *farm)
 	wipe_input(&input_start);
 }
 
+/*
+** Updates flow martix along the shortest path found
+** on the previous step
+*/
+
+int		update_flow(t_farm *farm)
+{
+	t_room	*r;
+
+	r = farm->end_room;
+	if (r->parent)
+	{
+		while (!(r->is_start))
+		{
+			if (farm->flow_matrix[r->parent->num][r->num] == '0')
+			{
+				farm->flow_matrix[r->parent->num][r->num] = '+';
+				farm->flow_matrix[r->num][r->parent->num] = '-';
+			}
+			else if (farm->flow_matrix[r->parent->num][r->num] == '-')
+			{
+				farm->flow_matrix[r->parent->num][r->num] = '0';
+				farm->flow_matrix[r->num][r->parent->num] = '0';
+			}
+			r = r->parent;
+		}
+		return (OK);
+	}
+	return (KO);
+}
+
 int		main(void)
 {
 	t_farm			farm;
@@ -60,8 +91,12 @@ int		main(void)
 	m_res = NULL;
 	while (1)
 	{
-		if ((res = find_next_path(&farm)) == NO_MORE_PATHS_FOUND)
+		if ((res = find_shortest_path(&farm)) == NO_MORE_PATHS_FOUND)
+		{
+			wipe_mstr(m_res);
 			break ;
+		}
+		update_flow(&farm);
 		rebuild_paths(&farm);
 		n_turns = redistribute_ants(&farm);
 		print_paths(farm.paths);
@@ -80,7 +115,6 @@ int		main(void)
 		break ;
 	}
 	lem_in(&farm);
-	wipe_mstr(m_res);
 	wipe_farm(&farm);
 	return (0);
 }

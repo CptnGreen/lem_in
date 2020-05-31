@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reset_queue.c                                      :+:      :+:    :+:   */
+/*   wipe_rooms_queue.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -26,13 +26,9 @@ int		dequeue_room(t_room_queue **queue)
 	return (OK);
 }
 
-int		reset_queue(t_room_queue **q)
+int		wipe_rooms_queue(t_room_queue **q)
 {
 	while (*q)
-	{
-		(*q)->room->parent = NULL;
-		/* (*q)->room->d = 0; */
 		dequeue_room(q);
-	}
 	return (OK);
 }
