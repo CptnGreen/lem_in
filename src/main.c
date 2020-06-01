@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include "libft.h"
+#include "libftprintf.h"
+#include <stdio.h>
 
 int		main(void)
 {
@@ -23,5 +26,6 @@ int		main(void)
 		wipe_farm(&farm);
 		return (0);
 	}
+	perror("ERROR\n");
 	return (1);
 }

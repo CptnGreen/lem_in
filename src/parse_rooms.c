@@ -18,6 +18,9 @@
 
 /*
 ** Called in handle_new_room()
+**
+** Checks if there is a letter instead of a digit
+** in a room's coordinate field
 */
 
 int			check_coordinates(t_farm *farm, char **split, char **line)
@@ -57,21 +60,23 @@ int			handle_new_room(t_farm *farm, char **split, int res, char **line)
 	if ((room = init_and_append_room(\
 			farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]))))
 	{
-		if (res == FOUND_START)
+		if (res == START_HEADER)
 		{
 			farm->start_counter += 1;
 			room->is_start = 1;
 			farm->start_room = room;
 		}
-		if (res == FOUND_END)
+		if (res == END_HEADER)
 		{
 			farm->end_counter += 1;
 			room->is_end = 1;
 			farm->end_room = room;
 		}
+		wipe_mstr(split);
+		return (OK);
 	}
 	wipe_mstr(split);
-	return (OK);
+	return (KO);
 }
 
 int			check_if_hash(\
@@ -99,6 +104,11 @@ int			parse_rooms(t_farm *farm, t_input_line **input)
 	char			*line;
 
 	res = 0;
+	if (!(*input))
+	{
+		ft_putstr_fd("parse_rooms(): Empty map - aborting.\n", farm->log_fd);
+		return (KO);
+	}
 	while (*input)
 	{
 		line = ft_strdup((*input)->line);
@@ -114,6 +124,5 @@ int			parse_rooms(t_farm *farm, t_input_line **input)
 	}
 	ft_putstr_fd(NO_LINKS, farm->log_fd);
 	ft_strdel(&line);
-	wipe_mstr(split);
 	return (KO);
 }

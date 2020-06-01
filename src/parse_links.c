@@ -15,6 +15,8 @@
 #define LOOP_LINK "check_link(): Loop-link found - aborting.\n"
 #define BAD_LINK "check_link(): Bad link found - aborting.\n"
 
+#define END_OF_INPUT 5
+
 /*
 ** Called in append_link()
 ** Checks for:
@@ -57,17 +59,19 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 ** Checks if link consists of exactly 2 parts
 */
 
-int		parse_next_link(t_farm *farm, t_input_line *input)
+int		parse_next_link(t_farm *farm, t_input_line **input)
 {
 	char		**split;
 
-	while ((input->line)[0] == '#')
+	while (((*input)->line)[0] == '#')
 	{
-		input = input->next;
-		if (!(input))
-			return (OK);
+		*input = (*input)->next;
+		if (!(*input))
+			return (END_OF_INPUT);
+		if (((*input)->line)[0] == '\0')
+			return (KO);
 	}
-	split = ft_strsplit(input->line, '-');
+	split = ft_strsplit((*input)->line, '-');
 	if (!split[0] || !split[1] || split[2])
 	{
 		wipe_mstr(split);
@@ -89,20 +93,21 @@ int		parse_next_link(t_farm *farm, t_input_line *input)
 ** after parse_n_ants() and parse_rooms().
 */
 
-int		parse_links(t_farm *farm, t_input_line **input_passed)
+int		parse_links(t_farm *farm, t_input_line **input)
 {
-	t_input_line	*input;
+	int		res;
 
-	input = *input_passed;
-	if (input)
+	if (*input)
 	{
-		if (parse_next_link(farm, input) == KO)
-			return (KO);
-		while (input->next)
+		while (*input)
 		{
-			input = input->next;
-			if (parse_next_link(farm, input) == KO)
+			if ((res = parse_next_link(farm, input)) == END_OF_INPUT)
+				break ;
+			else if (res == KO)
+			{
 				return (KO);
+			}
+			*input = (*input)->next;
 		}
 		ft_putstr_fd("parse_links(): End of input - continue.\n", farm->log_fd);
 		return (OK);

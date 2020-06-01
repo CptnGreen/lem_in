@@ -40,7 +40,7 @@ int		read_input(int fd, t_input_line **cur, t_input_line **input_lst)
 }
 
 /*
-** This function is called in main()
+** Called in main()
 */
 
 int		get_input(t_farm *farm, int fd, t_input_line **input_lst)

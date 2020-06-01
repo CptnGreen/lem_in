@@ -18,7 +18,7 @@ LFLAGS =
 
 NAME = lem-in
 # MAP = maps_examples/valid/big/map_big_1
-MAP = my_map5
+MAP = maps_examples/invalid/empty_line_no_tube_to_end
 # MAP = my_map1
 # MAP = three_ways
 LOG = stderr.log

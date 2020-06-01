@@ -22,8 +22,8 @@
 # define ROOM_MISSING -2
 # define HEADERS_TOO_MANY -1
 
-# define FOUND_START 1
-# define FOUND_END 2
+# define START_HEADER 1
+# define END_HEADER 2
 # define COMMENT_FOUND 3
 
 # define FOUND_PATH 1

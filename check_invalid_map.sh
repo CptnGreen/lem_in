@@ -34,7 +34,7 @@ run_test()
 
 	printf "%-50s" "$name"
 	if [ -f "${MAP_PATH}/${map}" ];then
-		${LEM_IN_EXEC} < "${MAP_PATH}/${map}" > /dev/null 2> ${TEST_TMP}
+		${LEM_IN_EXEC} < "${MAP_PATH}/${map}" | grep ERROR > ${TEST_TMP}
 		local output=`cat -e ${TEST_TMP}`
 		if [ "${output:0:5}" = "ERROR" ]; then
 			print_ok "Good!"

@@ -21,9 +21,15 @@
   - [X] =sort_gateways= -> =sort_paths=
   - [X] Assign ants to paths using algorythm
   - [X] Send ants along their ways turn by turn
-* NEXT Try to handle "better-one-path" situation
+* DONE Try to handle "better-one-path" situation
   - [X] Cleanup code - norminette and leaks
   - [X] Finish =remake_ants= function
   - [X] Increase number of paths iteratively
-  - [ ] Fix bug with resetting queues and depths
-  - [ ] Rewrite finding paths in order to go to the end every time
+  - [X] Fix bug with resetting queues and depths
+  - [X] Rewrite finding paths in order to go to the end every time
+* NEXT Achieve 100% accuracy
+  - [ ] Implement consistant error handling
+  - [ ] Check for leaks on errors
+  - [ ] Try to crash your program and fix errors
+  - [ ] Try to understand what is a possible reason of 20% failures
+  - [ ] Find checker which checks for ants' moves correctness and use it

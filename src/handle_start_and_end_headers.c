@@ -20,15 +20,7 @@ int			handle_start_header(t_farm *farm, char **line)
 			"handle_start_header(): Found start declaration line\n", \
 			farm->log_fd);
 		ft_strdel(line);
-		if (farm->start_counter == 0)
-			return (FOUND_START);
-		else
-		{
-			ft_putstr_fd(\
-				"handle_start_header(): Too many start headers. Aborting.\n",
-				farm->log_fd);
-			return (HEADERS_TOO_MANY);
-		}
+		return (START_HEADER);
 	}
 	return (COMMENT_FOUND);
 }
@@ -41,15 +33,7 @@ int			handle_end_header(t_farm *farm, char **line)
 			"handle_end_header(): Found end declaration line\n", \
 			farm->log_fd);
 		ft_strdel(line);
-		if (farm->end_counter == 0)
-			return (FOUND_END);
-		else
-		{
-			ft_putstr_fd(\
-				"handle_end_header(): Too many end headers. Aborting.\n", \
-				farm->log_fd);
-			return (HEADERS_TOO_MANY);
-		}
+		return (END_HEADER);
 	}
 	return (COMMENT_FOUND);
 }

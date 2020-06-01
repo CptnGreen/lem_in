@@ -34,27 +34,8 @@ t_room		*init_room(int num, char const *str, int x, int y)
 }
 
 /*
-** Returns (null) on "good" duplicate,
-** exits on "bad" ones
-*/
-
-void		investigate_duplicate(t_farm *farm, t_room *room, int x, int y)
-{
-	ft_putstr_fd("investigate_duplicate(): Duplicate! ", farm->log_fd);
-	if ((x == room->x) && (y == room->y))
-	{
-		ft_putstr_fd("Coords match - skip, continue.\n", farm->log_fd);
-		return ;
-	}
-	ft_putstr_fd("Coords don't match - aborting.\n", farm->log_fd);
-	exit(1);
-}
-
-/*
 ** Called from parse_rooms().
-** Also checks for duplicates:
-** if coordinates match - returns (null),
-** if not - exits
+** Also checks for duplicates (name or coordinates)
 */
 
 t_room		*init_and_append_room(t_farm *farm, char const *name, int x, int y)
@@ -66,9 +47,10 @@ t_room		*init_and_append_room(t_farm *farm, char const *name, int x, int y)
 	room = farm->rooms;
 	while (room)
 	{
-		if (ft_strequ(name, room->name))
+		if ((room->x == x && room->y == y) || (ft_strequ(name, room->name)))
 		{
-			investigate_duplicate(farm, room, x, y);
+			ft_putstr_fd("init_and_append_room(): Duplicate - aborting!\n",
+						 farm->log_fd);
 			return (NULL);
 		}
 		prev = room;
