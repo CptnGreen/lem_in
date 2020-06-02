@@ -26,6 +26,7 @@ int		main(void)
 		wipe_farm(&farm);
 		return (0);
 	}
+	wipe_farm(&farm);
 	perror("ERROR\n");
 	return (1);
 }

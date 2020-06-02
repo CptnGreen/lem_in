@@ -38,7 +38,9 @@ int		process_input(t_farm *farm)
 		print_input(input);
 		process_farm_description(&input, farm);
 		make_ants(farm);
+		wipe_input(&input_start);
+		return (OK);
 	}
 	wipe_input(&input_start);
-	return (OK);
+	return (KO);
 }

@@ -114,7 +114,14 @@ int			parse_rooms(t_farm *farm, t_input_line **input)
 		line = ft_strdup((*input)->line);
 		if (check_if_hash(farm, &res, &line, input))
 			continue ;
-		split = ft_strsplit(line, ' ');
+		if (line[0] != '\0')
+			split = ft_strsplit(line, ' ');
+		else
+		{
+			ft_strdel(&line);
+			ft_putstr_fd("parse_rooms(): Empty line - aborting.\n", farm->log_fd);
+			return (KO);
+		}
 		if (!split[0] || !split[1] || !split[2] || split[3])
 			return ((handle_no_more_rooms(farm, split, &line) == OK) ? OK : KO);
 		if (handle_new_room(farm, split, res, &line) == KO)

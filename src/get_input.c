@@ -24,7 +24,10 @@ int		read_input(int fd, t_input_line **cur, t_input_line **input_lst)
 	{
 		prev = *cur;
 		if (!(*cur = (t_input_line *)ft_memalloc(sizeof(t_input_line))))
+		{
+			ft_strdel(&line);
 			return (KO);
+		}
 		if (is_first)
 		{
 			*input_lst = *cur;

@@ -68,19 +68,22 @@ int		parse_next_link(t_farm *farm, t_input_line **input)
 		*input = (*input)->next;
 		if (!(*input))
 			return (END_OF_INPUT);
-		if (((*input)->line)[0] == '\0')
-			return (KO);
 	}
-	split = ft_strsplit((*input)->line, '-');
+	split = NULL;
+	if (((*input)->line)[0] != '\0')
+		split = ft_strsplit((*input)->line, '-');
+	else
+	{
+		ft_putstr_fd("parse_next_link(): Empty line - aborting.\n", farm->log_fd);
+		return (KO);
+	}
 	if (!split[0] || !split[1] || split[2])
 	{
 		wipe_mstr(split);
-		ft_putstr_fd(BAD_LINK, farm->log_fd);
 		return (KO);
 	}
 	if (check_link(farm, split[0], split[1]) != OK)
 	{
-		ft_putstr_fd(BAD_LINK, farm->log_fd);
 		wipe_mstr(split);
 		return (KO);
 	}
@@ -105,6 +108,7 @@ int		parse_links(t_farm *farm, t_input_line **input)
 				break ;
 			else if (res == KO)
 			{
+				ft_putstr_fd(BAD_LINK, farm->log_fd);
 				return (KO);
 			}
 			*input = (*input)->next;
