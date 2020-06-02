@@ -59,16 +59,15 @@ int			handle_new_room(t_farm *farm, char **split, int *res)
 	if ((room = init_and_append_room(\
 			farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]))))
 	{
+		ft_printf("res = %d\n", *res);
 		if (*res == START_HEADER)
 		{
-			*res = 0;
 			farm->start_counter += 1;
 			room->is_start = 1;
 			farm->start_room = room;
 		}
 		if (*res == END_HEADER)
 		{
-			*res = 0;
 			farm->end_counter += 1;
 			room->is_end = 1;
 			farm->end_room = room;
@@ -80,6 +79,31 @@ int			handle_new_room(t_farm *farm, char **split, int *res)
 	return (KO);
 }
 
+int			process_line_in_rooms(t_farm *farm, t_input_line **input)
+{
+	char			**split;
+	int				res;
+
+	res = 0;
+	if (check_if_hash(farm, &res, input))
+	{
+		ft_printf("process_line_in_rooms(): res = %d\n", res);
+		return (OK);
+	}
+	if (((*input)->line)[0] == '\0' || (((*input)->line)[0]) == 'L')
+	{
+		ft_putstr_fd("parse_rooms(): Bad line - aborting.\n", farm->log_fd);
+		return (KO);
+	}
+	split = ft_strsplit((*input)->line, ' ');
+	if (!split[0] || !split[1] || !split[2] || split[3])
+		return ((handle_no_more_rooms(farm, split, &res) == OK) ? OK : KO);
+	if ((handle_new_room(farm, split, &res)) == KO)
+		return (KO);
+	(*input) = (*input)->next;
+	return (OK);
+}
+
 /*
 ** Called from process_farm_description()
 ** after parse_n_ants()
@@ -87,31 +111,15 @@ int			handle_new_room(t_farm *farm, char **split, int *res)
 
 int			parse_rooms(t_farm *farm, t_input_line **input)
 {
-	char			**split;
-	int				res;
-
 	if (!(*input))
 	{
-		ft_putstr_fd("parse_rooms(): Empty map - aborting.\n", farm->log_fd);
+		ft_putstr_fd("parse_rooms(): No rooms - aborting.\n", farm->log_fd);
 		return (KO);
 	}
-	res = 0;
 	while (*input)
 	{
-		if (check_if_hash(farm, &res, input))
-			continue ;
-		if (((*input)->line)[0] == '\0' || (((*input)->line)[0]) == 'L')
-		{
-			ft_putstr_fd("parse_rooms(): Bad line - aborting.\n", farm->log_fd);
+		if (process_line_in_rooms(farm, input) == KO)
 			return (KO);
-		}
-		split = ft_strsplit((*input)->line, ' ');
-		if (!split[0] || !split[1] || !split[2] || split[3])
-			return ((handle_no_more_rooms(farm, split, &res) == OK) ? OK : KO);
-		if ((handle_new_room(farm, split, &res)) == KO)
-			return (KO);
-		res = 0;
-		(*input) = (*input)->next;
 	}
 	ft_putstr_fd(NO_LINKS, farm->log_fd);
 	return (KO);

@@ -15,6 +15,7 @@
 
 #define LOOP_LINK "check_link(): Loop-link found - aborting.\n"
 #define BAD_LINK "check_link(): Bad link found - aborting.\n"
+#define EMPTY_LINE "parse_next_link(): Empty line - aborting.\n"
 
 #define END_OF_INPUT 5
 
@@ -56,6 +57,20 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 	return (KO);
 }
 
+int		handle_hash_in_links(t_input_line **input)
+{
+	while (((*input)->line)[0] == '#')
+	{
+		if (ft_strequ((*input)->line, "##start") || \
+			ft_strequ((*input)->line, "##end"))
+			return (KO);
+		*input = (*input)->next;
+		if (!(*input))
+			return (END_OF_INPUT);
+	}
+	return (OK);
+}
+
 /*
 ** Checks if link consists of exactly 2 parts
 */
@@ -63,29 +78,20 @@ int		check_link(t_farm *farm, char const *src, char const *dst)
 int		parse_next_link(t_farm *farm, t_input_line **input)
 {
 	char		**split;
+	int			res;
 
-	while (((*input)->line)[0] == '#')
-	{
-		if (ft_strequ((*input)->line, "##start") || ft_strequ((*input)->line, "##end"))
-			return (KO);
-		*input = (*input)->next;
-		if (!(*input))
-			return (END_OF_INPUT);
-	}
+	if ((res = handle_hash_in_links(input)) != OK)
+		return (res);
 	split = NULL;
 	if (((*input)->line)[0] != '\0')
 		split = ft_strsplit((*input)->line, '-');
 	else
 	{
-		ft_putstr_fd("parse_next_link(): Empty line - aborting.\n", farm->log_fd);
+		ft_putstr_fd(EMPTY_LINE, farm->log_fd);
 		return (KO);
 	}
-	if (!split[0] || !split[1] || split[2])
-	{
-		wipe_mstr(split);
-		return (KO);
-	}
-	if (check_link(farm, split[0], split[1]) != OK)
+	if ((!split[0] || !split[1] || split[2]) || \
+		(check_link(farm, split[0], split[1]) != OK))
 	{
 		wipe_mstr(split);
 		return (KO);
