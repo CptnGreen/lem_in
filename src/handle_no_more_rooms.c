@@ -57,11 +57,17 @@ void		log_starts_and_ends(t_farm *farm)
 ** Adjacency matrix initialization happens here
 */
 
-int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
+int			handle_no_more_rooms(t_farm *farm, char **split, int *res)
 {
+	if ((*res == START_HEADER) || (*res == END_HEADER))
+	{
+		wipe_mstr(split);
+		ft_putstr_fd("handle_no_more_rooms(): Corrupt use of commands - aborting.\n", \
+					 farm->log_fd);
+		return (KO);
+	}
 	if (split[0] && split[1] && split[2] && split[3])
 	{
-		ft_strdel(line);
 		wipe_mstr(split);
 		ft_putstr_fd(MANY_COORDS, farm->log_fd);
 		return (KO);
@@ -71,17 +77,12 @@ int			handle_no_more_rooms(t_farm *farm, char **split, char **line)
 	if (farm->start_counter != 1 || farm->end_counter != 1)
 	{
 		ft_putstr_fd(WRONG_NUM, farm->log_fd);
-		ft_strdel(line);
 		return (KO);
 	}
 	if (!(farm->flow_matrix = get_matrix_of_char(\
 		farm->n_rooms, farm->n_rooms, 'x')) || build_room_ar(farm) == KO)
-	{
-		ft_strdel(line);
 		return (KO);
-	}
 	farm->end_room->n_ants = farm->n_ants;
 	ft_putstr_fd(ADJ_INIT, farm->log_fd);
-	ft_strdel(line);
 	return (OK);
 }

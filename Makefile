@@ -18,7 +18,8 @@ LFLAGS =
 
 NAME = lem-in
 # MAP = maps_examples/valid/big/map_big_1
-MAP = maps_examples/invalid/empty_line_no_tube_to_end
+MAP = maps_examples/invalid/start_and_comments_before_nb_ants
+# MAP = maps_examples/invalid/empty_line_no_tube_to_end
 # MAP = maps_examples/invalid/empty_line_no_end_defined
 # MAP = my_map1
 # MAP = three_ways
@@ -36,7 +37,7 @@ SRC_RAW = \
 	get_input.c \
 	redistribute_ants.c \
 	process_farm_description.c \
-	handle_start_and_end_headers.c \
+	check_if_hash.c \
 	parse_n_ants.c \
 	append_room.c \
 	init_and_append_room.c \

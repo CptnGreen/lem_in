@@ -116,9 +116,9 @@ int						process_farm_description(\
 int						parse_n_ants(t_farm *farm, t_input_line **input);
 int						parse_rooms(t_farm *farm, t_input_line **input_passed);
 int						parse_links(t_farm *farm, t_input_line **input);
-int						handle_start_and_end_headers(t_farm *farm, char **line);
-int						handle_no_more_rooms(\
-							t_farm *farm, char **split, char **line);
+int						check_if_hash(\
+							t_farm *farm, int *res, t_input_line **input);
+int						handle_no_more_rooms(t_farm *farm, char **split, int *res);
 int						make_ants(t_farm *farm);
 void					wipe_input(t_input_line **input_passed);
 

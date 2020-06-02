@@ -37,12 +37,6 @@ int			parse_n_ants(t_farm *farm, t_input_line **input)
 	while (*input)
 	{
 		line = ft_strdup((*input)->line);
-		if (line[0] == '#')
-		{
-			ft_strdel(&line);
-			(*input) = (*input)->next;
-			continue ;
-		}
 		i = 0;
 		while (line[i])
 		{

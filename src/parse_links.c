@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include "libft.h"
 
 #define LOOP_LINK "check_link(): Loop-link found - aborting.\n"
 #define BAD_LINK "check_link(): Bad link found - aborting.\n"
@@ -65,6 +66,8 @@ int		parse_next_link(t_farm *farm, t_input_line **input)
 
 	while (((*input)->line)[0] == '#')
 	{
+		if (ft_strequ((*input)->line, "##start") || ft_strequ((*input)->line, "##end"))
+			return (KO);
 		*input = (*input)->next;
 		if (!(*input))
 			return (END_OF_INPUT);
