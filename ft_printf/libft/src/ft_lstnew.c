@@ -25,22 +25,22 @@
 
 t_list		*ft_lstnew(void const *content, size_t content_size)
 {
-    t_list		*cur;
+	t_list		*cur;
 
-    cur = (t_list *)malloc(sizeof(t_list));
-    if (!cur)
-        return (NULL);
-    if (content == NULL)
-    {
-        cur->content = NULL;
-        cur->content_size = 0;
-    }
-    else
-    {
-        cur->content = ft_memmove(ft_memalloc(sizeof(void const *)), \
-                                  content, content_size);
-        cur->content_size = content_size;
-    }
-    cur->next = NULL;
-    return (cur);
+	cur = (t_list *)malloc(sizeof(t_list));
+	if (!cur)
+		return (NULL);
+	if (content == NULL)
+	{
+		cur->content = NULL;
+		cur->content_size = 0;
+	}
+	else
+	{
+		cur->content = ft_memmove(ft_memalloc(sizeof(void const *)), \
+									content, content_size);
+		cur->content_size = content_size;
+	}
+	cur->next = NULL;
+	return (cur);
 }

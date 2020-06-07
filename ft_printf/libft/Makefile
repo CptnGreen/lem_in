@@ -10,14 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-# COLORS
-GREEN = \033[0;32m
-RED = \033[0;31m
-RESET = \033[0m
-
 .PHONY: all clean fclean re norm
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 
 NAME = libft.a
 
@@ -101,6 +96,7 @@ SRC_RAW = \
 			ft_tabint.c \
 			ft_tabdup.c \
 			mtab_dup.c \
+			mstr_dup.c \
 			get_next_line.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
@@ -132,4 +128,4 @@ re: fclean all
 exec: $(NAME)
 	@ gcc -I "includes/" main.c -L . -lft -o $(EXEC)
 norm:
-	@ norminette $(SRC) libft.h
+	@ norminette $(SRC_DIR) includes

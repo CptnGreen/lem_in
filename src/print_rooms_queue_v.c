@@ -27,7 +27,7 @@ int		print_rooms_queue_v(t_room_queue *queue)
 			q = q->next;
 		}
 		ft_printf("===|===================|===================|=====|=====");
-		ft_printf("=|====|=======|==========================\n");
+		ft_printf("|====|=======|==========================\n");
 		return (OK);
 	}
 	perror("print_rooms_queue_v(): Passed argument is NULL - can't print.\n");

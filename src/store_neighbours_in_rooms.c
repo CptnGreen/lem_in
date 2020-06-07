@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wipe_farm.c                                        :+:      :+:    :+:   */
+/*   store_neighbours_in_rooms.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,41 +12,38 @@
 
 #include "lem_in.h"
 
-void	wipe_rooms(t_farm *farm)
-{
-	t_room			*room;
-	t_room			*prev_room;
+/*
+** Called from process_input()
+**
+** This function stores numbers of rooms' neighbours
+** in rooms themselves (as arrays) hence reducing time twice.
+*/
 
-	room = farm->rooms;
-	if (room)
+int		store_neighbours_in_rooms(t_farm *f)
+{
+	t_room		*r;
+	int			i;
+	int			n;
+	int			neigh[f->n_rooms + 1];
+
+	r = f->rooms;
+	while (r)
 	{
-		while (room)
+		i = -1;
+		n = -1;
+		while (++i < f->n_rooms)
 		{
-			prev_room = room;
-			room = room->next;
-			destroy_room(prev_room);
+			if (i != r->num && (f->flow_matrix[r->num][i] == '*' || \
+								f->flow_matrix[r->num][i] == 'x'))
+				neigh[++n] = i;
 		}
-		free(farm->room_ar);
-		farm->room_ar = NULL;
+		if (!(r->neigh_n_ar = (int *)ft_memalloc(sizeof(int) * (n + 2))))
+			return (KO);
+		r->neigh_n_ar[n + 1] = -1;
+		i = -1;
+		while (++i <= n)
+			r->neigh_n_ar[i] = neigh[i];
+		r = r->next;
 	}
-}
-
-void	wipe_farm(t_farm *farm)
-{
-	t_ant	*a;
-	t_ant	*prev_a;
-
-	wipe_rooms(farm);
-	wipe_paths(&(farm->paths));
-	if (farm->flow_matrix)
-		wipe_mstr(farm->flow_matrix);
-	a = farm->ants;
-	while (a)
-	{
-		prev_a = a;
-		a = a->next;
-		free(prev_a);
-		prev_a = NULL;
-	}
-	farm->ants = NULL;
+	return (OK);
 }

@@ -12,68 +12,66 @@
 
 #include "lem_in.h"
 
-#define LOOP_LINK "check_link(): Loop-link found - aborting.\n"
-#define BAD_LINK "check_link(): Bad link found - aborting.\n"
+#define ER_L1 "handle_hash_in_links(): Start/end directive found in links.\n"
+#define ER_L3 "parse_next_link(): Empty line.\n"
+#define ER_L4 "parse_links(): No links found.\n"
+#define ER_L5 "parse_links(): No start or end room in links.\n"
+
+#define ME_L1 "handle_hash_in_links(): End of input. Last line is a comment.\n"
+#define ME_L2 "parse_next_link(): Reached end of input.\n"
+
+#define END_OF_INPUT 5
 
 /*
-** Called in append_link()
-** Checks for:
-** (1) loop-links (like "room-room"),
-** (2) links pointing to missing rooms.
+** Skips comments and reports on end of input.
+**
+** Start/end directive in links is treated as error.
 */
 
-int		check_link(t_farm *farm, char const *src, char const *dst)
+int		handle_hash_in_links(t_farm *farm, t_input_line **input)
 {
-	t_room	*room;
-	t_room	*room_src;
-	t_room	*room_dst;
+	char	*l;
 
-	if (ft_strequ(src, dst))
-		return (KO);
-	room_src = NULL;
-	room_dst = NULL;
-	room = farm->room_ar[0];
-	while (room)
+	l = (*input)->line;
+	while (l[0] == '#')
 	{
-		room_src = ((!room_src && ft_strequ(src, room->name)) ? \
-					room : room_src);
-		room_dst = ((!room_dst && ft_strequ(dst, room->name)) ? \
-					room : room_dst);
-		if (room_src && room_dst)
+		if (ft_strequ(l, "##start") || ft_strequ(l, "##end"))
 		{
-			farm->adj_matrix[room_src->num][room_dst->num] = '1';
-			farm->adj_matrix[room_dst->num][room_src->num] = '1';
-			return (OK);
+			ft_putstr_fd(ER_L1, farm->log_fd);
+			return (KO);
 		}
-		room = room->next;
+		*input = (*input)->next;
+		if (!(*input))
+		{
+			ft_putstr_fd(ME_L1, farm->log_fd);
+			return (END_OF_INPUT);
+		}
 	}
-	return (KO);
+	return (OK);
 }
 
 /*
 ** Checks if link consists of exactly 2 parts
 */
 
-int		parse_next_link(t_farm *farm, t_input_line *input)
+int		parse_next_link(t_farm *farm, t_input_line **input)
 {
 	char		**split;
+	int			res;
+	char		*l;
 
-	while ((input->line)[0] == '#')
+	l = (*input)->line;
+	if (l[0] == '\0')
 	{
-		input = input->next;
-		if (!(input))
-			return (OK);
-	}
-	split = ft_strsplit(input->line, '-');
-	if (!split[0] || !split[1] || split[2])
-	{
-		wipe_mstr(split);
-		ft_putstr_fd(BAD_LINK, farm->log_fd);
+		ft_putstr_fd(ER_L3, farm->log_fd);
 		return (KO);
 	}
-	if (check_link(farm, split[0], split[1]) != OK)
+	if ((res = handle_hash_in_links(farm, input)) != OK)
+		return (res);
+	split = ft_strsplit(l, '-');
+	if (!split[0] || !split[1] || split[2] || \
+		check_link(farm, split[0], split[1]) == KO)
 	{
-		ft_putstr_fd(BAD_LINK, farm->log_fd);
 		wipe_mstr(split);
 		return (KO);
 	}
@@ -82,28 +80,35 @@ int		parse_next_link(t_farm *farm, t_input_line *input)
 }
 
 /*
-** This function is called in process_farm_description()
+** This function is called in [process_input() -> ] parse_input()
 ** after parse_n_ants() and parse_rooms().
 */
 
-int		parse_links(t_farm *farm, t_input_line **input_passed)
+int		parse_links(t_farm *farm, t_input_line **input)
 {
-	t_input_line	*input;
+	int		res;
 
-	input = *input_passed;
-	if (input)
+	if (*input)
 	{
-		if (parse_next_link(farm, input) == KO)
-			return (KO);
-		while (input->next)
+		farm->start_counter = 0;
+		farm->end_counter = 0;
+		while (*input)
 		{
-			input = input->next;
-			if (parse_next_link(farm, input) == KO)
+			if ((res = parse_next_link(farm, input)) == END_OF_INPUT)
+				break ;
+			else if (res == KO)
 				return (KO);
+			*input = (*input)->next;
 		}
-		ft_putstr_fd("parse_links(): End of input - continue.\n", farm->log_fd);
-		return (OK);
+		if (farm->start_counter > 0 && farm->end_counter > 0)
+		{
+			ft_putstr_fd(ME_L2, farm->log_fd);
+			return (OK);
+		}
+		if (res != END_OF_INPUT)
+			ft_putstr_fd(ER_L5, farm->log_fd);
+		return (KO);
 	}
-	ft_putstr_fd("parse_links(): No links found - aborting.\n", farm->log_fd);
+	ft_putstr_fd(ER_L4, farm->log_fd);
 	return (KO);
 }

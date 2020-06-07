@@ -6,65 +6,34 @@
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 03:08:07 by slisandr          #+#    #+#             */
-/*   Updated: 2020/05/25 03:08:08 by slisandr         ###   ########.fr       */
+/*   Updated: 2020/06/05 05:44:20 by slisandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	wipe_input(t_input_line **input_passed)
-{
-	t_input_line	*input;
-	t_input_line	*prev;
+#define SUCCESS 0
+#define FAILURE 1
 
-	if (*input_passed)
-	{
-		input = *input_passed;
-		while (input)
-		{
-			prev = input;
-			input = input->next;
-			ft_strdel(&(prev->line));
-			free(prev);
-			prev = NULL;
-		}
-		input_passed = NULL;
-	}
-}
-
-void	print_input(t_input_line *input_seed)
-{
-	t_input_line	*input;
-
-	input = input_seed;
-	while (input)
-	{
-		ft_printf("%s\n", input->line);
-		input = input->next;
-	}
-	ft_printf("\n");
-	return ;
-}
+/*
+** The solution consists of 3 steps:
+** 1. read, store, print, parse and check input
+** 2. calculate best paths and assotiate ants with them
+** 3. print ants' movements line by line
+*/
 
 int		main(void)
 {
-	t_farm			farm;
-	t_input_line	*input;
-	t_input_line	*input_start;
+	t_farm		farm;
 
-	if (init_farm(&farm) && \
-		get_input(&farm, FD, &input))
+	if (process_input(&farm) && \
+		set_the_stage(&farm) && \
+		lem_in(&farm))
 	{
-		print_input(input);
-		input_start = input;
-		if (process_farm_description(&input, &farm) && \
-			lem_in(&farm))
-		{
-			wipe_input(&input_start);
-			wipe_farm(&farm);
-			return (0);
-		}
+		wipe_farm(&farm);
+		exit(SUCCESS);
 	}
-	ft_printf("ERROR\n");
-	return (1);
+	wipe_farm(&farm);
+	ft_putstr("ERROR\n");
+	exit(FAILURE);
 }

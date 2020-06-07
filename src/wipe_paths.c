@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wipe_farm.c                                        :+:      :+:    :+:   */
+/*   wipe_paths.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,41 +12,20 @@
 
 #include "lem_in.h"
 
-void	wipe_rooms(t_farm *farm)
+void	wipe_paths(t_path **path)
 {
-	t_room			*room;
-	t_room			*prev_room;
+	t_path	*p;
+	t_path	*prev_p;
 
-	room = farm->rooms;
-	if (room)
+	p = *path;
+	while (p)
 	{
-		while (room)
-		{
-			prev_room = room;
-			room = room->next;
-			destroy_room(prev_room);
-		}
-		free(farm->room_ar);
-		farm->room_ar = NULL;
+		prev_p = p;
+		p = p->next;
+		wipe_ants_queue(&(prev_p->ants));
+		prev_p->n_ants_inside = 0;
+		free(prev_p);
+		prev_p = NULL;
 	}
-}
-
-void	wipe_farm(t_farm *farm)
-{
-	t_ant	*a;
-	t_ant	*prev_a;
-
-	wipe_rooms(farm);
-	wipe_paths(&(farm->paths));
-	if (farm->flow_matrix)
-		wipe_mstr(farm->flow_matrix);
-	a = farm->ants;
-	while (a)
-	{
-		prev_a = a;
-		a = a->next;
-		free(prev_a);
-		prev_a = NULL;
-	}
-	farm->ants = NULL;
+	path = NULL;
 }

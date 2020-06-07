@@ -67,6 +67,11 @@ int		handle_spec(const char *format, va_list argptr, int *i)
 	return (ret);
 }
 
+/*
+** TODO: Fix bug - can't print string like starting with zeroes,
+** like this -- ft_printf("%s", "000000000")
+*/
+
 int		ft_printf(const char *format, ...)
 {
 	int			i;

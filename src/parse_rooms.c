@@ -11,109 +11,175 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include "libft.h"
 
-#define NO_LINKS "parse_rooms(): Reached EOF, but no links found - aborting.\n"
-#define FOUND_LETTER "parse_rooms(): Letter as the coordinate - aborting.\n"
+#define ER_R1 "parse_rooms(): Reached EOF, but no links found.\n"
+#define ER_R2 "check_coordinates(): Letter as the coordinate.\n"
+#define ER_R3 "parse_rooms(): No rooms' declarations - empty map.\n"
+#define ER_R4 "check_first_symb(): Bad line (starts with 'L' or empty).\n"
+#define ER_R5 "handle_new_room(): Duplicate.\n"
+#define ER_R6 "check_first_symb(): Start/end command not followed by room.\n"
+
+#define IS_HASH 3
+#define NO_HASH 4
+#define COMMENT 5
 
 /*
-** Called in handle_new_room()
+** Checks if there is a letter instead of a digit
+** in a room's coordinate field
+**
+** Signed coordinates are nor allowed,
+** coordinates starting with zeroes are allowed.
 */
 
-int			check_coordinates(t_farm *farm, char **split, char **line)
+int			check_coordinates(t_farm *farm, char **split)
 {
 	int				i;
+	int				n;
 
-	ft_strdel(line);
-	i = -1;
-	while (split[1][++i])
+	n = 0;
+	while (++n != 3)
 	{
-		if (split[1][i] < '0' || split[1][i] > '9')
+		i = -1;
+		while (split[n][++i])
 		{
-			wipe_mstr(split);
-			ft_putstr_fd(FOUND_LETTER, farm->log_fd);
-			return (KO);
-		}
-	}
-	i = -1;
-	while (split[2][++i])
-	{
-		if (split[2][i] < '0' || split[2][i] > '9')
-		{
-			wipe_mstr(split);
-			ft_putstr_fd(FOUND_LETTER, farm->log_fd);
-			return (KO);
+			if (split[n][i] < '0' || split[n][i] > '9')
+			{
+				wipe_mstr(split);
+				ft_putstr_fd(ER_R2, farm->log_fd);
+				return (KO);
+			}
 		}
 	}
 	return (OK);
 }
 
-int			handle_new_room(t_farm *farm, char **split, int res, char **line)
+void		process_start_end_or_create_dupl(\
+						t_farm *farm, t_room *r, int is_hash)
 {
-	t_room			*room;
+	char			*dupl_name;
 
-	if (check_coordinates(farm, split, line) == KO)
-		return (KO);
-	if ((room = init_and_append_room(\
-			farm, split[0], ft_atoi(split[1]), ft_atoi(split[2]))))
+	if (is_hash == STA_HDR)
 	{
-		if (res == FOUND_START)
-		{
-			farm->start_counter += 1;
-			room->is_start = 1;
-			farm->start_room = room;
-		}
-		if (res == FOUND_END)
-		{
-			farm->end_counter += 1;
-			room->is_end = 1;
-			farm->end_room = room;
-		}
+		farm->start_counter += 1;
+		r->is_start = 1;
+		farm->start_room = r;
+		return ;
 	}
-	wipe_mstr(split);
-	return (OK);
-}
-
-int			check_if_hash(\
-				t_farm *farm, int *res, char **line, t_input_line **input)
-{
-	if ((*line)[0] == '#')
+	else if (is_hash == END_HDR)
 	{
-		*res = handle_start_and_end_headers(farm, line);
-		(*input) = (*input)->next;
-		ft_strdel(line);
-		return (1);
+		farm->end_counter += 1;
+		r->is_end = 1;
+		farm->end_room = r;
+		return ;
 	}
-	return (0);
+	dupl_name = ft_strjoin(r->name, "'");
+	init_and_append_room(farm, dupl_name, r->x, r->y);
+	ft_strdel(&dupl_name);
 }
 
 /*
-** Called from process_farm_description()
+** For every room (except start and end) this function
+** also creates (and attaches to it in farm's rooms' list)
+** duplicate which will be used later for discovering
+** best paths.
+*/
+
+int			handle_new_room(t_farm *farm, char **split, int *is_hash)
+{
+	t_room			*r;
+	int				x;
+	int				y;
+
+	if (check_coordinates(farm, split) == KO)
+		return (KO);
+	x = ft_atoi(split[1]);
+	y = ft_atoi(split[2]);
+	if ((r = init_and_append_room(farm, split[0], x, y)))
+	{
+		if (r->is_dupl)
+		{
+			wipe_mstr(split);
+			ft_putstr_fd(ER_R5, farm->log_fd);
+			return (KO);
+		}
+		process_start_end_or_create_dupl(farm, r, *is_hash);
+		if (r->is_start || r->is_end)
+			*is_hash = 0;
+		wipe_mstr(split);
+		return (OK);
+	}
+	wipe_mstr(split);
+	return (KO);
+}
+
+/*
+** - only two directives are treated as such - ##start and ##end,
+** anything else starting with a hash is treated as a comment;
+**
+** - comments between directive and special room declaration
+** are allowed;
+**
+** - directive without following room declaration is forbidden.
+*/
+
+int			check_first_symb(t_farm *farm, t_input_line **input, int *is_hash)
+{
+	char	*line;
+
+	line = (*input)->line;
+	if (line[0] == '\0' || line[0] == 'L')
+	{
+		ft_putstr_fd(ER_R4, farm->log_fd);
+		return (KO);
+	}
+	if (line[0] == '#')
+	{
+		if (*is_hash == STA_HDR || *is_hash == END_HDR)
+		{
+			ft_putstr_fd(ER_R6, farm->log_fd);
+			return (KO);
+		}
+		else if (ft_strequ(line, "##start"))
+			*is_hash = STA_HDR;
+		else if (ft_strequ(line, "##end"))
+			*is_hash = END_HDR;
+		else
+			*is_hash = COMMENT;
+		(*input) = (*input)->next;
+		return (IS_HASH);
+	}
+	return (NO_HASH);
+}
+
+/*
+** Called [from main() ->] process_input() -> parse_input()
 ** after parse_n_ants()
 */
 
-int			parse_rooms(t_farm *farm, t_input_line **input)
+int			parse_rooms(t_farm *f, t_input_line **input)
 {
-	char			**split;
-	int				res;
-	char			*line;
+	char		**spl;
+	int			is_hash;
+	int			res;
 
-	res = 0;
-	while (*input)
+	if (*input)
 	{
-		line = ft_strdup((*input)->line);
-		if (check_if_hash(farm, &res, &line, input))
-			continue ;
-		split = ft_strsplit(line, ' ');
-		if (!split[0] || !split[1] || !split[2] || split[3])
-			return ((handle_no_more_rooms(farm, split, &line) == OK) ? OK : KO);
-		if (handle_new_room(farm, split, res, &line) == KO)
-			return (KO);
-		res = 0;
-		(*input) = (*input)->next;
+		is_hash = 0;
+		while (*input)
+		{
+			if ((res = check_first_symb(f, input, &is_hash)) == KO)
+				return (KO);
+			else if (res == IS_HASH)
+				continue ;
+			spl = ft_strsplit((*input)->line, ' ');
+			if (!spl[0] || !spl[1] || !spl[2] || spl[3])
+				return ((hndl_end_of_rooms(f, spl, &is_hash) == OK) ? OK : KO);
+			if ((handle_new_room(f, spl, &is_hash)) == KO)
+				return (KO);
+			(*input) = (*input)->next;
+		}
+		ft_putstr_fd(ER_R1, f->log_fd);
 	}
-	ft_putstr_fd(NO_LINKS, farm->log_fd);
-	ft_strdel(&line);
-	wipe_mstr(split);
+	ft_putstr_fd(ER_R3, f->log_fd);
 	return (KO);
 }

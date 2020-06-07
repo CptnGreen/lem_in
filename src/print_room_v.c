@@ -12,37 +12,14 @@
 
 #include "lem_in.h"
 
-void	print_ants(t_room *room)
-{
-	int				i;
-	t_ant_queue		*q;
-
-	q = room->ants;
-	i = 0;
-	while (q)
-	{
-		ft_printf("L%d ", q->ant->num);
-		i += 1;
-		if (i > 10)
-		{
-			ft_printf("...");
-			break ;
-		}
-		q = q->next;
-	}
-	ft_printf("\n");
-}
-
 void	print_room_v(t_room *room)
 {
 	if (room)
 	{
-		ft_printf("%3d| %-17s < %17s | %-3d | %-3d | %2d ", room->num, \
+		ft_printf("%5d| %-13s < %13s | %-4d | %-4d | %2d ", room->num, \
 				room->name, ((room->parent) ? (room->parent->name) : ("")), \
-				room->x, room->y, room->depth);
+				room->x, room->y, room->d);
 		ft_printf((room->is_start) ? ("| start | ") : (""));
 		ft_printf((room->is_end) ? ("|  end  | ") : (""));
-		ft_printf((room->is_chosen) ? ("|   *   | ") : (""));
-		print_ants(room);
 	}
 }

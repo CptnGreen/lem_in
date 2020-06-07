@@ -13,37 +13,74 @@
 #include "lem_in.h"
 
 #define FINISH 2
+#define CONT 3
+
+void	print_move(int new_line, t_ant *a, t_room *r)
+{
+	ft_putstr((new_line) ? ("") : (" "));
+	ft_putchar('L');
+	ft_putnbr(a->num);
+	ft_putchar('-');
+	ft_putstr(r->name);
+}
+
+int		move_ant(t_path *p, t_room *r, t_room *heir, int *new_line)
+{
+	t_ant		*a;
+
+	a = NULL;
+	if (r->parent->is_start)
+	{
+		if (p->ants && (a = dequeue_ant(&(p->ants))))
+		{
+			enqueue_ant(&(r->ants), a);
+			print_move(*new_line, a, r);
+			a->has_moved = 1;
+			*new_line = 0;
+		}
+		else
+			return (CONT);
+	}
+	else if (r->is_dupl && (a = dequeue_ant(&(r->parent->ants))))
+	{
+		enqueue_ant(&(heir->ants), a);
+		print_move(*new_line, a, heir);
+		a->has_moved = 1;
+		*new_line = 0;
+	}
+	return (OK);
+}
 
 /*
-** Called form make_move()
+** Called from make_move() for each gateway
 */
 
-int		move_ants_along_the_path(t_farm *farm, t_room_queue *gateway)
+int		move_ants_along_the_path(t_farm *farm, t_path *p, int *is_new_line)
 {
 	t_room		*r;
-	t_ant		*a;
-	int			was_move;
+	t_room		*heir;
+	int			new_line;
 
-	was_move = 0;
-	farm->end_room->parent = gateway->room;
+	farm->end_room->parent = p->gateway_room;
 	r = farm->end_room;
+	heir = r;
+	new_line = *is_new_line;
 	while (!(r->is_start))
 	{
-		if ((r->parent) && (r->ants == NULL || r == farm->end_room) && \
-			(r->parent->ants != NULL))
+		if (((r->parent) && \
+				(r->ants == NULL || r == farm->end_room) && \
+				((!(r->parent->is_start) && r->parent->ants != NULL) || \
+				(r->parent->is_start && p->ants != NULL))) && \
+			(move_ant(p, r, heir, &new_line) == CONT))
 		{
-			a = dequeue_ant(&(r->parent->ants));
-			enqueue_ant(&(r->ants), a);
-			ft_printf("%s%sL%d-%s", \
-				((!was_move && gateway != farm->gateways) ? " " : ""), \
-				(was_move ? " " : ""), a->num, r->name);
-			was_move = ((was_move == 0) ? 1 : was_move);
-			a->room = r;
+			heir = r;
+			r = r->parent;
+			continue ;
 		}
+		heir = r;
 		r = r->parent;
 	}
-	if (!(gateway->next))
-		ft_printf("\n");
+	*is_new_line = new_line;
 	return (OK);
 }
 
@@ -53,15 +90,17 @@ int		move_ants_along_the_path(t_farm *farm, t_room_queue *gateway)
 
 int		make_move(t_farm *farm)
 {
-	t_room_queue	*gateway;
+	t_path			*p;
 	t_ant_queue		*a;
 	int				i;
+	int				is_new_line;
 
-	gateway = farm->gateways;
-	while (gateway)
+	p = farm->paths;
+	is_new_line = 1;
+	while (p)
 	{
-		move_ants_along_the_path(farm, gateway);
-		gateway = gateway->next;
+		move_ants_along_the_path(farm, p, &is_new_line);
+		p = p->next;
 	}
 	a = farm->end_room->ants;
 	i = 0;
@@ -81,12 +120,26 @@ int		make_move(t_farm *farm)
 
 int		lem_in(t_farm *farm)
 {
-	if (farm->gateways)
+	int		n_turns;
+	t_ant	*a;
+
+	n_turns = 0;
+	if (farm->paths)
 	{
 		while (make_move(farm) != FINISH)
-			;
-		return (OK);
+		{
+			n_turns += 1;
+			a = farm->ants;
+			while (a)
+			{
+				a->has_moved = 0;
+				a = a->next;
+			}
+			ft_putchar('\n');
+		}
+		ft_putchar('\n');
+		return (n_turns + 1);
 	}
-	ft_putstr_fd("lem-in(): No gateways - aborting.\n", farm->log_fd);
+	ft_putstr_fd("lem_in(): No gateways, aborting.\n", farm->log_fd);
 	return (KO);
 }

@@ -80,10 +80,8 @@ fclean: clean
 	@ make -C libft/ fclean
 re: fclean all
 
-norm: fclean
-	@ rm -f $(EXEC)
-	@ clear && clear && clear
-	@ /Users/slisandr/.scripts/colorised_norm.sh
+norm:
+	@ norminette $(SRC_DIR) includes
 
 memcheck: exec
 	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$(EXEC)

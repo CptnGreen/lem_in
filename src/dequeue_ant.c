@@ -21,6 +21,8 @@ t_ant	*dequeue_ant(t_ant_queue **queue)
 	{
 		q = *queue;
 		ant = q->ant;
+		if (ant->has_moved)
+			return (NULL);
 		*queue = q->next;
 		free(q);
 		q = NULL;

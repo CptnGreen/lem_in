@@ -20,8 +20,8 @@ t_ant		*init_ant(t_farm *farm, int num)
 	if ((ant = (t_ant *)ft_memalloc(sizeof(t_ant))))
 	{
 		ant->num = num;
-		ant->room = NULL;
 		ant->next = NULL;
+		ant->has_moved = 0;
 	}
 	else
 		ft_putstr_fd("Failed to allocate memory for an ant.\n", farm->log_fd);

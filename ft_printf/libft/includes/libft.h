@@ -132,7 +132,8 @@ void			print_mstr(char **matrix);
 void			print_mtab(int **matrix, size_t rows, size_t cols);
 size_t			get_mstr_w(char **m);
 size_t			get_mstr_h(char **m);
-char			**get_matrix_of_char(unsigned int rows, unsigned int cols, char c);
+char			**get_matrix_of_char(\
+					unsigned int rows, unsigned int cols, char c);
 int				**get_mtab_of_dots(unsigned int rows, unsigned int cols);
 char			**join_matrices_str(char **m1, char **m2);
 char			*ft_mstr_to_str(char **m_str);
@@ -141,5 +142,7 @@ int				*ft_tabdup(int const *tab, size_t size);
 int				*ft_strdup_int(char const *s1);
 int				*ft_tabint(int const *ptr, size_t size, int c);
 int				**mtab_dup(int const **m, unsigned int rows, unsigned int cols);
+char			**mstr_dup(\
+					char const **m, unsigned int rows, unsigned int cols);
 
 #endif

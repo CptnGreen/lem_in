@@ -21,10 +21,6 @@ int		handle_empty_rooms_queue(t_room_queue **queue, t_room *room)
 	return (OK);
 }
 
-/*
-** Called in find_path() and choose_path()
-*/
-
 int		enqueue_room(t_room_queue **queue, t_room *room)
 {
 	t_room_queue	*q;

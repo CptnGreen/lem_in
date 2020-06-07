@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wipe_mstr.c                                        :+:      :+:    :+:   */
+/*   print_ants_v.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slisandr <slisandr@google.com>             +#+  +:+       +#+        */
+/*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/28 03:44:38 by slisandr          #+#    #+#             */
-/*   Updated: 2020/03/03 23:00:22 by slisandr         ###   ########.fr       */
+/*   Created: 2020/05/25 03:08:30 by slisandr          #+#    #+#             */
+/*   Updated: 2020/05/25 03:08:30 by slisandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-void	wipe_mstr(char **m)
+#define SHOW_ANTS 5
+
+void	print_ants(t_room *room)
 {
-	int		i;
+	int				i;
+	t_ant_queue		*q;
 
+	q = room->ants;
 	i = 0;
-	if (m)
+	while (q)
 	{
-		while (m[i])
+		ft_printf("L%d ", q->ant->num);
+		i += 1;
+		if (i > SHOW_ANTS - 1)
 		{
-			ft_strdel(m + i);
-			i++;
+			ft_printf("...");
+			break ;
 		}
-		free(m);
-		m = NULL;
+		q = q->next;
 	}
+	ft_printf("\n");
 }

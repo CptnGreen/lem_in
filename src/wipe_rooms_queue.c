@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wipe_mstr.c                                        :+:      :+:    :+:   */
+/*   wipe_rooms_queue.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slisandr <slisandr@google.com>             +#+  +:+       +#+        */
+/*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/28 03:44:38 by slisandr          #+#    #+#             */
-/*   Updated: 2020/03/03 23:00:22 by slisandr         ###   ########.fr       */
+/*   Created: 2020/05/25 03:08:41 by slisandr          #+#    #+#             */
+/*   Updated: 2020/05/25 03:08:41 by slisandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-void	wipe_mstr(char **m)
+int		dequeue_room(t_room_queue **queue)
 {
-	int		i;
+	t_room_queue	*q;
 
-	i = 0;
-	if (m)
+	if (*queue)
 	{
-		while (m[i])
-		{
-			ft_strdel(m + i);
-			i++;
-		}
-		free(m);
-		m = NULL;
+		q = *queue;
+		*queue = q->next;
+		free(q);
+		q = NULL;
 	}
+	return (OK);
+}
+
+int		wipe_rooms_queue(t_room_queue **q)
+{
+	while (*q)
+		dequeue_room(q);
+	return (OK);
 }

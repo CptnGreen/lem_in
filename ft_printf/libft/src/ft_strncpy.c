@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 /*
 ** strncpy: copies len chars form src to dst
 ** 1) if len < len_src copy is not null-terminated
 ** 2) if len > len_src remaining (len - len_src) bytes fill with zeroes
 */
-
-#include "libft.h"
 
 char	*ft_strncpy(char *dst, char const *src, size_t len)
 {

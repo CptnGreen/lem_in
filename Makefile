@@ -10,39 +10,52 @@
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re ft_printf norm memcheck test
+.PHONY: all clean fclean re ft_printf norm memcheck test check_all
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 LFLAGS =
 
 NAME = lem-in
-MAP = three_ways
-LOG = stderr.log
+
+MAP = ant_farm.txt
+LOG = lem_in.log
+LEAKS = valgrind-out.txt
 
 SRC_DIR = src
 SRC_RAW = \
+	process_input.c \
+	store_neighbours_in_rooms.c \
+	set_the_stage.c \
 	init_farm.c \
 	wipe_farm.c \
+	wipe_paths.c \
+	wipe_input.c \
+	wipe_ants_queue.c \
 	get_input.c \
-	process_farm_description.c \
-	handle_start_and_end_headers.c \
+	redistribute_ants.c \
 	parse_n_ants.c \
 	append_room.c \
 	init_and_append_room.c \
 	init_and_append_ant.c \
+	init_and_append_path.c \
 	parse_rooms.c \
-	handle_no_more_rooms.c \
+	hndl_end_of_rooms.c \
 	parse_links.c \
+	check_link.c \
 	print_room_v.c \
+	print_paths.c \
+	print_ants.c \
 	print_rooms_v.c \
 	print_rooms_queue_v.c \
+	print_flow_matrix.c \
 	enqueue_room.c \
 	enqueue_ant.c \
 	dequeue_ant.c \
-	choose_path.c \
-	reset_depth.c \
-	find_path.c \
+	rebuild_paths.c \
+	wipe_rooms_queue.c \
+	destroy_room.c \
+	find_shortest_path.c \
 	lem_in.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_RAW))
@@ -66,7 +79,7 @@ $(OBJ_DIR):
 	@ mkdir -p $(OBJ_DIR)
 
 clean:
-	@ rm -rf $(OBJ_DIR)
+	@ rm -rf $(OBJ_DIR) $(LOG) $(LEAKS)*
 	@ make clean -C ft_printf/
 fclean: clean
 	@ rm -f $(NAME)
@@ -75,21 +88,18 @@ fclean: clean
 re: fclean all
 
 norm:
+	@ make norm -C ft_printf/
+	@ make norm -C ft_printf/libft/
 	@ norminette $(SRC_DIR) includes
 
 memcheck: all
-	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$(NAME) < $(MAP)
+	@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=$(LEAKS) ./$(NAME) < maps/$(MAP)
 
 test: all
 	@ echo "" | > $(LOG)
 	@ echo -e "\nOUTPUT:\n================\n"
-	@ ./$(NAME) < $(MAP)
+	@ ./$(NAME) < maps/$(MAP)
 	@ echo -e "\n================\n"
 
-emilwallner: all
-	@ echo "" > stderr.log
-	@ sh Maps/run.sh
-
-Xel4ek: all
-	@ echo "" > stderr.log
-	@ ./check.sh
+check_all: all
+	@ bash check_all.sh

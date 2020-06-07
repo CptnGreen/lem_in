@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   wipe_ants_queue.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slisandr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/05 19:48:56 by slisandr          #+#    #+#             */
-/*   Updated: 2019/05/05 19:48:58 by slisandr         ###   ########.fr       */
+/*   Created: 2020/05/25 03:08:07 by slisandr          #+#    #+#             */
+/*   Updated: 2020/05/25 03:08:08 by slisandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-/*
-** ft_lastadd() adds the element new at the beginning of the list.
-** Return value: none.
-*/
-
-void	ft_lstadd(t_list **alst, t_list *new)
+void	wipe_ants_queue(t_ant_queue **ants)
 {
-	t_list	*lst_root;
+	t_ant_queue		*prev_a;
+	t_ant_queue		*a;
 
-	lst_root = *alst;
-	*alst = new;
-	new->next = lst_root;
+	a = *ants;
+	while (a)
+	{
+		prev_a = a;
+		a = a->next;
+		free(prev_a);
+		prev_a = NULL;
+	}
 }

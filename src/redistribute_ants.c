@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wipe_farm.c                                        :+:      :+:    :+:   */
+/*   redistribute_ants.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slisandr <slisandr@student.21-...>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,41 +12,27 @@
 
 #include "lem_in.h"
 
-void	wipe_rooms(t_farm *farm)
+/*
+** This function returns how much turns (lines) does
+** it take to move all the ants from start to finish.
+*/
+
+int			redistribute_ants(t_farm *farm)
 {
-	t_room			*room;
-	t_room			*prev_room;
+	t_ant			*a;
+	t_path			*p;
 
-	room = farm->rooms;
-	if (room)
-	{
-		while (room)
-		{
-			prev_room = room;
-			room = room->next;
-			destroy_room(prev_room);
-		}
-		free(farm->room_ar);
-		farm->room_ar = NULL;
-	}
-}
-
-void	wipe_farm(t_farm *farm)
-{
-	t_ant	*a;
-	t_ant	*prev_a;
-
-	wipe_rooms(farm);
-	wipe_paths(&(farm->paths));
-	if (farm->flow_matrix)
-		wipe_mstr(farm->flow_matrix);
 	a = farm->ants;
 	while (a)
 	{
-		prev_a = a;
+		p = farm->paths;
+		while (p->next && \
+					(p->n_ants_inside + p->gateway_room->d >= \
+					p->next->n_ants_inside + p->next->gateway_room->d))
+			p = p->next;
+		enqueue_ant(&(p->ants), a);
+		p->n_ants_inside += 1;
 		a = a->next;
-		free(prev_a);
-		prev_a = NULL;
 	}
-	farm->ants = NULL;
+	return (p->n_ants_inside + p->gateway_room->d);
 }

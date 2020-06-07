@@ -12,46 +12,47 @@
 
 #include "lem_in.h"
 
-int		read_input(int fd, t_input_line **cur, t_input_line **input_lst)
+int		read_input(int fd, t_input_line **input_lst)
 {
 	t_input_line	*prev;
+	t_input_line	*cur;
 	char			*line;
 	int				is_first;
 
 	line = NULL;
+	cur = NULL;
 	is_first = 1;
 	while (get_next_line(fd, &line) > 0)
 	{
-		prev = *cur;
-		if (!(*cur = (t_input_line *)ft_memalloc(sizeof(t_input_line))))
-			return (KO);
-		if (is_first)
+		prev = cur;
+		if (!(cur = (t_input_line *)ft_memalloc(sizeof(t_input_line))))
 		{
-			*input_lst = *cur;
-			is_first = 0;
+			ft_strdel(&line);
+			return (KO);
 		}
+		if (is_first)
+			*input_lst = cur;
+		is_first = ((is_first) ? (0) : (is_first));
 		if (prev)
-			prev->next = *cur;
-		(*cur)->line = ft_strdup(line);
+			prev->next = cur;
+		cur->line = ft_strdup(line);
 		ft_strdel(&line);
-		(*cur)->next = NULL;
 	}
 	return (OK);
 }
 
 /*
-** This function is called in main()
+** Called in process_input()
+**
+** TODO: Fix memory leaks!
 */
 
 int		get_input(t_farm *farm, int fd, t_input_line **input_lst)
 {
-	t_input_line	*cur;
-
-	cur = NULL;
-	if (read_input(fd, &cur, input_lst) == KO)
-		return (KO);
-	if (cur)
+	if (!(*input_lst))
 	{
+		if (read_input(fd, input_lst) == KO)
+			return (KO);
 		ft_putstr_fd("get_input(): Input parsed to list.\n", farm->log_fd);
 		return (OK);
 	}
