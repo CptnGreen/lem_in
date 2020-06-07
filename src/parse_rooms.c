@@ -26,9 +26,6 @@
 /*
 ** Checks if there is a letter instead of a digit
 ** in a room's coordinate field
-**
-** Signed coordinates are nor allowed,
-** coordinates starting with zeroes are allowed.
 */
 
 int			check_coordinates(t_farm *farm, char **split)
@@ -42,6 +39,10 @@ int			check_coordinates(t_farm *farm, char **split)
 		i = -1;
 		while (split[n][++i])
 		{
+			if (i == 0 && \
+				(split[n][i] == '+' || split[n][i] == '-') && \
+				split[n][i + 1])
+				continue ;
 			if (split[n][i] < '0' || split[n][i] > '9')
 			{
 				wipe_mstr(split);
@@ -115,9 +116,6 @@ int			handle_new_room(t_farm *farm, char **split, int *is_hash)
 /*
 ** - only two directives are treated as such - ##start and ##end,
 ** anything else starting with a hash is treated as a comment;
-**
-** - comments between directive and special room declaration
-** are allowed;
 **
 ** - directive without following room declaration is forbidden.
 */
