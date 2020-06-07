@@ -61,7 +61,7 @@
 
    Первое нормальное объяснение базовых вещей из этой совершенно новой для меня области знаний (поток, матрицы смежности и потоков) я получил от [[https://github.com/krvkir][@krvkir]], после чего уже активно искал информацию и самостоятельно.
 
-   Очень полезным для меня оказался [[https://www.youtube.com/user/purpongie/playlists][канал на Ютубе]] за авторством Willian Fiset, где он очень хорошо объясняет теорию графов. Оттуда я узнал [[https://www.youtube.com/playlist?list=PLDV1Zeh2NRsAWrxWRTHJrsgBrbwqGzt-z][что такое очередь]], наконец-то понял как работает [[https://www.youtube.com/watch?v=oDqjPvD54Ss&list=PLDV1Zeh2NRsDGO4--qE8yH72HFL1Km93P&index=6&t=0s][поиск в ширину]] и, наконец, добрался до алгоритмов [[https://www.youtube.com/watch?v=LdOnanfc5TM&list=PLDV1Zeh2NRsDj3NzHbbFIC58etjZhiGcG&index=2&t=0s][Форда-Фалкерсона]] и [[https://www.youtube.com/watch?v=RppuJYwlcI8&list=PLDV1Zeh2NRsDj3NzHbbFIC58etjZhiGcG&index=7&t=452s][Эдмондса-Карпа]].
+   Очень полезным для меня оказался [[https://www.youtube.com/user/purpongie/playlists][канал на Ютубе]] за авторством Willian Fiset, где он очень хорошо объясняет теорию графов. Оттуда я узнал [[https://www.youtube.com/playlist?list=PLDV1Zeh2NRsAWrxWRTHJrsgBrbwqGzt-z][что такое очередь]], наконец-то понял как работает [[https://www.youtube.com/watch?v=oDqjPvD54Ss&list=PLDV1Zeh2NRsDGO4--qE8yH72HFL1Km93P&index=6][поиск в ширину]] и, в итоге, добрался до алгоритмов [[https://www.youtube.com/watch?v=LdOnanfc5TM&list=PLDV1Zeh2NRsDj3NzHbbFIC58etjZhiGcG&index=2][Форда-Фалкерсона]] и [[https://www.youtube.com/watch?v=RppuJYwlcI8&list=PLDV1Zeh2NRsDj3NzHbbFIC58etjZhiGcG&index=7][Эдмондса-Карпа]].
 
    Правда, я не сразу понял, как применить полученные знания к моей задаче и из наших кухонных обсуждений с @krvkir сперва родился алгоритм, основанный только на поиске в ширину, однако уже на том этапе были решены некоторые важные моменты, например, алгоритм непосредственно перемещения муравьёв по найденным путям.
 
@@ -70,6 +70,11 @@
    Вернувшись к нему, я быстро добился корректного аутпута, но тут же встретился лицом к лицу с несовершенствами самого алгоритма.
 
 ** Базовая реализация
+
+
+
+
+
 
 -
 

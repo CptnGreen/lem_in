@@ -25,28 +25,16 @@
 ** - virt. connection, flow in the opposite direction is saturated (-1 / 0): '-'
 */
 
-void		update_start_end_flow(t_farm *farm, t_room *r_src, t_room *r_dst)
+void		update_start_end_flow(t_farm *farm, t_room *s, t_room *d)
 {
-	if (r_src->is_start)
-	{
-		farm->flow_matrix[r_src->num][r_dst->num] = '*';
-		farm->flow_matrix[r_dst->num][r_src->num] = 'x';
-	}
-	if (r_dst->is_start)
-	{
-		farm->flow_matrix[r_dst->num][r_src->num] = '*';
-		farm->flow_matrix[r_src->num][r_dst->num] = 'x';
-	}
-	if (r_src->is_end)
-	{
-		farm->flow_matrix[r_dst->num + 1][r_src->num] = '*';
-		farm->flow_matrix[r_src->num][r_dst->num + 1] = 'x';
-	}
-	if (r_dst->is_end)
-	{
-		farm->flow_matrix[r_src->num + 1][r_dst->num] = '*';
-		farm->flow_matrix[r_dst->num][r_src->num + 1] = 'x';
-	}
+	if (s->is_start)
+		farm->flow_matrix[s->num][d->num] = '*';
+	else if (d->is_start)
+		farm->flow_matrix[d->num][s->num] = '*';
+	else if (s->is_end)
+		farm->flow_matrix[d->num + 1][s->num] = '*';
+	else if (d->is_end)
+		farm->flow_matrix[s->num + 1][d->num] = '*';
 }
 
 /*

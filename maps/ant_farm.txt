@@ -1,14 +1,6 @@
-100
-#ololo
-## ururu
-#ogog
-##start
-s 4 5
+3
 ##end
-t 9 5
-a 0 0
-a-t
-t-a
-s-t
-s-a
-a-t
+end 2 2
+##start
+start 1 1
+start-end
