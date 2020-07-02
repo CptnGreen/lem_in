@@ -12,6 +12,7 @@ echo -e ""
 grep '#Here' < temp | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
 grep -c '^L[0-9]' < temp
 
+return 1
 
 echo -e "\n====Ten ants to one path========\n"
 ./lemin-gen --flow-ten > input
@@ -68,5 +69,3 @@ grep -c '^L[0-9]' < temp
 echo -e "\n================================"
 
 rm -f temp input leaks_log
-
-return 1
