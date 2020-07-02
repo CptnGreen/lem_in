@@ -5,11 +5,10 @@ echo -e "\n====One ant to one path=========\n"
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
-# echo -e "Leaks:"
-# valgrind --log-file=leaks_log ./lem-in < input > /dev/null
-# awk -F"==     " ' /in use at exit/{ print $2 } ' < leaks_log
-# echo -e ""
-# echo -e ""
+echo -e "Leaks:"
+valgrind --log-file=leaks_log ./lem-in < input > /dev/null
+awk -F"==     " ' /in use at exit/{ print $2 } ' < leaks_log
+echo -e ""
 grep '#Here' < temp | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
 grep -c '^L[0-9]' < temp
 
