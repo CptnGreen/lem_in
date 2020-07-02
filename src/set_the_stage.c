@@ -43,6 +43,20 @@ int		update_flow(t_farm *farm)
 	return (KO);
 }
 
+int		submit_paths(t_farm *farm, char **m_res)
+{
+	if (m_res)
+	{
+		wipe_mstr(farm->flow_matrix);
+		farm->flow_matrix = m_res;
+		rebuild_paths(farm);
+		redistribute_ants(farm);
+		return (OK);
+	}
+	ft_putstr_fd("set_the_stage(): Can't find a single way.\n", farm->log_fd);
+	return (KO);
+}
+
 /*
 ** All the main work happens here
 */
@@ -69,9 +83,5 @@ int		set_the_stage(t_farm *farm)
 		m_res = mstr_dup(\
 			(char const **)farm->flow_matrix, farm->n_rooms, farm->n_rooms);
 	}
-	wipe_mstr(farm->flow_matrix);
-	farm->flow_matrix = m_res;
-	rebuild_paths(farm);
-	redistribute_ants(farm);
-	return (OK);
+	return (submit_paths(farm, m_res));
 }

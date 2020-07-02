@@ -5,8 +5,12 @@ lemin-gen --flow-one > input
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
-cat temp | grep '#Here' | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
-cat temp | grep -c '^L[0-9]'
+echo -e "Leaks:"
+valgrind --log-file=leaks_log ./lem-in < input > /dev/null
+awk -F"==     " ' /in use at exit/{ print $2 } ' < leaks_log
+echo -e ""
+rg '#Here' < temp | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
+rg -c '^L[0-9]' < temp
 
 
 echo -e "\n====Ten ants to one path========\n"
@@ -14,8 +18,12 @@ lemin-gen --flow-ten > input
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
-cat temp | grep '#Here' | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
-cat temp | grep -c '^L[0-9]'
+echo -e "Leaks:"
+valgrind --log-file=leaks_log ./lem-in < input > /dev/null
+awk -F"==     " ' /in use at exit/{ print $2 } ' < leaks_log
+echo -e ""
+rg '#Here' < temp | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
+rg -c '^L[0-9]' < temp
 
 
 echo -e "\n====Thousand ants to one path===\n"
@@ -23,8 +31,12 @@ lemin-gen --flow-thousand > input
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
-cat temp | grep '#Here' | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
-cat temp | grep -c '^L[0-9]'
+echo -e "Leaks:"
+valgrind --log-file=leaks_log ./lem-in < input > /dev/null
+awk -F"==     " ' /in use at exit/{ print $2 } ' < leaks_log
+echo -e ""
+rg '#Here' < temp | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
+rg -c '^L[0-9]' < temp
 
 
 echo -e "\n====Big (~4K rooms) map=========\n"
@@ -32,8 +44,12 @@ lemin-gen --big > input
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
-cat temp | grep '#Here' | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
-cat temp | grep -c '^L[0-9]'
+echo -e "Leaks:"
+valgrind --log-file=leaks_log ./lem-in < input > /dev/null
+awk -F"==     " ' /in use at exit/{ print $2 } ' < leaks_log
+echo -e ""
+rg '#Here' < temp | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
+rg -c '^L[0-9]' < temp
 
 
 echo -e "\n====Complex big map=============\n"
@@ -41,9 +57,13 @@ lemin-gen --big-superposition > input
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
-cat temp | grep '#Here' | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
-cat temp | grep -c '^L[0-9]'
+echo -e "Leaks:"
+valgrind --log-file=leaks_log ./lem-in < input > /dev/null
+awk -F"==     " ' /in use at exit/{ print $2 } ' < leaks_log
+echo -e ""
+rg '#Here' < temp | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
+rg -c '^L[0-9]' < temp
 
 
 echo -e "\n================================"
-rm -f temp input
+rm -f temp input leaks_log
