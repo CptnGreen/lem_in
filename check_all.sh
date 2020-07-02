@@ -14,7 +14,7 @@ grep -c '^L[0-9]' < temp
 
 
 echo -e "\n====Ten ants to one path========\n"
-lemin-gen --flow-ten > input
+./lemin-gen --flow-ten > input
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
@@ -27,7 +27,7 @@ grep -c '^L[0-9]' < temp
 
 
 echo -e "\n====Thousand ants to one path===\n"
-lemin-gen --flow-thousand > input
+./lemin-gen --flow-thousand > input
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
@@ -40,7 +40,7 @@ grep -c '^L[0-9]' < temp
 
 
 echo -e "\n====Big (~4K rooms) map=========\n"
-lemin-gen --big > input
+./lemin-gen --big > input
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
@@ -53,7 +53,7 @@ grep -c '^L[0-9]' < temp
 
 
 echo -e "\n====Complex big map=============\n"
-lemin-gen --big-superposition > input
+./lemin-gen --big-superposition > input
 echo -e "Time:"
 time ./lem-in < input > temp
 echo -e ""
