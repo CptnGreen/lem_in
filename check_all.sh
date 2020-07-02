@@ -12,7 +12,7 @@ echo -e ""
 grep '#Here' < temp | uniq | awk -F": " ' { printf "Lines required: %s\nLines received: ", $2 } '
 grep -c '^L[0-9]' < temp
 
-return 1
+exit 1
 
 echo -e "\n====Ten ants to one path========\n"
 ./lemin-gen --flow-ten > input
