@@ -68,3 +68,5 @@ grep -c '^L[0-9]' < temp
 echo -e "\n================================"
 
 rm -f temp input leaks_log
+
+return 1
