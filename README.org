@@ -1,1 +1,37 @@
-# lem_in
+* lem_in
+
+** Usage
+
+To compile run =make=, =lem-in= binary will be generated.
+
+To run program just pass some "map" to it, for example one from the included =maps= folder:
+
+#+BEGIN_SRC bash
+
+./lem-in < maps/ant_farm.txt
+
+#+END_SRC
+
+42's map generator is also included as =lemin-gen=, run it separatly to examine options:
+
+#+BEGIN_SRC bash
+
+lemin-gen --help
+
+#+END_SRC
+
+You can pass auto-generated map to the program like this:
+
+#+BEGIN_SRC bash
+
+lemin-gen --big | ./lem-in
+
+#+END_SRC
+
+Use =check_all.sh= script to test program for all cases provided by the generator. To view its options run
+
+#+BEGIN_SRC bash
+
+./check_all.sh -h
+
+#+END_SRC
