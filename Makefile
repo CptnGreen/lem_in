@@ -102,4 +102,4 @@ test: all
 	@ echo -e "\n================\n"
 
 check_all: all
-	@ bash check_all.sh
+	@ bash check_all.sh -l -n 2
