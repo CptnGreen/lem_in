@@ -1,6 +1,9 @@
-* lem_in
 
-** Usage
+*** Description
+
+Working solution for the School 21's educational algorythmic project *lem-n*.
+
+*** Usage
 
 To compile run =make=, =lem-in= binary will be generated.
 
@@ -28,10 +31,12 @@ lemin-gen --big | ./lem-in
 
 #+END_SRC
 
-Use =check_all.sh= script to test program for all cases provided by the generator. To view its options run
+Use =check_all.sh= script to test program for all the cases provided by the generator. To view its options run
 
 #+BEGIN_SRC bash
 
 ./check_all.sh -h
 
 #+END_SRC
+
+Also check local wiki (in russsian!) for additional information.
