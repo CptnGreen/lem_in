@@ -1,11 +1,13 @@
 
-*** Description
+** Description
 
 Working solution for the School 21's educational algorythmic project *lem-n*.
 
+It utilizes modified Edmonds-Karp algorythm in order to find a set of quickest routes for a given number of ants through a given "ant farm".
+
 Team: [[https://github.com/CptnGreen][sliasndr]], [[https://github.com/ellyellyd][fcatina]].
 
-*** Usage
+** Usage
 
 To compile run =make=, =lem-in= binary will be generated.
 
