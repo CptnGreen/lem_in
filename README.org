@@ -7,9 +7,9 @@ It utilizes modified Edmonds-Karp algorithm in order to find a set of quickest r
 
 Team: [[https://github.com/CptnGreen][sliasndr]], [[https://github.com/ellyellyd][fcatina]]. Special thanks to [[https://github.com/krvkir][krvkir]].
 
-** Usage
+** Usage (build from source)
 
-To compile run =make=, =lem-in= binary will be generated.
+Clone repo, then run =make= to compile, =lem-in= binary will be generated.
 
 To run program just pass some "map" to it, for example one from the included =maps= folder:
 
@@ -44,3 +44,7 @@ Use =check_all.sh= script to test program for all the cases provided by the gene
 #+END_SRC
 
 Also check local wiki (in russsian!) for additional information.
+
+** Docker
+
+Alternatively use attached docker image - pull it and launch without arguments to run basic set of tests.
