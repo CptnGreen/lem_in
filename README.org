@@ -3,6 +3,8 @@
 
 Working solution for the School 21's educational algorythmic project *lem-n*.
 
+Team: [[https://github.com/CptnGreen][sliasndr]], [[https://github.com/ellyellyd][fcatina]].
+
 *** Usage
 
 To compile run =make=, =lem-in= binary will be generated.
