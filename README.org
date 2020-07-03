@@ -1,9 +1,9 @@
 
 ** Description
 
-Working solution for the School 21's educational algorythmic project *lem-in*.
+Working solution for the School 21's educational algorithmic project *lem-in*.
 
-It utilizes modified Edmonds-Karp algorythm in order to find a set of quickest routes for a given number of ants through a given "ant farm".
+It utilizes modified Edmonds-Karp algorithm in order to find a set of quickest routes for a given number of ants through a given "ant farm".
 
 Team: [[https://github.com/CptnGreen][sliasndr]], [[https://github.com/ellyellyd][fcatina]]. Special thanks to [[https://github.com/krvkir][krvkir]].
 
